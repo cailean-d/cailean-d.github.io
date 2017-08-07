@@ -1,0 +1,14 @@
+ul{
+	list-style: none;
+	list-style-type: none;
+}
+.open{
+	user-select: none; 
+	cursor: pointer;
+}
+
+.thumbnail{
+	width: 30%;
+	float: right;
+	margin-bottom: 0;
+}
