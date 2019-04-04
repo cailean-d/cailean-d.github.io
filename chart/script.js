@@ -9,7 +9,7 @@ var data = [
 var width = 1200;       // ширина графика
 var height = 500;       // высота графика
 var step = 5;           // шаг
-var high = 0.55;        // коеффициент высоты
+var high = 0.5;        // коеффициент высоты
 
 new Chartist.Bar('.ct-chart', {
     labels: labels(),
