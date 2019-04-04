@@ -15,19 +15,20 @@ new Chartist.Bar('.ct-chart', {
     labels: labels(),
     series: data
     }, 
-{
-    distributeSeries: true,
-    width: width,
-    height: height,
-    high: Math.max.apply(null, data) / high,
-    low: 0,
-    seriesBarDistance: 12,
-    axisY: {
-        type: Chartist.FixedScaleAxis,
-        ticks: steps(),
-        low: 0
-    },
-});
+    {
+        distributeSeries: true,
+        width: width,
+        height: height,
+        high: Math.max.apply(null, data) / high,
+        low: 0,
+        seriesBarDistance: 12,
+        axisY: {
+            type: Chartist.FixedScaleAxis,
+            ticks: steps(),
+            low: 0
+        },
+    }
+);
 
 function labels() {
     var labels = [];
@@ -44,3 +45,7 @@ function steps() {
     }
     return x;
 }
+
+setTimeout(function() {
+    document.querySelector('.title').classList.remove('hide')
+}, 50)

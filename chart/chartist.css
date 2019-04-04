@@ -24,6 +24,10 @@ body {
   margin-left: 30px;
 }
 
+.hide {
+  opacity: 0;
+}
+
 .ct-label {
   fill: rgba(0, 0, 0, 0.4);
   color: rgba(0, 0, 0, 0.4);
