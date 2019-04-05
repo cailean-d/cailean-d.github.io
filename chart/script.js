@@ -24,7 +24,6 @@ new Chartist.Bar('.ct-chart', {
     {
         distributeSeries: true,
         width: '100%',
-        // height: '100%',
         high: Math.max.apply(null, data) / highModifier,
         low: 0,
         seriesBarDistance: 12,
