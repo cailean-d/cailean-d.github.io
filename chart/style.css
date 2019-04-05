@@ -70,6 +70,14 @@ body {
     line-height: 22px;
   } */
 }
+/* 
+@media screen and (max-width: 720px) {
+
+  .ct-label.ct-horizontal {
+    display: none !important;
+  }
+
+} */
 
 .hide {
   opacity: 0;
