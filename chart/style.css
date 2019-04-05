@@ -13,11 +13,11 @@
 }
 
 /* сетка графика */
-.ct-grid {
-  stroke: rgba(0, 0, 0, 0.2); /* цвет */
-  stroke-width: 1px; /* ширина линии */
-  stroke-dasharray: 3px; /* длина штрихов сетки */
-}
+/* .ct-grid {
+  stroke: rgba(0, 0, 0, 0.2); 
+  stroke-width: 1px; 
+  stroke-dasharray: 3px; 
+} */
 
 body {
   padding: 0;
