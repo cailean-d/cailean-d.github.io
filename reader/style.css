@@ -1,0 +1,40 @@
+.reader {
+    width: 900px;
+    margin: 20px auto;
+}
+
+.toolbar {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+.text-color-picker, .background-color-picker {
+    border-bottom: 2px solid #000;
+    /* font-weight: bold; */
+}
+
+
+
+.btn-group:not(:first-child) > * {
+    padding-bottom: 8px !important;
+}
+
+label {
+    margin-bottom: 0 !important;
+    cursor: pointer;
+    font-weight: normal !important;
+}
+
+.sp-replacer {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.btn {
+    position: relative;
+}
