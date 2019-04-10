@@ -91,6 +91,10 @@
     background: #444;
 }
 
+.theme-dark .dropdown-backdrop {
+    background: transparent !important;
+}
+
 /* 
 
 .text-color-picker, .background-color-picker {
