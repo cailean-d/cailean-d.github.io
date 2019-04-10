@@ -1,187 +1,219 @@
-$(document).ready(function() {
-    
+var readerSelector = '.reader .text';
 
-    if (getCookie('font-family')) {
-        $('.reader .text').css('font-family', getCookie('font-family'));
-    }
+var colorPickerOptions = {
+    color: '#000',
+    showPalette: true,
+    palette: [
+        ['#111', 'white', 'blue', 'yellow', 'red'],
+        ['rgb(255, 128, 0);', 'hsv 100 70 50', 'lightyellow']
+    ]
+}
 
-    if (getCookie('font-size')) {
-        $('.reader .text').css('font-size', getCookie('font-size'));
-    }
-
-    if (getCookie('line-height')) {
-        $('.reader .text').css('line-height', getCookie('line-height'));
-    }
-
-    if (getCookie('text-align')) {
-        $('.reader .text').css('text-align', getCookie('text-align'));
-    }
-
-    if (getCookie('text-indent')) {
-        $('.reader .text').css('text-indent', getCookie('text-indent'));
-    }
-
-    if (getCookie('text-color')) {
-        $('.reader .text').css('color', getCookie('text-color'));
-        $('.text-color-picker').css('border-bottom-color', getCookie('text-color'));
-    }
-
-    if (getCookie('background-color')) {
-        $('.reader .text').css('background-color', getCookie('background-color'));
-        $('.background-color-picker').css('border-bottom-color', getCookie('background-color'))
-    }
-
-
-    var opts = {
+var fonts = ['Arial', 'Times New Roman', 'Georgia', 'Verdana'];
+var fontSizes = [12, 14, 16, 20, 24, 26];
+var fontInterval = [22, 24, 26, 30];
+var textAlign = ['start', 'end', 'justify'];
+var textIndent = [0, 20, 40];
+var textPadding = [0, 10, 20, 40];
+var textures = ['img/background1.jpg', 'img/background2.jpg']
+var presets = {
+    default: {
         color: '#000',
-        showPalette: true,
-        palette: [
-            ['black', 'white', 'blanchedalmond'],
-            ['rgb(255, 128, 0);', 'hsv 100 70 50', 'lightyellow']
-        ],
+        backgroundColor: '#fff',
+        backgroundImage: undefined,
+        fontFamily: 'Arial',
+        fontSize: 16,
+        fontInterval: undefined,
+        textAlign: 'start',
+        textIndent: 0,
+        textPadding: 0
+    },
+    light: {
+        color: '#000',
+        backgroundColor: '#fff'
+    },
+    dark: {
+        color: '#fff',
+        backgroundColor: '#000'
     }
+}
+
+$(document).ready(function() {
+
+    $('.toolbar > *').on('click', function() {
+        $("#text-color-picker").spectrum('hide');
+        $("#background-color-picker").spectrum('hide');
+    });
+
+    $('.toolbar-hide').on('click', function() {
+        $('.toolbar').attr('style', 'display: none !important');
+        $('.toolbar-hide').hide();
+        $('.toolbar-show').show();
+    })
+
+    $('.toolbar-show').on('click', function() {
+        $('.toolbar').attr('style', 'display: inline-flex !important');
+        $('.toolbar-hide').show();
+        $('.toolbar-show').hide();
+    })
+
+    $('[data-toggle="tooltip"]').tooltip({ trigger: "hover", container: 'body' });
+    $('[data-toggle="tooltip"]').click(function () { $(this).tooltip("hide");});
+    
+    initSettings();
 
     $("#text-color-picker").spectrum({
-        ...opts,
+        ...colorPickerOptions,
         change: function(color) {
-            $('.reader .text').css('color', color.toHexString());
-            $('.text-color-picker').css('border-bottom-color', color.toHexString())
+            $(readerSelector).css('color', color.toHexString());
             setCookie('text-color', color.toHexString());
+                // if (color.toHexString() == '#ffffff') {
+                //     $('#text-color-picker').prev().css('color', '#d8d6d6')
+                // } else {
+                //     $('#text-color-picker').prev().css('color', color.toHexString())                
+                // }
+        },
+        beforeShow: function() {
+            $("#background-color-picker").spectrum('hide');
+            $('body').trigger('click');
         }
     });
     $("#background-color-picker").spectrum({
-        ...opts,
+        ...colorPickerOptions,
         change: function(color) {
-            $('.reader .text').css('background-color', color.toHexString());
-            $('.background-color-picker').css('border-bottom-color', color.toHexString())
+            $(readerSelector).css('background-color', color.toHexString());
+            $(readerSelector).css('background-image', '');
             setCookie('background-color', color.toHexString())
+            deleteCookie('background-image');
+                // if (color.toHexString() == '#ffffff') {
+                //     $('#background-color-picker').prev().css('color', '#d8d6d6')
+                // } else {
+                //     $('#background-color-picker').prev().css('color', color.toHexString())                
+                // }
+        },
+        beforeShow: function() {
+            $("#text-color-picker").spectrum('hide');
+            $('body').trigger('click');
         }
     });
 
+    fonts.forEach(function(item, i) {
+        $('.reader-font-' + i).on('click', function() {
+            $(readerSelector).css('font-family', item);
+            setCookie('font-family', item);
+        })
+    });
 
-    $('.font-arial').on('click', () => {
-        $('.reader .text').css('font-family', 'Arial');
-        setCookie('font-family', 'Arial');
-    })
-    $('.font-times').on('click', () => {
-        $('.reader .text').css('font-family', 'Times New Roman');
-        setCookie('font-family', 'Times New Roman');
-    })
-    $('.font-georgia').on('click', () => {
-        $('.reader .text').css('font-family', 'Georgia');
-        setCookie('font-family', 'Georgia');
-    })
-    $('.font-verdana').on('click', () => {
-        $('.reader .text').css('font-family', 'Verdana');
-        setCookie('font-family', 'Verdana');
-    })
+    fontSizes.forEach(function(item, i) {
+        $('.font-size-' + i).on('click', function() {
+            $(readerSelector).css('font-size', item + 'px');
+            setCookie('font-size', item + 'px');
+        })
+    });
 
+    fontInterval.forEach(function(item, i) {
+        if (i == 0) {
+            $('.font-interval-0').on('click', function() {
+                $(readerSelector).css('line-height', 'unset');
+                setCookie('line-height', 'unset');
+            })
+        } else {
+            $('.font-interval-' + i).on('click', function() {
+                $(readerSelector).css('line-height', item + 'px');
+                setCookie('line-height', item + 'px');
+            })
+        }
+    });
 
-    $('.font-size-14').on('click', () => {
-        $('.reader .text').css('font-size', '14px');
-        setCookie('font-size', '14px');
-    })
-    $('.font-size-16').on('click', () => {
-        $('.reader .text').css('font-size', '16px');
-        setCookie('font-size', '16px');
-    })
-    $('.font-size-20').on('click', () => {
-        $('.reader .text').css('font-size', '20px');
-        setCookie('font-size', '20px');
-    })
-    $('.font-size-24').on('click', () => {
-        $('.reader .text').css('font-size', '24px');
-        setCookie('font-size', '24px');
-    })
+    textAlign.forEach(function(item, i) {
+        $('.text-align-' + i).on('click', function() {
+            $(readerSelector).css('text-align', item);
+            setCookie('text-align', item);
+        })
+    });
 
+    textIndent.forEach(function(item, i) {
+        $('.text-indent-' + i).on('click', function() {
+            $(readerSelector).css('text-indent', item + 'px');
+            setCookie('text-indent', item + 'px');
+        })
+    });
 
-    $('.font-interval-0').on('click', () => {
-        $('.reader .text').css('line-height', 'unset');
-        setCookie('line-height', 'unset');
-    })
-    $('.font-interval-02').on('click', () => {
-        $('.reader .text').css('line-height', '22px');
-        setCookie('line-height', '20px');
-    })
-    $('.font-interval-04').on('click', () => {
-        $('.reader .text').css('line-height', '24px');
-        setCookie('line-height', '24px');
-    })
-    $('.font-interval-06').on('click', () => {
-        $('.reader .text').css('line-height', '26px');
-        setCookie('line-height', '26px');
+    textPadding.forEach(function(item, i) {
+        $('.text-padding-' + i).on('click', function() {
+            $(readerSelector).css('padding', '0px ' + item + 'px');
+            setCookie('text-padding', '0px ' + item + 'px');
+        })
     })
 
+    textures.forEach(function(item, i) {
+        $('.bg-texture-' + i).on('click', function() {
+            $(readerSelector).css('background-image', 'url("' + item + '")')
+            setCookie('background-image', 'url("' + item + '")');
+        });
+    });
 
-    $('.text-align-start').on('click', () => {
-        $('.reader .text').css('text-align', 'start');
-        setCookie('text-align', 'start');
-    })
-    $('.text-align-end').on('click', () => {
-        $('.reader .text').css('text-align', 'end');
-        setCookie('text-align', 'end');
-    })
-    $('.text-align-justify').on('click', () => {
-        $('.reader .text').css('text-align', 'justify');
-        setCookie('text-align', 'justify');
+    Object.keys(presets).forEach(function(key, i) {
+        $('.theme-preset-' + i).on('click', function() {
+
+            $(readerSelector).css('color', presets[key].color);
+            setCookie('text-color', presets[key].color); 
+
+            $(readerSelector).css('background-color', presets[key].backgroundColor);
+            setCookie('background-color', presets[key].backgroundColor); 
+            
+            $(readerSelector).css('font-family', presets[key].fontFamily);
+            setCookie('font-family', presets[key].fontFamily);
+
+            $(readerSelector).css('font-size', presets[key].fontSize + 'px');
+            setCookie('font-size', presets[key].fontSize + 'px');
+
+            $(readerSelector).css('line-height', presets[key].fontInterval + 'px');
+            setCookie('line-height', presets[key].fontInterval + 'px');
+
+            $(readerSelector).css('text-align', presets[key].textAlign);
+            setCookie('text-align', presets[key].textAlign);
+
+            $(readerSelector).css('text-indent', presets[key].textIndent + 'px');
+            setCookie('text-indent', presets[key].textIndent + 'px');
+
+            $(readerSelector).css('padding', '0px ' + presets[key].textPadding + 'px');
+            setCookie('text-padding', '0px ' + presets[key].textPadding + 'px');
+
+            $(readerSelector).css('background-image', 'url("' + presets[key].backgroundImage + '")')
+            setCookie('background-image', 'url("' + backgroundImage + '")');
+
+            if (!presets[key].backgroundImage) {
+                $(readerSelector).css('background-image', '');
+                deleteCookie('background-image');
+            }
+
+        })
     })
 
-
-    $('.text-indent-0').on('click', () => {
-        $('.reader .text').css('text-indent', '0');
-        setCookie('text-indent', '0');
-    })
-    $('.text-indent-min').on('click', () => {
-        $('.reader .text').css('text-indent', '20px');
-        setCookie('text-indent', '20px');
-    })
-    $('.text-indent-max').on('click', () => {
-        $('.reader .text').css('text-indent', '40px');
-        setCookie('text-indent', '40px');
-    })
 });
 
 
 
-function getCookie(name) {
-    var matches = document.cookie.match(new RegExp(
-      "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-    ));
-    return matches ? decodeURIComponent(matches[1]) : undefined;
-  }
+function initSettings() {
+    $(readerSelector).css('font-family', getCookie('font-family') || presets.default.fontFamily);
+    $(readerSelector).css('font-size', getCookie('font-size') || presets.default.fontSize);
+    $(readerSelector).css('line-height', getCookie('line-height') || presets.default.fontInterval);
+    $(readerSelector).css('text-align', getCookie('text-align') || presets.default.textAlign);
+    $(readerSelector).css('text-indent', getCookie('text-indent') || presets.default.textIndent);
+    $(readerSelector).css('padding', getCookie('text-padding') || presets.default.textPadding);
+    $(readerSelector).css('color', getCookie('text-color') || presets.default.color);
+    $(readerSelector).css('background-color',getCookie('background-color') || presets.default.backgroundColor);
+    $(readerSelector).css('background-image', getCookie('background-image'));
+        // if (getCookie('text-color') == '#ffffff') {
+        //     $('#text-color-picker').prev().css('color', '#d8d6d6')
+        // } else {
+        //     $('#text-color-picker').prev().css('color',  getCookie('text-color'))                
+        // }
 
-
-  function setCookie(name, value, options) {
-    options = options || {};
-  
-    var expires = options.expires;
-  
-    if (typeof expires == "number" && expires) {
-      var d = new Date();
-      d.setTime(d.getTime() + expires * 1000);
-      expires = options.expires = d;
-    }
-    if (expires && expires.toUTCString) {
-      options.expires = expires.toUTCString();
-    }
-  
-    value = encodeURIComponent(value);
-  
-    var updatedCookie = name + "=" + value;
-  
-    for (var propName in options) {
-      updatedCookie += "; " + propName;
-      var propValue = options[propName];
-      if (propValue !== true) {
-        updatedCookie += "=" + propValue;
-      }
-    }
-  
-    document.cookie = updatedCookie;
-  }
-
-  function deleteCookie(name) {
-    setCookie(name, "", {
-      expires: -1
-    })
-  }
+        // if (getCookie('background-color') == '#ffffff') {
+        //     $('#background-color-picker').prev().css('color', '#d8d6d6')
+        // } else {
+        //     $('#background-color-picker').prev().css('color', getCookie('background-color'))                
+        // }
+}

@@ -4,81 +4,134 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?x">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css">
     <title>Reader</title>
 </head>
 <body> 
     <div class="reader">
-        <div class="toolbar">
-            <div class="btn-group" role="group" aria-label="...">
-                <button type="button" class="btn btn-default">
-                    <div class="text-color-picker">Текст</div>
+        <div class="toolbar-wrapper">
+            <div class="btn-group toolbar" role="group" aria-label="..." style="display: none !important">
+                <div class="btn-group" role="group" data-toggle="tooltip" title="Theme presets">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-tasks"></span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" class="theme-preset-0">Default</a></li>
+                        <li><a href="#" class="theme-preset-1">Light</a></li>
+                        <li><a href="#" class="theme-preset-2">Dark</a></li>
+                    </ul>
+                </div>
+                <button type="button" class="btn btn-default" data-toggle="tooltip" title="Text color">
+                    <span class="glyphicon glyphicon-text-color"></span>
                     <input style="display: none" id="text-color-picker">
                 </button>
-                <button type="button" class="btn btn-default">
-                    <div class="background-color-picker">Фон</div>
+                <button type="button" class="btn btn-default" data-toggle="tooltip" title="Background color">
+                    <span class="glyphicon glyphicon-text-background"></span>
                     <input style="display: none" id="background-color-picker">
                 </button>
-                <div class="btn-group" role="group">
+                <!-- <button type="button" class="btn btn-default">
+                    <span class="glyphicon glyphicon-picture"></span>
+                </button> -->
+                <div class="btn-group" role="group" data-toggle="tooltip" title="Background texture">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <span class="glyphicon glyphicon-picture"></span>                        
+                        <span class="caret"></span>
+                    </button>
+                    <div class="dropdown-menu background-list" aria-labelledby="dropdownMenu1">
+                        <img 
+                            src="img/background1.jpg" 
+                            alt="background1" 
+                            class="reader-background bg-texture-0">
+                        <img 
+                            src="img/background2.jpg" 
+                            alt="background2" 
+                            class="reader-background bg-texture-1">
+                    </div>
+                    </div>
+                <div class="btn-group" role="group" data-toggle="tooltip" title="Font Family">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Шрифт
+                        <span class="glyphicon glyphicon-font"></span>
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="#" class="font-arial">Arial</a></li>
-                        <li><a href="#" class="font-times">Times New Roman</a></li>
-                        <li><a href="#" class="font-georgia">Georgia</a></li>
-                        <li><a href="#" class="font-verdana">Verdana</a></li>
+                        <li><a href="#" class="reader-font-0">Arial</a></li>
+                        <li><a href="#" class="reader-font-1">Times New Roman</a></li>
+                        <li><a href="#" class="reader-font-2">Georgia</a></li>
+                        <li><a href="#" class="reader-font-3">Verdana</a></li>
                     </ul>
                 </div>
-                <div class="btn-group" role="group">
+                <div class="btn-group" role="group" data-toggle="tooltip" title="Font size">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Размер шрифта
+                        <span class="glyphicon glyphicon-text-size"></span>
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="#" class="font-size-14">14</a></li>
-                        <li><a href="#" class="font-size-16">16</a></li>
-                        <li><a href="#" class="font-size-20">20</a></li>
-                        <li><a href="#" class="font-size-24">24</a></li>
+                        <li><a href="#" class="font-size-0">12</a></li>
+                        <li><a href="#" class="font-size-1">14</a></li>
+                        <li><a href="#" class="font-size-2">16</a></li>
+                        <li><a href="#" class="font-size-3">20</a></li>
+                        <li><a href="#" class="font-size-4">24</a></li>
+                        <li><a href="#" class="font-size-5">26</a></li>
                     </ul>
                 </div>
-                <div class="btn-group" role="group">
+                <div class="btn-group" role="group" data-toggle="tooltip" title="Line spacing">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Межрядный интервал
+                        <span class="glyphicon glyphicon-text-height"></span>
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="#" class="font-interval-0">normal</a></li>
-                        <li><a href="#" class="font-interval-02">22px</a></li>
-                        <li><a href="#" class="font-interval-04">24px</a></li>
-                        <li><a href="#" class="font-interval-06">26px</a></li>
+                        <li><a href="#" class="font-interval-0">Normal</a></li>
+                        <li><a href="#" class="font-interval-1">22</a></li>
+                        <li><a href="#" class="font-interval-2">24</a></li>
+                        <li><a href="#" class="font-interval-3">26</a></li>
+                        <li><a href="#" class="font-interval-4">30</a></li>
                     </ul>
                 </div>
-                <div class="btn-group" role="group">
+                <div class="btn-group" role="group" data-toggle="tooltip" title="Text align">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Выравнивание текста
+                        <span class="glyphicon glyphicon-align-center"></span>
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="#" class="text-align-start">Start</a></li>
-                        <li><a href="#" class="text-align-end">End</a></li>
-                        <li><a href="#" class="text-align-justify">Justify</a></li>
+                        <li><a href="#" class="text-align-0">Start</a></li>
+                        <li><a href="#" class="text-align-1">End</a></li>
+                        <li><a href="#" class="text-align-2">Justify</a></li>
                     </ul>
                 </div>
-                <div class="btn-group" role="group">
+                <div class="btn-group" role="group" data-toggle="tooltip" title="Paragraph indent">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Абзац
+                        <span class="glyphicon glyphicon-indent-left"></span>
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="#" class="text-indent-0">Нет отступа</a></li>
-                        <li><a href="#" class="text-indent-min">Мин</a></li>
-                        <li><a href="#" class="text-indent-max">Макс</a></li>
+                        <li><a href="#" class="text-indent-0">No indent</a></li>
+                        <li><a href="#" class="text-indent-1">Min</a></li>
+                        <li><a href="#" class="text-indent-2">Max</a></li>
                     </ul>
                 </div>
+                <div class="btn-group" role="group" data-toggle="tooltip" title="Text indent">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-resize-horizontal"></span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" class="text-padding-0">0</a></li>
+                        <li><a href="#" class="text-padding-1">10</a></li>
+                        <li><a href="#" class="text-padding-2">20</a></li>
+                        <li><a href="#" class="text-padding-3">40</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="btn-group toggle-group" role="group" aria-label="...">
+                <button type="button" style="display: none" class="btn btn-default toolbar-hide" data-toggle="tooltip" title="Hide toolbar">
+                    <span class="glyphicon glyphicon-arrow-left"></span>
+                </button>
+                <button type="button" class="btn btn-default toolbar-show" data-toggle="tooltip" title="Show toolbar">
+                    <span class="glyphicon glyphicon-menu-hamburger"></span>
+                </button>
             </div>
         </div>
         <div class="text">
@@ -91,6 +144,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.js"></script>
-    <script src="script.js"></script>
+    <script src="cookie.js"></script>
+    <script src="script.js?x"></script>
 </body>
 </html>
