@@ -181,7 +181,7 @@ $(document).ready(function() {
             setCookie('text-padding', '0px ' + presets[key].textPadding + 'px');
 
             $(readerSelector).css('background-image', 'url("' + presets[key].backgroundImage + '")')
-            setCookie('background-image', 'url("' + backgroundImage + '")');
+            setCookie('background-image', 'url("' + presets[key].backgroundImage + '")');
 
             if (!presets[key].backgroundImage) {
                 $(readerSelector).css('background-image', '');
