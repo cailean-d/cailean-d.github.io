@@ -156,6 +156,14 @@ $(document).ready(function() {
     Object.keys(presets).forEach(function(key, i) {
         $('.theme-preset-' + i).on('click', function() {
 
+            if (key === 'dark') {
+                $('.toolbar-wrapper').addClass('theme-dark');
+                setCookie('theme', 'dark');
+            } else {
+                $('.toolbar-wrapper').removeClass('theme-dark');
+                setCookie('theme', key);
+            }
+
             $(readerSelector).css('color', presets[key].color);
             setCookie('text-color', presets[key].color); 
 
@@ -205,6 +213,9 @@ function initSettings() {
     $(readerSelector).css('color', getCookie('text-color') || presets.default.color);
     $(readerSelector).css('background-color',getCookie('background-color') || presets.default.backgroundColor);
     $(readerSelector).css('background-image', getCookie('background-image'));
+    if (getCookie('theme') === 'dark') {
+        $('.toolbar-wrapper').addClass('theme-dark');
+    }
         // if (getCookie('text-color') == '#ffffff') {
         //     $('#text-color-picker').prev().css('color', '#d8d6d6')
         // } else {
