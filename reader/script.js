@@ -144,7 +144,9 @@ $(document).ready(function() {
         $('.bg-texture-' + i).on('click', function() {
             $(readerSelector).css('background-image', 'url("' + item + '")')
             setCookie('background-image', 'url("' + item + '")', { expires: 2592000 });
-            console.log(getImageLightness(item));
+            getImageLightness(item,function(brightness){
+                console.log(brightness);
+            });
         });
     });
 
