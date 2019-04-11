@@ -1,3 +1,10 @@
+.theme-dark {
+    background: #444;
+}
+
+
+
+
 .reader {
     max-width: 900px;
     margin: 20px auto;
@@ -73,14 +80,15 @@
     border-color: #777;
 }
 
-.theme-dark .btn-group > *, .theme-dark .btn-group a {
+.theme-dark .toolbar-wrapper .btn-group > *, .theme-dark .btn-group a {
     color: #ccc;
     background: #444;
 }
 
-.theme-dark .dropdown-backdrop {
+.theme-dark .toolbar-wrapper .dropdown-backdrop {
     background: transparent !important;
 }
+
 
 .sp-replacer {
     opacity: 0;

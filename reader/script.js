@@ -102,17 +102,14 @@ $(document).ready(function() {
     });
 
     fontInterval.forEach(function(item, i) {
-        if (i == 0) {
-            $('.font-interval-0').on('click', function() {
-                $(readerSelector).css('line-height', 'unset');
-                setCookie('line-height', 'unset', { expires: 2592000 });
-            })
-        } else {
-            $('.font-interval-' + i).on('click', function() {
-                $(readerSelector).css('line-height', item + 'px');
-                setCookie('line-height', item + 'px', { expires: 2592000 });
-            })
-        }
+        $('.font-interval-0').on('click', function() {
+            $(readerSelector).css('line-height', 'unset');
+            setCookie('line-height', 'unset', { expires: 2592000 });
+        })
+        $('.font-interval-' + (i + 1)).on('click', function() {
+            $(readerSelector).css('line-height', item + 'px');
+            setCookie('line-height', item + 'px', { expires: 2592000 });
+        })
     });
 
     textAlign.forEach(function(item, i) {
@@ -147,10 +144,10 @@ $(document).ready(function() {
         $('.theme-preset-' + i).on('click', function() {
 
             if (key === 'dark') {
-                $('.toolbar-wrapper').addClass('theme-dark');
+                $('body').addClass('theme-dark');
                 setCookie('theme', 'dark', { expires: 2592000 });
             } else {
-                $('.toolbar-wrapper').removeClass('theme-dark');
+                $('body').removeClass('theme-dark');
                 setCookie('theme', key, { expires: 2592000 });
             }
 
@@ -204,6 +201,6 @@ function initSettings() {
     $(readerSelector).css('background-color',getCookie('background-color') || presets.default.backgroundColor);
     $(readerSelector).css('background-image', getCookie('background-image'));
     if (getCookie('theme') === 'dark') {
-        $('.toolbar-wrapper').addClass('theme-dark');
+        $('body').addClass('theme-dark');
     }
 }
