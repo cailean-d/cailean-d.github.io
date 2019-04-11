@@ -80,6 +80,13 @@ $(document).ready(function() {
             $(readerSelector).css('background-image', '');
             setCookie('background-color', color.toHexString(), { expires: 2592000 })
             deleteCookie('background-image');
+            console.log(lightOrDark(color.toHexString()))
+            if (lightOrDark(color.toHexString()) == 'dark') {
+                $('body').addClass('theme-dark');
+            } else {
+                $('body').removeClass('theme-dark');
+            }
+
         },
         beforeShow: function() {
             $("#text-color-picker").spectrum('hide');
@@ -137,6 +144,7 @@ $(document).ready(function() {
         $('.bg-texture-' + i).on('click', function() {
             $(readerSelector).css('background-image', 'url("' + item + '")')
             setCookie('background-image', 'url("' + item + '")', { expires: 2592000 });
+            console.log(getImageLightness(item));
         });
     });
 
@@ -197,10 +205,91 @@ function initSettings() {
     $(readerSelector).css('text-align', getCookie('text-align') || presets.default.textAlign);
     $(readerSelector).css('text-indent', getCookie('text-indent') || presets.default.textIndent);
     $(readerSelector).css('padding', getCookie('text-padding') || presets.default.textPadding);
-    $(readerSelector).css('color', getCookie('text-color') || presets.default.color);
+    $(readerSelector).css('color', getCookie('text-color'));
     $(readerSelector).css('background-color',getCookie('background-color') || presets.default.backgroundColor);
     $(readerSelector).css('background-image', getCookie('background-image'));
     if (getCookie('theme') === 'dark') {
         $('body').addClass('theme-dark');
+    }
+}
+
+
+function lightOrDark(color) {
+
+    // Variables for red, green, blue values
+    var r, g, b, hsp;
+    
+    // Check the format of the color, HEX or RGB?
+    if (color.match(/^rgb/)) {
+
+        // If HEX --> store the red, green, blue values in separate variables
+        color = color.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
+        
+        r = color[1];
+        g = color[2];
+        b = color[3];
+    } 
+    else {
+        
+        // If RGB --> Convert it to HEX: http://gist.github.com/983661
+        color = +("0x" + color.slice(1).replace( 
+        color.length < 5 && /./g, '$&$&'));
+
+        r = color >> 16;
+        g = color >> 8 & 255;
+        b = color & 255;
+    }
+    
+    // HSP (Highly Sensitive Poo) equation from http://alienryderflex.com/hsp.html
+    hsp = Math.sqrt(
+    0.299 * (r * r) +
+    0.587 * (g * g) +
+    0.114 * (b * b)
+    );
+
+    // Using the HSP value, determine whether the color is light or dark
+    if (hsp>127.5) {
+
+        return 'light';
+    } 
+    else {
+
+        return 'dark';
+    }
+}
+
+
+function getImageLightness(imageSrc,callback) {
+    var img = document.createElement("img");
+    img.src = imageSrc;
+    img.style.display = "none";
+    document.body.appendChild(img);
+
+    var colorSum = 0;
+
+    img.onload = function() {
+        // create canvas
+        var canvas = document.createElement("canvas");
+        canvas.width = this.width;
+        canvas.height = this.height;
+
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(this,0,0);
+
+        var imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
+        var data = imageData.data;
+        var r,g,b,avg;
+
+        for(var x = 0, len = data.length; x < len; x+=4) {
+            r = data[x];
+            g = data[x+1];
+            b = data[x+2];
+
+            avg = Math.floor((r+g+b)/3);
+            colorSum += avg;
+        }
+
+        var brightness = Math.floor(colorSum / (this.width*this.height));
+        callback(brightness);
     }
 }
