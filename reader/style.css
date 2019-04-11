@@ -24,10 +24,6 @@
     padding: 5px !important;
 }
 
-/* .background-list-inner {
-    padding: 5px;
-} */
-
 .glyphicon {
     font-size: 15px;
     line-height: 1.5 !important; 
@@ -57,20 +53,11 @@
         padding-left: 20px;
         padding-right: 20px;
     }
-    /* .toggle-group {
-        display: flex !important;
-    }
-    .toggle-group .btn {
-        margin-top: 20px;        
-    } */
+
     .reader-background {
         width: 150px !important;
         height: 70px !important;
     }
-    /* .background-list {
-        position: fixed !important;
-        top: 25% !important;
-    } */
 }
 
 .reader-background {
@@ -94,25 +81,6 @@
 .theme-dark .dropdown-backdrop {
     background: transparent !important;
 }
-
-/* 
-
-.text-color-picker, .background-color-picker {
-    border-bottom: 2px solid #000;
-    width: 30px;
-}
- */
-
-
-/* .btn-group:not(:first-child) > * {
-    padding-bottom: 8px !important;
-} */
-/* 
-label {
-    margin-bottom: 0 !important;
-    cursor: pointer;
-    font-weight: normal !important;
-} */
 
 .sp-replacer {
     opacity: 0;

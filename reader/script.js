@@ -23,10 +23,10 @@ var presets = {
         backgroundImage: undefined,
         fontFamily: 'Arial',
         fontSize: 16,
-        fontInterval: undefined,
+        fontInterval: undefined, // отступ между строк
         textAlign: 'start',
-        textIndent: 0,
-        textPadding: 0
+        textIndent: 0, // отступ абзаца
+        textPadding: 0 // отступ от краев
     },
     light: {
         color: '#000',
@@ -66,12 +66,7 @@ $(document).ready(function() {
         ...colorPickerOptions,
         change: function(color) {
             $(readerSelector).css('color', color.toHexString());
-            setCookie('text-color', color.toHexString());
-                // if (color.toHexString() == '#ffffff') {
-                //     $('#text-color-picker').prev().css('color', '#d8d6d6')
-                // } else {
-                //     $('#text-color-picker').prev().css('color', color.toHexString())                
-                // }
+            setCookie('text-color', color.toHexString(), { expires: 2592000 });
         },
         beforeShow: function() {
             $("#background-color-picker").spectrum('hide');
@@ -83,13 +78,8 @@ $(document).ready(function() {
         change: function(color) {
             $(readerSelector).css('background-color', color.toHexString());
             $(readerSelector).css('background-image', '');
-            setCookie('background-color', color.toHexString())
+            setCookie('background-color', color.toHexString(), { expires: 2592000 })
             deleteCookie('background-image');
-                // if (color.toHexString() == '#ffffff') {
-                //     $('#background-color-picker').prev().css('color', '#d8d6d6')
-                // } else {
-                //     $('#background-color-picker').prev().css('color', color.toHexString())                
-                // }
         },
         beforeShow: function() {
             $("#text-color-picker").spectrum('hide');
@@ -100,14 +90,14 @@ $(document).ready(function() {
     fonts.forEach(function(item, i) {
         $('.reader-font-' + i).on('click', function() {
             $(readerSelector).css('font-family', item);
-            setCookie('font-family', item);
+            setCookie('font-family', item, { expires: 2592000 });
         })
     });
 
     fontSizes.forEach(function(item, i) {
         $('.font-size-' + i).on('click', function() {
             $(readerSelector).css('font-size', item + 'px');
-            setCookie('font-size', item + 'px');
+            setCookie('font-size', item + 'px', { expires: 2592000 });
         })
     });
 
@@ -115,12 +105,12 @@ $(document).ready(function() {
         if (i == 0) {
             $('.font-interval-0').on('click', function() {
                 $(readerSelector).css('line-height', 'unset');
-                setCookie('line-height', 'unset');
+                setCookie('line-height', 'unset', { expires: 2592000 });
             })
         } else {
             $('.font-interval-' + i).on('click', function() {
                 $(readerSelector).css('line-height', item + 'px');
-                setCookie('line-height', item + 'px');
+                setCookie('line-height', item + 'px', { expires: 2592000 });
             })
         }
     });
@@ -128,28 +118,28 @@ $(document).ready(function() {
     textAlign.forEach(function(item, i) {
         $('.text-align-' + i).on('click', function() {
             $(readerSelector).css('text-align', item);
-            setCookie('text-align', item);
+            setCookie('text-align', item, { expires: 2592000 });
         })
     });
 
     textIndent.forEach(function(item, i) {
         $('.text-indent-' + i).on('click', function() {
             $(readerSelector).css('text-indent', item + 'px');
-            setCookie('text-indent', item + 'px');
+            setCookie('text-indent', item + 'px', { expires: 2592000 });
         })
     });
 
     textPadding.forEach(function(item, i) {
         $('.text-padding-' + i).on('click', function() {
             $(readerSelector).css('padding', '0px ' + item + 'px');
-            setCookie('text-padding', '0px ' + item + 'px');
+            setCookie('text-padding', '0px ' + item + 'px', { expires: 2592000 });
         })
     })
 
     textures.forEach(function(item, i) {
         $('.bg-texture-' + i).on('click', function() {
             $(readerSelector).css('background-image', 'url("' + item + '")')
-            setCookie('background-image', 'url("' + item + '")');
+            setCookie('background-image', 'url("' + item + '")', { expires: 2592000 });
         });
     });
 
@@ -158,38 +148,38 @@ $(document).ready(function() {
 
             if (key === 'dark') {
                 $('.toolbar-wrapper').addClass('theme-dark');
-                setCookie('theme', 'dark');
+                setCookie('theme', 'dark', { expires: 2592000 });
             } else {
                 $('.toolbar-wrapper').removeClass('theme-dark');
-                setCookie('theme', key);
+                setCookie('theme', key, { expires: 2592000 });
             }
 
             $(readerSelector).css('color', presets[key].color);
-            setCookie('text-color', presets[key].color); 
+            setCookie('text-color', presets[key].color, { expires: 2592000 }); 
 
             $(readerSelector).css('background-color', presets[key].backgroundColor);
-            setCookie('background-color', presets[key].backgroundColor); 
+            setCookie('background-color', presets[key].backgroundColor, { expires: 2592000 }); 
             
             $(readerSelector).css('font-family', presets[key].fontFamily);
-            setCookie('font-family', presets[key].fontFamily);
+            setCookie('font-family', presets[key].fontFamily, { expires: 2592000 });
 
             $(readerSelector).css('font-size', presets[key].fontSize + 'px');
-            setCookie('font-size', presets[key].fontSize + 'px');
+            setCookie('font-size', presets[key].fontSize + 'px', { expires: 2592000 });
 
             $(readerSelector).css('line-height', presets[key].fontInterval + 'px');
-            setCookie('line-height', presets[key].fontInterval + 'px');
+            setCookie('line-height', presets[key].fontInterval + 'px', { expires: 2592000 });
 
             $(readerSelector).css('text-align', presets[key].textAlign);
-            setCookie('text-align', presets[key].textAlign);
+            setCookie('text-align', presets[key].textAlign, { expires: 2592000 });
 
             $(readerSelector).css('text-indent', presets[key].textIndent + 'px');
-            setCookie('text-indent', presets[key].textIndent + 'px');
+            setCookie('text-indent', presets[key].textIndent + 'px', { expires: 2592000 });
 
             $(readerSelector).css('padding', '0px ' + presets[key].textPadding + 'px');
-            setCookie('text-padding', '0px ' + presets[key].textPadding + 'px');
+            setCookie('text-padding', '0px ' + presets[key].textPadding + 'px', { expires: 2592000 });
 
             $(readerSelector).css('background-image', 'url("' + presets[key].backgroundImage + '")')
-            setCookie('background-image', 'url("' + presets[key].backgroundImage + '")');
+            setCookie('background-image', 'url("' + presets[key].backgroundImage + '")', { expires: 2592000 });
 
             if (!presets[key].backgroundImage) {
                 $(readerSelector).css('background-image', '');
@@ -216,15 +206,4 @@ function initSettings() {
     if (getCookie('theme') === 'dark') {
         $('.toolbar-wrapper').addClass('theme-dark');
     }
-        // if (getCookie('text-color') == '#ffffff') {
-        //     $('#text-color-picker').prev().css('color', '#d8d6d6')
-        // } else {
-        //     $('#text-color-picker').prev().css('color',  getCookie('text-color'))                
-        // }
-
-        // if (getCookie('background-color') == '#ffffff') {
-        //     $('#background-color-picker').prev().css('color', '#d8d6d6')
-        // } else {
-        //     $('#background-color-picker').prev().css('color', getCookie('background-color'))                
-        // }
 }
