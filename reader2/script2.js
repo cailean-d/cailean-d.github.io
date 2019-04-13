@@ -9,7 +9,8 @@ loadPages(1, 2, 3, 4, 5)
 
 
 window.onscroll = function() {
-    if ((window.innerHeight + document.documentElement.scrollTop) >= document.body.offsetHeight) {
+    let el = document.documentElement;
+    if ((el.clientHeight + el.scrollTop) >= el.scrollHeight) {
         console.log('bottom');
     }
 };
