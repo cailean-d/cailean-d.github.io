@@ -35,6 +35,7 @@ function getNextPages() {
 function getPrevPages() {
     let pagesToLoad = []
     for(let i = 0; i < pageCount; i++){
+        if (topPage == 1) break;
         pagesToLoad.push(--topPage)
     }
     return pagesToLoad;
