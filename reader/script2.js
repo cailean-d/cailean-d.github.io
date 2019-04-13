@@ -4,17 +4,16 @@ let loadPage = 1;
 let pageCount = 5;
 
 function loadPages(pages, cb) {
-    console.log(pages);
-    // pages.forEach(i => {
-    //     if (!booksIsLoaded) {
-    //         fetch('pages/' + i + '.html').then(res => res.text()
-    //         .then(text => $(readerSelector).append(text)))
-    //         .catch(err => booksIsLoaded = true)
-    //     }
-    // })
-    // if (typeof cb == 'function') {
-    //     cb();
-    // }
+    pages.forEach(i => {
+        if (!booksIsLoaded) {
+            fetch('pages/' + i + '.html').then(res => res.text()
+            .then(text => $(readerSelector).append(text)))
+            .catch(err => booksIsLoaded = true)
+        }
+    })
+    if (typeof cb == 'function') {
+        cb();
+    }
 }
 
 function getNextPages() {
