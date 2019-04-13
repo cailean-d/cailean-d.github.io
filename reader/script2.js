@@ -14,7 +14,7 @@ function loadPages(pages, cb) {
             } else {
                 booksIsLoaded = true;
                 console.log(page, pageCount)
-                setCookie('last-page', page - pageCount, { expires: 2592000 });
+                setCookie('last-page', page - pageCount * 2, { expires: 2592000 });
             }
         })
     } else {
