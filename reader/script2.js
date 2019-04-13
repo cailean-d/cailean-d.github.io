@@ -1,6 +1,6 @@
 let isLoading = false;
 let booksIsLoaded = false;
-let page = 1;
+let page = getCookie('last-page') || 1;
 let pageCount = 5;
 
 function loadPages(pages, cb) {
@@ -25,6 +25,7 @@ function getNextPages() {
     for(let i = 0; i < pageCount; i++){
         pagesToLoad.push(page++)
     }
+    setCookie('last-page', pagesToLoad[0], { expires: 2592000 });
     return pagesToLoad;
 }
 
