@@ -6,8 +6,8 @@ let pageCount = 5;
 function loadPages(pages, cb) {
     pages.forEach(i => {
         if (!booksIsLoaded) {
-            fetch('pages/' + i + '.html').then(res => res.text()
-            .then(text => $(readerSelector).append(text)))
+            fetch('pages/' + i + '.html')
+            .then(res => res.text().then(text => $(readerSelector).append(text)))
             .catch(err => booksIsLoaded = true)
         }
     })
