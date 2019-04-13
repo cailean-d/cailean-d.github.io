@@ -8,8 +8,11 @@ function loadPages(pages, cb) {
         if (!booksIsLoaded) {
             fetch('pages/' + i + '.html')
             .then(res => {
-                console.log(res.status)
-                res.text().then(text => $(readerSelector).append(text))
+                if (res.status == 200) {
+                    res.text().then(text => $(readerSelector).append(text))
+                } else {
+                    booksIsLoaded = true;
+                }
             })
             .catch(err => booksIsLoaded = true)
         }
