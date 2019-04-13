@@ -53,6 +53,7 @@ window.onscroll = function() {
         if (!isLoading && !topIsLoaded) {
             isLoading = true;
             console.log(getPrevPages())
+            isLoading = false;
         }
     }
 };
