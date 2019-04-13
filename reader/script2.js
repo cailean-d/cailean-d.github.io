@@ -1,6 +1,8 @@
 let isLoading = false;
-let booksIsLoaded = false;
-let page = getCookie('last-page') || 1;
+let topIsLoaded = false;
+let bottomIsLoaded = false;
+let topPage = getCookie('last-page') || 1;
+let bottomPage = getCookie('last-page') || 1;
 let pageCount = 5;
 
 function loadPages(pages, cb) {
@@ -12,9 +14,8 @@ function loadPages(pages, cb) {
                     loadPages(pages, cb);
                 })
             } else {
-                booksIsLoaded = true;
-                console.log(page, pageCount)
-                setCookie('last-page', page - pageCount * 2, { expires: 2592000 });
+                bottomIsLoaded = true;
+                setCookie('last-page', bottomPage - pageCount * 2, { expires: 2592000 });
             }
         })
     } else {
@@ -25,9 +26,17 @@ function loadPages(pages, cb) {
 function getNextPages() {
     let pagesToLoad = []
     for(let i = 0; i < pageCount; i++){
-        pagesToLoad.push(page++)
+        pagesToLoad.push(bottomPage++)
     }
     setCookie('last-page', pagesToLoad[0], { expires: 2592000 });
+    return pagesToLoad;
+}
+
+function getPrevPages() {
+    let pagesToLoad = []
+    for(let i = 0; i < pageCount; i++){
+        pagesToLoad.push(--topPage)
+    }
     return pagesToLoad;
 }
 
@@ -36,11 +45,14 @@ loadPages(getNextPages())
 window.onscroll = function() {
     let el = document.documentElement;
     if ((el.clientHeight + el.scrollTop) >= el.scrollHeight) {
-        if (!isLoading && !booksIsLoaded) {
+        if (!isLoading && !bottomIsLoaded) {
             isLoading = true;
             loadPages(getNextPages(), _ => isLoading = false)
         }
     } else if ( el.scrollHeight > el.clientHeight && el.scrollTop == 0) {
-        console.log('top');
+        if (!isLoading && !topIsLoaded) {
+            isLoading = true;
+            console.log(getPrevPages())
+        }
     }
 };
