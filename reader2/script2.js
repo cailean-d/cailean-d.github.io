@@ -6,3 +6,10 @@ function loadPages(...pages) {
 
 
 loadPages(1, 2, 3, 4, 5)
+
+
+window.onscroll = function() {
+    if ((window.innerHeight + document.documentElement.scrollTop) >= document.body.offsetHeight) {
+        console.log('bottom');
+    }
+};
