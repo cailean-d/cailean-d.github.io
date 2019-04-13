@@ -1,24 +1,39 @@
 let isLoading = false;
+let booksIsLoaded = false;
+let loadPage = 1;
+let pageCount = 5;
 
-function loadPages(cb, ...pages) {
+function loadPages(pages, cb) {
     pages.forEach(i => {
-        fetch('pages/' + i + '.html').then(res => res.text().then(text => $(readerSelector).append(text)))
+        if (!booksIsLoaded) {
+            fetch('pages/' + i + '.html').then(res => res.text()
+            .then(text => $(readerSelector).append(text)))
+            .catch(err => booksIsLoaded = true)
+        }
     })
     if (typeof cb == 'function') {
         cb();
     }
 }
 
+function getNextPages() {
+    let pagesToLoad = []
+    for(let i = 0; i < pageCount; i++){
+        pagesToLoad.push(pageCount++)
+    }
+    return pagesToLoad;
+}
 
-loadPages(null, 1, 2, 3, 4, 5)
+
+loadPages(getNextPages())
 
 
 window.onscroll = function() {
     let el = document.documentElement;
     if ((el.clientHeight + el.scrollTop) >= el.scrollHeight) {
-        if (!isLoading) {
+        if (!isLoading && !booksIsLoaded) {
             isLoading = true;
-            loadPages(_ => isLoading = false, 6, 7, 8, 9, 10)
+            loadPages(getNextPages(), _ => isLoading = false)
         }
     }
 };
