@@ -4,7 +4,7 @@ let page = 1;
 let pageCount = 5;
 
 function loadPages(pages, cb) {
-    if (pages) {
+    if (pages && pages[0]) {
         fetch('pages/' + pages.shift() + '.html').then(res => {
             if (res.status == 200) {
                 res.text().then(text => {
