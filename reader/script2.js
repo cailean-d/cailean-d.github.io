@@ -5,17 +5,25 @@ let topPage = getCookie('last-page') || 1;
 let bottomPage = getCookie('last-page') || 1;
 let pageCount = 5;
 
-function loadPages(pages, cb) {
+function loadPages(pages, dir, cb) {
     if (pages && pages[0]) {
         fetch('pages/' + pages.shift() + '.html').then(res => {
             if (res.status == 200) {
                 res.text().then(text => {
-                    $(readerSelector).append(text)
-                    loadPages(pages, cb);
+                    if (dir) {
+                        $(readerSelector).append(text)
+                    } else {
+                        $(readerSelector).prepend(text)
+                    }
+                    loadPages(pages, dir, cb);
                 })
             } else {
-                bottomIsLoaded = true;
-                setCookie('last-page', bottomPage - pageCount * 2, { expires: 2592000 });
+                if (dir) {
+                    bottomIsLoaded = true;
+                    setCookie('last-page', bottomPage - pageCount * 2, { expires: 2592000 });
+                } else {
+                    topIsLoaded = true;
+                }
             }
         })
     } else {
@@ -41,20 +49,19 @@ function getPrevPages() {
     return pagesToLoad;
 }
 
-loadPages(getNextPages())
+loadPages(getNextPages(), true)
 
 window.onscroll = function() {
     let el = document.documentElement;
     if ((el.clientHeight + el.scrollTop) >= el.scrollHeight) {
         if (!isLoading && !bottomIsLoaded) {
             isLoading = true;
-            loadPages(getNextPages(), _ => isLoading = false)
+            loadPages(getNextPages(), true, _ => isLoading = false)
         }
     } else if ( el.scrollHeight > el.clientHeight && el.scrollTop == 0) {
         if (!isLoading && !topIsLoaded) {
             isLoading = true;
-            console.log(getPrevPages())
-            isLoading = false;
+            loadPages(getPrevPages(), false, _ => isLoading = false)
         }
     }
 };
