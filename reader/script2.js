@@ -10,6 +10,7 @@ function loadPages(pages, dir, cb) {
         fetch('pages/' + pages.shift() + '.html').then(res => {
             if (res.status == 200) {
                 res.text().then(text => {
+                    console.log(text);
                     if (dir) {
                         $(readerSelector).append(text)
                     } else {
