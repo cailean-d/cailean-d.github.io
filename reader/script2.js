@@ -1,5 +1,5 @@
 fetch('pages/1.html')
-.then((res) => {  
-    $(readerSelector).append(res.text())
+.then(res => {  
+    res.text().then(text => $(readerSelector).append(text))
 })
-.catch(console.log)
+
