@@ -13,6 +13,7 @@ function loadPages(pages, cb) {
                 })
             } else {
                 booksIsLoaded = true;
+                setCookie('last-page', page - pageCount, { expires: 2592000 });
             }
         })
     } else {
