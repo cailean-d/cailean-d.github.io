@@ -1,38 +1,34 @@
 let isLoading = false;
 let booksIsLoaded = false;
-let loadPage = 1;
+let page = 1;
 let pageCount = 5;
 
 function loadPages(pages, cb) {
-    pages.forEach(async i => {
-        if (!booksIsLoaded) {
-            let res = await fetch('pages/' + i + '.html');
-            // .then(res => {
-                if (res.status == 200) {
-                    res.text().then(text => $(readerSelector).append(text))
-                } else {
-                    booksIsLoaded = true;
-                }
-            // })
-            // .catch(err => booksIsLoaded = true)
-        }
-    })
-    if (typeof cb == 'function') {
-        cb();
+    if (pages) {
+        fetch('pages/' + pages.shift() + '.html').then(res => {
+            if (res.status == 200) {
+                res.text().then(text => {
+                    $(readerSelector).append(text)
+                    console.log(pages);
+                })
+            } else {
+                booksIsLoaded = true;
+            }
+        })
+    } else {
+        if (typeof cb == 'function') cb();
     }
 }
 
 function getNextPages() {
     let pagesToLoad = []
     for(let i = 0; i < pageCount; i++){
-        pagesToLoad.push(loadPage++)
+        pagesToLoad.push(page++)
     }
     return pagesToLoad;
 }
 
-
 loadPages(getNextPages())
-
 
 window.onscroll = function() {
     let el = document.documentElement;
