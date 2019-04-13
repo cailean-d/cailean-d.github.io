@@ -4,18 +4,14 @@ let bottomIsLoaded = false;
 let topPage = getCookie('last-page') || 1;
 let bottomPage = getCookie('last-page') || 1;
 let pageCount = 5;
+let data = '';
 
 function loadPages(pages, dir, cb) {
     if (pages && pages[0]) {
         fetch('pages/' + pages.shift() + '.html').then(res => {
             if (res.status == 200) {
                 res.text().then(text => {
-                    console.log(text);
-                    if (dir) {
-                        $(readerSelector).append(text)
-                    } else {
-                        $(readerSelector).prepend(text)
-                    }
+                    data += text;
                     loadPages(pages, dir, cb);
                 })
             } else {
@@ -27,9 +23,14 @@ function loadPages(pages, dir, cb) {
                 }
             }
         })
+    } 
+    if (dir) {
+        $(readerSelector).append(data)
     } else {
-        if (typeof cb == 'function') cb();
+        $(readerSelector).prepend(data)
     }
+    data = '';
+    if (typeof cb == 'function') cb();
 }
 
 function getNextPages() {
