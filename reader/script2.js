@@ -40,7 +40,7 @@ window.onscroll = function() {
             isLoading = true;
             loadPages(getNextPages(), _ => isLoading = false)
         }
-    } else if ( div.scrollHeight > div.clientHeight && el.scrollTop == 0) {
+    } else if ( el.scrollHeight > el.clientHeight && el.scrollTop == 0) {
         console.log('top');
     }
 };
