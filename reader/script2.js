@@ -7,7 +7,10 @@ function loadPages(pages, cb) {
     pages.forEach(i => {
         if (!booksIsLoaded) {
             fetch('pages/' + i + '.html')
-            .then(res => res.text().then(text => $(readerSelector).append(text)))
+            .then(res => {
+                console.log(res.status)
+                res.text().then(text => $(readerSelector).append(text))
+            })
             .catch(err => booksIsLoaded = true)
         }
     })
