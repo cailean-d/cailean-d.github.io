@@ -3,8 +3,8 @@ let booksIsLoaded = false;
 let loadPage = 1;
 let pageCount = 5;
 
-async function loadPages(pages, cb) {
-    pages.forEach(i => {
+function loadPages(pages, cb) {
+    pages.forEach(async i => {
         if (!booksIsLoaded) {
             let res = await fetch('pages/' + i + '.html');
             // .then(res => {
