@@ -1,6 +1,8 @@
-fetch('pages/1.html')
-.then(res => {  
-    console.log(readerSelector);
-    res.text().then(text => $(readerSelector).append(text))
-})
+function loadPages(...pages) {
+    pages.forEach(i => {
+        fetch('pages/' + i + '.html').then(res => res.text().then(text => $(readerSelector).append(text)))
+    })
+}
 
+
+loadPages(1, 2, 3, 4, 5)
