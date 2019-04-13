@@ -9,7 +9,7 @@ function loadPages(pages, cb) {
             if (res.status == 200) {
                 res.text().then(text => {
                     $(readerSelector).append(text)
-                    console.log(pages);
+                    loadPages(pages, cb);
                 })
             } else {
                 booksIsLoaded = true;
