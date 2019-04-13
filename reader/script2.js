@@ -23,14 +23,15 @@ function loadPages(pages, dir, cb) {
                 }
             }
         })
-    } 
-    if (dir) {
-        $(readerSelector).append(data)
-    } else {
-        $(readerSelector).prepend(data)
+    }  else {
+        if (dir) {
+            $(readerSelector).append(data)
+        } else {
+            $(readerSelector).prepend(data)
+        }
+        data = '';
+        if (typeof cb == 'function') cb();
     }
-    data = '';
-    if (typeof cb == 'function') cb();
 }
 
 function getNextPages() {
