@@ -20,7 +20,7 @@ function loadPages(pages, cb) {
 function getNextPages() {
     let pagesToLoad = []
     for(let i = 0; i < pageCount; i++){
-        pagesToLoad.push(loadPages++)
+        pagesToLoad.push(loadPage++)
     }
     return pagesToLoad;
 }
