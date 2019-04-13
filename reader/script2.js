@@ -7,7 +7,7 @@ fetch('https://reader-backend1.herokuapp.com/pages/1')
 
 let xhr = new XMLHttpRequest();
 
-xhr.open('get', 'https://reader-backend1.herokuapp.com/pages/1');
+xhr.open('get', 'https://reader-backend1.herokuapp.com/');
 
 xhr.send();
 
