@@ -5,11 +5,11 @@ let pageCount = 5;
 
 function loadPages(pages, cb) {
     pages.forEach(i => {
-        // if (!booksIsLoaded) {
-        //     fetch('pages/' + i + '.html').then(res => res.text()
-        //     .then(text => $(readerSelector).append(text)))
-        //     .catch(err => booksIsLoaded = true)
-        // }
+        if (!booksIsLoaded) {
+            fetch('pages/' + i + '.html').then(res => res.text()
+            .then(text => $(readerSelector).append(text)))
+            .catch(err => booksIsLoaded = true)
+        }
     })
     if (typeof cb == 'function') {
         cb();
@@ -19,7 +19,7 @@ function loadPages(pages, cb) {
 function getNextPages() {
     let pagesToLoad = []
     for(let i = 0; i < pageCount; i++){
-        pagesToLoad.push(pageCount++)
+        pagesToLoad.push(loadPages++)
     }
     console.log(pagesToLoad)
     return pagesToLoad;
