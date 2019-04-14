@@ -20,7 +20,6 @@ function loadPages(pages, dir) {
                     loadPages(pages, dir);
                 })
             } else {
-                console.log($('.loader-wrapper')[0])
                 $('.loader-wrapper').remove();
                 isLoading = false;
                 if (dir) {
