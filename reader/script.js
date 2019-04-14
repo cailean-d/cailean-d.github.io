@@ -245,15 +245,15 @@ function initSettings() {
         'background-image': 'url("' + img + '")',
     })
 
-    if (img) {
-        getImageLightness(img,function(brightness){
-            if (brightness < 100) {
-                $('body').addClass('theme-dark');
-            } 
-        });
-    } else if (lightOrDark($(readerSelector).css('background-color')) == 'dark') {
-        $('body').addClass('theme-dark');
-    }
+    // if (img) {
+    //     getImageLightness(img,function(brightness){
+    //         if (brightness < 100) {
+    //             $('body').addClass('theme-dark');
+    //         } 
+    //     });
+    // } else if (lightOrDark($(readerSelector).css('background-color')) == 'dark') {
+    //     $('body').addClass('theme-dark');
+    // }
 }
 
 
