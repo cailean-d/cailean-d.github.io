@@ -64,22 +64,6 @@ function getPrevPages() {
     return pagesToLoad;
 }
 
-loadPages(getNextPages(), true)
-
-// window.onscroll = function() {
-//     if ((doc.clientHeight + doc.scrollTop) >= doc.scrollHeight) {
-//         if (!isLoading && !bottomIsLoaded) {
-//             isLoading = true;
-//             loadPages(getNextPages(), true, _ => isLoading = false)
-//         }
-//     } else if (doc.scrollHeight > doc.clientHeight && doc.scrollTop == 0) {
-//         if (!isLoading && !topIsLoaded) {
-//             isLoading = true;
-//             loadPages(getPrevPages(), false, _ => isLoading = false)
-//         }
-//     }
-// };
-
 window.onmousewheel = function(e) {
     if ((doc.clientHeight + doc.scrollTop) >= doc.scrollHeight && e.deltaY > 0) {
         if (!isLoading && !bottomIsLoaded) {
@@ -91,3 +75,6 @@ window.onmousewheel = function(e) {
         }
     }
 }
+
+
+loadPages(getNextPages(), true);
