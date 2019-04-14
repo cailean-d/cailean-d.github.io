@@ -43,24 +43,24 @@ function loadPages(pages, dir) {
 }
 
 function getNextPages() {
+    isLoading = true;
     let pagesToLoad = []
     for(let i = 0; i < pageCount; i++){
         pagesToLoad.push(bottomPage++)
     }
-    setCookie('last-page', pagesToLoad[0], { expires: 2592000 });
     $(readerSelector).append('<div class="loader-wrapper"><div class="loader"></div></div>')
-    isLoading = true;
+    setCookie('last-page', pagesToLoad[0], { expires: 2592000 });
     return pagesToLoad;
 }
 
 function getPrevPages() {
+    isLoading = true;
     let pagesToLoad = []
     for(let i = 0; i < pageCount; i++){
         if (topPage == 1) break;
         pagesToLoad.push(--topPage)
     }
     $(readerSelector).prepend('<div class="loader-wrapper"><div class="loader"></div></div>')
-    isLoading = true;
     return pagesToLoad;
 }
 
