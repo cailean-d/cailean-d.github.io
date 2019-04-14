@@ -23,6 +23,7 @@ function loadPages(pages, dir) {
                 isLoading = false;
                 if (dir) {
                     bottomIsLoaded = true;
+                    $('.loader-wrapper').remove();
                     setCookie('last-page', bottomPage - pageCount * 2, { expires: 2592000 });
                 } else {
                     topIsLoaded = true;
