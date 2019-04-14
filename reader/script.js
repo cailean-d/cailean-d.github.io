@@ -242,12 +242,10 @@ function initSettings() {
         'padding-right': getCookie('text-padding') || presets.default.textPadding,
         'color': getCookie('text-color') || presets.default.color,
         'background-color': getCookie('background-color') || presets.default.backgroundColor,
-        'background-image': 'url("' + img + '")',
+        'background-image': img? 'url("' + img + '")' : '',
     })
-
     
     if (img) {
-        console.log(img)
         getImageLightness(img,function(brightness){
             if (brightness < 100) {
                 $('body').addClass('theme-dark');
