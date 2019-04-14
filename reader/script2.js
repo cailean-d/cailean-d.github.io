@@ -7,7 +7,7 @@ let pageCount = 5;
 let data = '';
 let doc = document.documentElement;
 
-function loadPages(pages, dir, cb) {
+function loadPages(pages, dir) {
     if (pages && pages[0]) {
         fetch('pages/' + pages.shift() + '.html').then(res => {
             if (res.status == 200) {
@@ -17,11 +17,10 @@ function loadPages(pages, dir, cb) {
                     } else {
                         data = text + data;
                     }
-                    loadPages(pages, dir, cb);
+                    loadPages(pages, dir);
                 })
             } else {
                 isLoading = false;
-                $('.loader-wrapper').remove();
                 if (dir) {
                     bottomIsLoaded = true;
                     setCookie('last-page', bottomPage - pageCount * 2, { expires: 2592000 });
@@ -31,6 +30,7 @@ function loadPages(pages, dir, cb) {
             }
         })
     }  else {
+        isLoading = false;
         $('.loader-wrapper').remove();
         if (dir) {
             $(readerSelector).append(data)
@@ -38,7 +38,6 @@ function loadPages(pages, dir, cb) {
             $(readerSelector).prepend(data)
         }
         data = '';
-        if (typeof cb == 'function') cb();
     }
 }
 
@@ -49,6 +48,7 @@ function getNextPages() {
     }
     setCookie('last-page', pagesToLoad[0], { expires: 2592000 });
     $(readerSelector).append('<div class="loader-wrapper"><div class="loader"></div></div>')
+    isLoading = true;
     return pagesToLoad;
 }
 
@@ -59,6 +59,7 @@ function getPrevPages() {
         pagesToLoad.push(--topPage)
     }
     $(readerSelector).prepend('<div class="loader-wrapper"><div class="loader"></div></div>')
+    isLoading = true;
     return pagesToLoad;
 }
 
@@ -81,23 +82,11 @@ loadPages(getNextPages(), true)
 window.onmousewheel = function(e) {
     if ((doc.clientHeight + doc.scrollTop) >= doc.scrollHeight && e.deltaY > 0) {
         if (!isLoading && !bottomIsLoaded) {
-            isLoading = true;
-            loadPages(getNextPages(), true, _ => isLoading = false)
+            loadPages(getNextPages(), true)
         }
     } else if (doc.scrollHeight > doc.clientHeight && doc.scrollTop == 0 && e.deltaY < 0) {
         if (!isLoading && !topIsLoaded) {
-            isLoading = true;
-            loadPages(getPrevPages(), false, _ => isLoading = false)
+            loadPages(getPrevPages(), false)
         }
     }
-
-    // if (doc.scrollTop == 0 && e.deltaY < 0) {
-    //     // if (!isLoading && !topIsLoaded) {
-    //     //     isLoading = true;
-    //     //     loadPages(getPrevPages(), false, _ => isLoading = false)
-    //     // }
-    //     console.log('load prev')
-    // } else if () {
-
-    // }
 }
