@@ -21,7 +21,7 @@ function loadPages(pages, dir) {
                 })
             } else {
                 $('.loader-wrapper').remove();
-                isLoading = false;
+                setTimeout(_ => isLoading = false, 500);                
                 if (dir) {
                     bottomIsLoaded = true;
                     setCookie('last-page', bottomPage - pageCount * 2, { expires: 2592000 });
@@ -31,7 +31,7 @@ function loadPages(pages, dir) {
             }
         });
     }  else {
-        isLoading = false;
+        setTimeout(_ => isLoading = false, 500);
         $('.loader-wrapper').remove();
         if (dir) {
             $(readerSelector).append(data)
