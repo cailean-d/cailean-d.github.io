@@ -11,7 +11,6 @@ function loadPages(pages, dir) {
     if (pages && pages[0]) {
         fetch('pages/' + pages.shift() + '.html').then(res => {
             if (res.status == 200) {
-                console.log('200')
                 res.text().then(text => {
                     if (dir) {
                         data += text;
@@ -21,17 +20,16 @@ function loadPages(pages, dir) {
                     loadPages(pages, dir);
                 })
             } else {
-                console.log('404')
+                $('.loader-wrapper').remove();
                 isLoading = false;
                 if (dir) {
                     bottomIsLoaded = true;
-                    $('.loader-wrapper').remove();
                     setCookie('last-page', bottomPage - pageCount * 2, { expires: 2592000 });
                 } else {
                     topIsLoaded = true;
                 }
             }
-        }).catch(_ => console.log('eeeerrroror'))
+        });
     }  else {
         isLoading = false;
         $('.loader-wrapper').remove();
