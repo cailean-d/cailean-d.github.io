@@ -245,9 +245,9 @@ function initSettings() {
         'background-image': 'url("' + img + '")',
     })
 
-    console.log(img)
-
+    
     if (img) {
+        console.log(img)
         getImageLightness(img,function(brightness){
             if (brightness < 100) {
                 $('body').addClass('theme-dark');

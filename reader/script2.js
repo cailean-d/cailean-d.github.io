@@ -20,7 +20,7 @@ function loadPages(pages, dir) {
                     loadPages(pages, dir);
                 })
             } else {
-                setTimeout(_ => isLoading = false, 500);                
+                setTimeout(_ => isLoading = false, 300);                
                 $('.loader-wrapper').remove();
                 if (dir) {
                     bottomIsLoaded = true;
@@ -31,7 +31,7 @@ function loadPages(pages, dir) {
             }
         });
     }  else {
-        setTimeout(_ => isLoading = false, 500);
+        setTimeout(_ => isLoading = false, 300);
         $('.loader-wrapper').remove();
         if (dir) {
             $(readerSelector).append(data)
