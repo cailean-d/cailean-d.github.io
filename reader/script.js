@@ -20,7 +20,7 @@ var presets = {
     default: {
         color: '#000',
         backgroundColor: '#fff',
-        backgroundImage: undefined,
+        backgroundImage: 'img/background1.jpg',
         fontFamily: 'Arial',
         fontSize: 16,
         fontInterval: undefined, // отступ между строк
@@ -80,13 +80,19 @@ $(document).ready(function() {
             $(readerSelector).css('background-image', '');
             setCookie('background-color', color.toHexString(), { expires: 2592000 })
             deleteCookie('background-image');
-            console.log(lightOrDark(color.toHexString()))
             if (lightOrDark(color.toHexString()) == 'dark') {
                 $('body').addClass('theme-dark');
+                if (!$(readerSelector).css('color') || lightOrDark($(readerSelector).css('color')) == 'dark') {
+                    $(readerSelector).css('color', '#fff');
+                    setCookie('text-color', '#fff', { expires: 2592000 });
+                }
             } else {
                 $('body').removeClass('theme-dark');
+                if (!$(readerSelector).css('color') || lightOrDark($(readerSelector).css('color')) == 'light') {
+                    $(readerSelector).css('color', '#000');
+                    setCookie('text-color', '#000', { expires: 2592000 });
+                }
             }
-
         },
         beforeShow: function() {
             $("#text-color-picker").spectrum('hide');
@@ -135,8 +141,11 @@ $(document).ready(function() {
 
     textPadding.forEach(function(item, i) {
         $('.text-padding-' + i).on('click', function() {
-            $(readerSelector).css('padding', '0px ' + item + 'px');
-            setCookie('text-padding', '0px ' + item + 'px', { expires: 2592000 });
+            $(readerSelector).css({
+                'padding-left': item + 'px',
+                'padding-right': item + 'px'
+            });
+            setCookie('text-padding', item + 'px', { expires: 2592000 });
         })
     })
 
@@ -145,7 +154,13 @@ $(document).ready(function() {
             $(readerSelector).css('background-image', 'url("' + item + '")')
             setCookie('background-image', 'url("' + item + '")', { expires: 2592000 });
             getImageLightness(item,function(brightness){
-                console.log(brightness);
+                if (brightness < 100) {
+                    $(readerSelector).css('color', '#fff');
+                    setCookie('text-color', '#fff', { expires: 2592000 });
+                } else {
+                    $(readerSelector).css('color', '#000');
+                    setCookie('text-color', '#000', { expires: 2592000 });
+                }
             });
         });
     });
@@ -153,13 +168,13 @@ $(document).ready(function() {
     Object.keys(presets).forEach(function(key, i) {
         $('.theme-preset-' + i).on('click', function() {
 
-            if (key === 'dark') {
-                $('body').addClass('theme-dark');
-                setCookie('theme', 'dark', { expires: 2592000 });
-            } else {
-                $('body').removeClass('theme-dark');
-                setCookie('theme', key, { expires: 2592000 });
-            }
+            // if (key === 'dark') {
+            //     $('body').addClass('theme-dark');
+            //     setCookie('theme', 'dark', { expires: 2592000 });
+            // } else {
+            //     $('body').removeClass('theme-dark');
+            //     setCookie('theme', key, { expires: 2592000 });
+            // }
 
             $(readerSelector).css('color', presets[key].color);
             setCookie('text-color', presets[key].color, { expires: 2592000 }); 
@@ -182,8 +197,11 @@ $(document).ready(function() {
             $(readerSelector).css('text-indent', presets[key].textIndent + 'px');
             setCookie('text-indent', presets[key].textIndent + 'px', { expires: 2592000 });
 
-            $(readerSelector).css('padding', '0px ' + presets[key].textPadding + 'px');
-            setCookie('text-padding', '0px ' + presets[key].textPadding + 'px', { expires: 2592000 });
+            $(readerSelector).css({
+                'padding-left': presets[key].textPadding + 'px',
+                'padding-right': presets[key].textPadding + 'px'
+            });
+            setCookie('text-padding', presets[key].textPadding + 'px', { expires: 2592000 });
 
             $(readerSelector).css('background-image', 'url("' + presets[key].backgroundImage + '")')
             setCookie('background-image', 'url("' + presets[key].backgroundImage + '")', { expires: 2592000 });
@@ -191,7 +209,13 @@ $(document).ready(function() {
             if (!presets[key].backgroundImage) {
                 $(readerSelector).css('background-image', '');
                 deleteCookie('background-image');
-            }
+
+                if (lightOrDark(presets[key].backgroundColor) == 'dark') {
+                    $('body').addClass('theme-dark');
+                } else {
+                    $('body').removeClass('theme-dark');
+                }
+            } 
 
         })
     })
@@ -201,16 +225,25 @@ $(document).ready(function() {
 
 
 function initSettings() {
-    $(readerSelector).css('font-family', getCookie('font-family') || presets.default.fontFamily);
-    $(readerSelector).css('font-size', getCookie('font-size') || presets.default.fontSize);
-    $(readerSelector).css('line-height', getCookie('line-height') || presets.default.fontInterval);
-    $(readerSelector).css('text-align', getCookie('text-align') || presets.default.textAlign);
-    $(readerSelector).css('text-indent', getCookie('text-indent') || presets.default.textIndent);
-    $(readerSelector).css('padding', getCookie('text-padding') || presets.default.textPadding);
-    $(readerSelector).css('color', getCookie('text-color'));
-    $(readerSelector).css('background-color',getCookie('background-color') || presets.default.backgroundColor);
-    $(readerSelector).css('background-image', getCookie('background-image'));
-    if (getCookie('theme') === 'dark') {
+    $(readerSelector).css({
+        'font-family': getCookie('font-family') || presets.default.fontFamily,
+        'font-size': getCookie('font-size') || presets.default.fontSize,
+        'line-height': getCookie('line-height') || presets.default.fontInterval,
+        'text-align': getCookie('text-align') || presets.default.textAlign,
+        'padding-left': getCookie('text-padding') || presets.default.textPadding,
+        'padding-right': getCookie('text-padding') || presets.default.textPadding,
+        'color': getCookie('text-color') || presets.default.color,
+        'background-color': getCookie('background-color') || presets.default.backgroundColor,
+        'background-image': getCookie('background-image') || presets.default.backgroundImage,
+    })
+
+    if (getCookie('background-image') || presets.default.backgroundImage) {
+        getImageLightness(item,function(brightness){
+            if (brightness < 100) {
+                $('body').addClass('theme-dark');
+            } 
+        });
+    } else if (lightOrDark($(readerSelector).css('background-color')) == 'dark') {
         $('body').addClass('theme-dark');
     }
 }
@@ -259,7 +292,6 @@ function lightOrDark(color) {
         return 'dark';
     }
 }
-
 
 function getImageLightness(imageSrc,callback) {
     var img = document.createElement("img");
