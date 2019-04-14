@@ -225,6 +225,7 @@ $(document).ready(function() {
 
 
 function initSettings() {
+    let img = getCookie('background-image') || presets.default.backgroundImage;
     $(readerSelector).css({
         'font-family': getCookie('font-family') || presets.default.fontFamily,
         'font-size': getCookie('font-size') || presets.default.fontSize,
@@ -234,11 +235,11 @@ function initSettings() {
         'padding-right': getCookie('text-padding') || presets.default.textPadding,
         'color': getCookie('text-color') || presets.default.color,
         'background-color': getCookie('background-color') || presets.default.backgroundColor,
-        'background-image': getCookie('background-image') || presets.default.backgroundImage,
+        'background-image': img,
     })
 
-    if (getCookie('background-image') || presets.default.backgroundImage) {
-        getImageLightness(item,function(brightness){
+    if (img) {
+        getImageLightness(img,function(brightness){
             if (brightness < 100) {
                 $('body').addClass('theme-dark');
             } 
