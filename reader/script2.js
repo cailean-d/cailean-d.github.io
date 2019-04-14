@@ -21,6 +21,7 @@ function loadPages(pages, dir, cb) {
                 })
             } else {
                 isLoading = false;
+                $('.loader-wrapper').remove();
                 if (dir) {
                     bottomIsLoaded = true;
                     setCookie('last-page', bottomPage - pageCount * 2, { expires: 2592000 });
