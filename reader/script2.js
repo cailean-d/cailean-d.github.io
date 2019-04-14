@@ -30,6 +30,7 @@ function loadPages(pages, dir, cb) {
             }
         })
     }  else {
+        $('.loader-wrapper').remove();
         if (dir) {
             $(readerSelector).append(data)
         } else {
@@ -46,6 +47,7 @@ function getNextPages() {
         pagesToLoad.push(bottomPage++)
     }
     setCookie('last-page', pagesToLoad[0], { expires: 2592000 });
+    $(readerSelector).append('<div class="loader-wrapper"><div class="loader"></div></div>')
     return pagesToLoad;
 }
 
@@ -55,6 +57,7 @@ function getPrevPages() {
         if (topPage == 1) break;
         pagesToLoad.push(--topPage)
     }
+    $(readerSelector).prepend('<div class="loader-wrapper"><div class="loader"></div></div>')
     return pagesToLoad;
 }
 
