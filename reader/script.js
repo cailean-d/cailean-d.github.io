@@ -227,7 +227,12 @@ $(document).ready(function() {
 
 
 function initSettings() {
-    let img = getCookie('background-image') || presets.default.backgroundImage;
+    let img;
+    if (!getCookie('background-color')) {
+        img = getCookie('background-image') || presets.default.backgroundImage;
+    } else {
+        img = getCookie('background-image');
+    }
     $(readerSelector).css({
         'font-family': getCookie('font-family') || presets.default.fontFamily,
         'font-size': getCookie('font-size') || presets.default.fontSize,
