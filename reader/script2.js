@@ -11,7 +11,11 @@ function loadPages(pages, dir, cb) {
         fetch('pages/' + pages.shift() + '.html').then(res => {
             if (res.status == 200) {
                 res.text().then(text => {
-                    data += text;
+                    if (dir) {
+                        data += text;
+                    } else {
+                        data = text + data;
+                    }
                     loadPages(pages, dir, cb);
                 })
             } else {
