@@ -60,6 +60,7 @@ function getPrevPages() {
 loadPages(getNextPages(), true)
 
 window.onscroll = function() {
+    console.log(2)
     let el = document.documentElement;
     if ((el.clientHeight + el.scrollTop) >= el.scrollHeight) {
         if (!isLoading && !bottomIsLoaded) {
