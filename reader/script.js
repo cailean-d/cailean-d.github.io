@@ -152,7 +152,7 @@ $(document).ready(function() {
     textures.forEach(function(item, i) {
         $('.bg-texture-' + i).on('click', function() {
             $(readerSelector).css('background-image', 'url("' + item + '")')
-            setCookie('background-image', 'url("' + item + '")', { expires: 2592000 });
+            setCookie('background-image', item, { expires: 2592000 });
             getImageLightness(item,function(brightness){
                 if (brightness < 100) {
                     $(readerSelector).css('color', '#fff');
@@ -206,7 +206,7 @@ $(document).ready(function() {
             setCookie('text-padding', presets[key].textPadding + 'px', { expires: 2592000 });
 
             $(readerSelector).css('background-image', 'url("' + presets[key].backgroundImage + '")')
-            setCookie('background-image', 'url("' + presets[key].backgroundImage + '")', { expires: 2592000 });
+            setCookie('background-image', presets[key].backgroundImage, { expires: 2592000 });
 
             if (!presets[key].backgroundImage) {
                 $(readerSelector).css('background-image', '');
@@ -237,18 +237,18 @@ function initSettings() {
         'padding-right': getCookie('text-padding') || presets.default.textPadding,
         'color': getCookie('text-color') || presets.default.color,
         'background-color': getCookie('background-color') || presets.default.backgroundColor,
-        'background-image': img,
+        'background-image': 'url("' + img + '")',
     })
 
-    // if (img) {
-    //     getImageLightness(img,function(brightness){
-    //         if (brightness < 100) {
-    //             $('body').addClass('theme-dark');
-    //         } 
-    //     });
-    // } else if (lightOrDark($(readerSelector).css('background-color')) == 'dark') {
-    //     $('body').addClass('theme-dark');
-    // }
+    if (img) {
+        getImageLightness(img,function(brightness){
+            if (brightness < 100) {
+                $('body').addClass('theme-dark');
+            } 
+        });
+    } else if (lightOrDark($(readerSelector).css('background-color')) == 'dark') {
+        $('body').addClass('theme-dark');
+    }
 }
 
 
