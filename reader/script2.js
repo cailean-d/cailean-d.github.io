@@ -5,6 +5,7 @@ let topPage = getCookie('last-page') || 1;
 let bottomPage = getCookie('last-page') || 1;
 let pageCount = 5;
 let data = '';
+let doc = document.documentElement;
 
 function loadPages(pages, dir, cb) {
     if (pages && pages[0]) {
@@ -60,17 +61,25 @@ function getPrevPages() {
 loadPages(getNextPages(), true)
 
 window.onscroll = function() {
-    console.log(2)
-    let el = document.documentElement;
-    if ((el.clientHeight + el.scrollTop) >= el.scrollHeight) {
+    if ((doc.clientHeight + doc.scrollTop) >= doc.scrollHeight) {
         if (!isLoading && !bottomIsLoaded) {
             isLoading = true;
             loadPages(getNextPages(), true, _ => isLoading = false)
         }
-    } else if ( el.scrollHeight > el.clientHeight && el.scrollTop == 0) {
+    } else if ( doc.scrollHeight > doc.clientHeight && doc.scrollTop == 0) {
         if (!isLoading && !topIsLoaded) {
             isLoading = true;
             loadPages(getPrevPages(), false, _ => isLoading = false)
         }
     }
 };
+
+window.onmousewheel = function(e) {
+    if (doc.scrollTop == 0) {
+        // if (!isLoading && !topIsLoaded) {
+        //     isLoading = true;
+        //     loadPages(getPrevPages(), false, _ => isLoading = false)
+        // }
+        console.log(e.deltaY)
+    }
+}
