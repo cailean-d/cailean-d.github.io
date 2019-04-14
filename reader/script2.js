@@ -11,6 +11,7 @@ function loadPages(pages, dir) {
     if (pages && pages[0]) {
         fetch('pages/' + pages.shift() + '.html').then(res => {
             if (res.status == 200) {
+                console.log('200')
                 res.text().then(text => {
                     if (dir) {
                         data += text;
@@ -20,6 +21,7 @@ function loadPages(pages, dir) {
                     loadPages(pages, dir);
                 })
             } else {
+                console.log('404')
                 isLoading = false;
                 if (dir) {
                     bottomIsLoaded = true;
