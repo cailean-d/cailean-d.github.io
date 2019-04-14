@@ -157,9 +157,11 @@ $(document).ready(function() {
                 if (brightness < 100) {
                     $(readerSelector).css('color', '#fff');
                     setCookie('text-color', '#fff', { expires: 2592000 });
+                    $('body').addClass('theme-dark');
                 } else {
                     $(readerSelector).css('color', '#000');
                     setCookie('text-color', '#000', { expires: 2592000 });
+                    $('body').removeClass('theme-dark');
                 }
             });
         });
