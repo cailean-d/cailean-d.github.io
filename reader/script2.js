@@ -20,8 +20,8 @@ function loadPages(pages, dir) {
                     loadPages(pages, dir);
                 })
             } else {
-                $('.loader-wrapper').remove();
                 setTimeout(_ => isLoading = false, 1000);                
+                $('.loader-wrapper').remove();
                 if (dir) {
                     bottomIsLoaded = true;
                     setCookie('last-page', bottomPage - pageCount * 2, { expires: 2592000 });
