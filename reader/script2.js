@@ -24,6 +24,7 @@ function loadPages(pages, dir, cb) {
             }
         })
     }  else {
+        console.log(1)
         if (dir) {
             $(readerSelector).append(data)
         } else {
