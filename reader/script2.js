@@ -19,6 +19,7 @@ function loadPages(pages, dir, cb) {
                     loadPages(pages, dir, cb);
                 })
             } else {
+                isLoading = false;
                 if (dir) {
                     bottomIsLoaded = true;
                     setCookie('last-page', bottomPage - pageCount * 2, { expires: 2592000 });
@@ -28,7 +29,6 @@ function loadPages(pages, dir, cb) {
             }
         })
     }  else {
-        console.log(1)
         if (dir) {
             $(readerSelector).append(data)
         } else {
