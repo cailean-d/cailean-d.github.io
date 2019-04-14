@@ -29,7 +29,7 @@ function loadPages(pages, dir) {
                     topIsLoaded = true;
                 }
             }
-        })
+        }).catch(_ => console.log('eeeerrroror'))
     }  else {
         isLoading = false;
         $('.loader-wrapper').remove();
