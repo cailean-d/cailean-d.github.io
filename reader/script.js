@@ -245,6 +245,8 @@ function initSettings() {
         'background-image': 'url("' + img + '")',
     })
 
+    console.log(img)
+
     if (img) {
         getImageLightness(img,function(brightness){
             if (brightness < 100) {
