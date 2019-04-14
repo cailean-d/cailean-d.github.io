@@ -75,13 +75,12 @@ loadPages(getNextPages(), true)
 // };
 
 window.onmousewheel = function(e) {
-    console.log(e.deltaY > 0);
-    if ((doc.clientHeight + doc.scrollTop) >= doc.scrollHeight && e.deltaY < 0) {
+    if ((doc.clientHeight + doc.scrollTop) >= doc.scrollHeight && e.deltaY > 0) {
         if (!isLoading && !bottomIsLoaded) {
             isLoading = true;
             loadPages(getNextPages(), true, _ => isLoading = false)
         }
-    } else if (doc.scrollHeight > doc.clientHeight && doc.scrollTop == 0 && e.deltaY > 0) {
+    } else if (doc.scrollHeight > doc.clientHeight && doc.scrollTop == 0 && e.deltaY < 0) {
         if (!isLoading && !topIsLoaded) {
             isLoading = true;
             loadPages(getPrevPages(), false, _ => isLoading = false)
