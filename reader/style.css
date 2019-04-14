@@ -24,6 +24,8 @@
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .toolbar-wrapper .btn-group > * {
