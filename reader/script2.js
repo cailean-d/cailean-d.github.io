@@ -75,6 +75,7 @@ loadPages(getNextPages(), true)
 // };
 
 window.onmousewheel = function(e) {
+    console.log(e.deltaY > 0);
     if ((doc.clientHeight + doc.scrollTop) >= doc.scrollHeight && e.deltaY < 0) {
         if (!isLoading && !bottomIsLoaded) {
             isLoading = true;
