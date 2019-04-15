@@ -80,8 +80,10 @@ function loadPageOnScroll(e) {
     }
 }
 
-window.addEventListener('scroll', loadPageOnScroll)
-window.addEventListener('mousewheel', loadPageOnScroll)
+$(window).on('scroll', loadPageOnScroll)
+$(window).on('mousewheel', loadPageOnScroll)
+$('.reader .content').on('scroll', loadPageOnScroll)
+$('.reader .content').on('mousewheel', loadPageOnScroll)
 
 loadPages(getNextPages(), true);
 
