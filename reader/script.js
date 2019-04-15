@@ -41,12 +41,13 @@ var presets = {
 $(document).ready(function() {
 
     $('.fullscreen-on').on('click', function() {
+        $(this).hide();
         $('.content').addClass('reader-fullscreen');
-        $('body').trigger('click');
-        $('body').trigger('click');
-        $('body').trigger('click');
-        $('body').trigger('click');
-        $('body').trigger('click');
+        setTimeout(_ => $(this).show(), 300);
+    })
+
+    $('.fullscreen-off').on('click', function() {
+        $('.content').removeClass('reader-fullscreen');
     })
 
     $('.toolbar > *').on('click', function() {

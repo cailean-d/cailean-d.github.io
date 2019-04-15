@@ -7,8 +7,6 @@
     color: #fff;
 }
 
-
-
 .reader {
     max-width: 900px;
     margin: 20px auto;
@@ -18,6 +16,7 @@
     text-align: center;
     padding-bottom: 30px;
     padding-top: 30px;
+    background: #fff;
 }
 
 .reader .content {
@@ -154,4 +153,30 @@
     left: 0;
     overflow: auto;
     height: 100vh;
+}
+
+.content .fullscreen-off {
+    position: fixed;
+    top: 0;
+    right: 0;
+    display: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-right: 15px;
+    font-size: 20px;
+}
+
+.content .fullscreen-off:hover {
+    color: #444;
+}
+
+.reader-fullscreen .fullscreen-off {
+    display: block;
+}
+
+.theme-dark .fullscreen-off {
+    color: #fff;
+}
+.theme-dark .fullscreen-off:hover {
+    color: #d6d6d6;
 }
