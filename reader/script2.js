@@ -87,30 +87,52 @@ loadPages(getNextPages(), true);
 
 
 
-$(function(){
+// $(function(){
   
-    // createSticky($(".tooltip-wrapper"));
+//     // createSticky($(".tooltip-wrapper"));
     
-    var stickyOffset = $('.toolbar-wrapper')[0].offsetTop;
+//     var stickyOffset = $('.toolbar-wrapper')[0].offsetTop;
 
-function stickyToolbar() {
-    requestAnimationFrame(() => {
-        if (window.pageYOffset >= stickyOffset) {
-            requestAnimationFrame(() => {
-                $('.toolbar-wrapper').addClass('sticky');
-            });
+// function stickyToolbar() {
+//   if (window.pageYOffset >= stickyOffset) {
+//     $('.toolbar-wrapper').addClass('sticky');
+//   } else {
+//     $('.toolbar-wrapper').removeClass('sticky');
+//   }
+// }
+
+// window.addEventListener('scroll', stickyToolbar)
+
+
+
+// });
+
+
+$(document).ready(function() {
+    //Enter Your Class or ID
+    var $stickyMenu = $('.tooltip-wrapper');
+
+    var stickyNavTop = $($stickyMenu).offset().top;
+
+    //Get Height of Navbar Div
+    var navHeight = $($stickyMenu).height();
+
+    var stickyNav = function(){
+        var scrollTop = $(window).scrollTop();
+        if (scrollTop > stickyNavTop) { 
+            $($stickyMenu).addClass('sticky');
+            $('html').css('padding-top', navHeight + 'px')
         } else {
-            requestAnimationFrame(() => {
-                $('.toolbar-wrapper').removeClass('sticky');
-            });
+            $($stickyMenu).removeClass('sticky');
+            $('html').css('padding-top', '0')
         }
-    })
-}
+    };
 
-window.addEventListener('scroll', stickyToolbar)
+    stickyNav();
 
-
-
+    $(window).scroll(function() {
+        stickyNav();
+    });
 });
 
 // function createSticky(sticky) {

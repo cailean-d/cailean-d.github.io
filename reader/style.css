@@ -141,9 +141,9 @@
     z-index: 100;
 }
 
-.sticky + .content {
+/* .sticky + .content {
     padding-top: 117px;
-}
+} */
 
 .book-description {
     background-color: #f1f1f1;
