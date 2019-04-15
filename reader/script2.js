@@ -81,7 +81,7 @@ function loadPageOnScroll(e) {
 }
 
 window.addEventListener('scroll', loadPageOnScroll)
-window.addEventListener('scroll', stickyToolbar)
+// window.addEventListener('scroll', stickyToolbar)
 window.addEventListener('mousewheel', loadPageOnScroll)
 
 loadPages(getNextPages(), true);
