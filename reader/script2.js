@@ -64,14 +64,14 @@ function getPrevPages() {
     return pagesToLoad;
 }
 
-function loadPageOnScroll(e) {
-    if ((doc.clientHeight + doc.scrollTop) >= doc.scrollHeight) {
+function loadPageOnScroll(elem, e) {
+    if ((elem.clientHeight + elem.scrollTop) >= elem.scrollHeight) {
         if (!e.deltaY || (e.deltaY && e.deltaY > 0)) {
             if (!isLoading && !bottomIsLoaded) {
                 loadPages(getNextPages(), true)
             }
         }
-    } else if (doc.scrollHeight > doc.clientHeight && doc.scrollTop == 0) {
+    } else if (elem.scrollHeight > elem.clientHeight && elem.scrollTop == 0) {
         if (!e.deltaY || (e.deltaY && e.deltaY < 0)) {
             if (!isLoading && !topIsLoaded) {
                 loadPages(getPrevPages(), false)
@@ -80,10 +80,10 @@ function loadPageOnScroll(e) {
     }
 }
 
-$(window).on('scroll', loadPageOnScroll)
-$(window).on('mousewheel', loadPageOnScroll)
-$('.reader .content').on('scroll', loadPageOnScroll)
-$('.reader .content').on('mousewheel', loadPageOnScroll)
+$(window).on('scroll', e => loadPageOnScroll(doc, e))
+$(window).on('mousewheel', e => loadPageOnScroll(doc, e))
+$('.reader .content').on('scroll', e => loadPageOnScroll($('.reader .content')[0], e))
+$('.reader .content').on('mousewheel', e => loadPageOnScroll($('.reader .content')[0], e))
 
 loadPages(getNextPages(), true);
 
