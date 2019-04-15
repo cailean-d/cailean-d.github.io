@@ -1,4 +1,4 @@
-var readerSelector = '.reader .text';
+var readerSelector = '.reader .content';
 
 var colorPickerOptions = {
     color: '#000',

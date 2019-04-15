@@ -80,7 +80,18 @@ function loadPageOnScroll(e) {
     }
 }
 
-window.onmousewheel = loadPageOnScroll
-window.onscroll = loadPageOnScroll
+window.addEventListener('scroll', loadPageOnScroll)
+window.addEventListener('scroll', stickyToolbar)
+window.addEventListener('mousewheel', loadPageOnScroll)
 
 loadPages(getNextPages(), true);
+
+var stickyOffset = $('.toolbar-wrapper')[0].offsetTop;
+
+function stickyToolbar() {
+  if (window.pageYOffset > stickyOffset) {
+    $('.toolbar-wrapper').addClass('sticky');
+  } else {
+    $('.toolbar-wrapper').removeClass('sticky');
+  }
+}
