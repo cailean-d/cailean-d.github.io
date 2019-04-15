@@ -112,7 +112,7 @@ $(document).ready(function() {
     //Enter Your Class or ID
     var $stickyMenu = $('.tooltip-wrapper');
 
-    var stickyNavTop = $($stickyMenu).offset().top;
+    var stickyNavTop = $($stickyMenu)[0].offsetTop;
 
     //Get Height of Navbar Div
     var navHeight = $($stickyMenu).height();
