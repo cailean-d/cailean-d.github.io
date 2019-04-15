@@ -81,37 +81,41 @@ function loadPageOnScroll(e) {
 }
 
 window.addEventListener('scroll', loadPageOnScroll)
-// window.addEventListener('scroll', stickyToolbar)
 window.addEventListener('mousewheel', loadPageOnScroll)
 
 loadPages(getNextPages(), true);
 
-// var stickyOffset = $('.toolbar-wrapper')[0].offsetTop;
-
-// function stickyToolbar() {
-//   if (window.pageYOffset > stickyOffset) {
-//     $('.toolbar-wrapper').addClass('sticky');
-//   } else {
-//     $('.toolbar-wrapper').removeClass('sticky');
-//   }
-// }
 
 
 $(function(){
   
-	createSticky($(".tooltip-wrapper"));
+    // createSticky($(".tooltip-wrapper"));
+    
+    var stickyOffset = $('.toolbar-wrapper')[0].offsetTop;
+
+function stickyToolbar() {
+  if (window.pageYOffset > stickyOffset) {
+    $('.toolbar-wrapper').addClass('sticky');
+  } else {
+    $('.toolbar-wrapper').removeClass('sticky');
+  }
+}
+
+window.addEventListener('scroll', stickyToolbar)
+
+
 
 });
 
-function createSticky(sticky) {
+// function createSticky(sticky) {
 	
-	if (typeof sticky !== "undefined") {
+// 	if (typeof sticky !== "undefined") {
 
-		var	pos = sticky.offset().top,
-				win = $(window);
+// 		var	pos = sticky.offset().top,
+// 				win = $(window);
 			
-		win.on("scroll", function() {
-    		win.scrollTop() >= pos ? sticky.addClass("sticky") : sticky.removeClass("sticky");      
-		});			
-	}
-}
+// 		win.on("scroll", function() {
+//     		win.scrollTop() >= pos ? sticky.addClass("sticky") : sticky.removeClass("sticky");      
+// 		});			
+// 	}
+// }
