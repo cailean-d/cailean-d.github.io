@@ -40,6 +40,10 @@ var presets = {
 
 $(document).ready(function() {
 
+    $('.fullscreen-on').on('click', function() {
+        $('.content').addClass('reader-fullscreen');
+    })
+
     $('.toolbar > *').on('click', function() {
         $("#text-color-picker").spectrum('hide');
         $("#background-color-picker").spectrum('hide');
