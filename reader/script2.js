@@ -65,7 +65,7 @@ function getPrevPages() {
 }
 
 function loadPageOnScroll(elem, e) {
-    console.log(elem.classList)
+    console.log(e.deltaY)
     if ($(elem).hasClass('content') && !$(elem).hasClass('reader-fullscreen')) return;
     if ((elem.clientHeight + elem.scrollTop) >= elem.scrollHeight) {
         if (!e.deltaY || (e.deltaY && e.deltaY > 0)) {
