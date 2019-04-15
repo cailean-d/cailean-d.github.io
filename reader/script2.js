@@ -115,7 +115,7 @@ $(document).ready(function() {
     var stickyNavTop = $($stickyMenu).offset().top;
 
     //Get Height of Navbar Div
-    var navHeight = $($stickyMenu).height();
+    var navHeight = $($stickyMenu).outerHeight();
 
     var stickyNav = function(){
         var scrollTop = $(window).scrollTop();
