@@ -83,9 +83,9 @@ function loadPageOnScroll(elem, e) {
 }
 
 window.addEventListener('scroll', e => loadPageOnScroll(doc, e))
-window.addEventListener('mousewheel', e => console.log(e.deltaY))
-$('.reader .content').on('scroll', e => loadPageOnScroll($('.reader .content')[0], e))
-$('.reader .content').on('mousewheel', e => loadPageOnScroll($('.reader .content')[0], e))
+window.addEventListener('mousewheel', e => loadPageOnScroll(doc, e))
+$('.reader .content')[0].addEventListener('scroll', e => loadPageOnScroll($('.reader .content')[0], e))
+$('.reader .content')[0].addEventListener('mousewheel', e => loadPageOnScroll($('.reader .content')[0], e))
 
 loadPages(getNextPages(), true);
 
