@@ -65,7 +65,7 @@ function getPrevPages() {
 }
 
 function loadPageOnScroll(e) {
-    if ((doc.clientHeight + doc.scrollTop) >= doc.scrollHeight &&) {
+    if ((doc.clientHeight + doc.scrollTop) >= doc.scrollHeight) {
         if (!e.deltaY || (e.deltaY && e.deltaY > 0)) {
             if (!isLoading && !bottomIsLoaded) {
                 loadPages(getNextPages(), true)
