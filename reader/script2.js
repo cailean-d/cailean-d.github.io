@@ -65,7 +65,6 @@ function getPrevPages() {
 }
 
 function loadPageOnScroll(elem, e) {
-    console.log(e.deltaY)
     if ($(elem).hasClass('content') && !$(elem).hasClass('reader-fullscreen')) return;
     if ((elem.clientHeight + elem.scrollTop) >= elem.scrollHeight) {
         if (!e.deltaY || (e.deltaY && e.deltaY > 0)) {
@@ -89,36 +88,9 @@ $('.reader .content')[0].addEventListener('mousewheel', e => loadPageOnScroll($(
 
 loadPages(getNextPages(), true);
 
-
-
-// $(function(){
-  
-//     // createSticky($(".tooltip-wrapper"));
-    
-//     var stickyOffset = $('.toolbar-wrapper')[0].offsetTop;
-
-// function stickyToolbar() {
-//   if (window.pageYOffset >= stickyOffset) {
-//     $('.toolbar-wrapper').addClass('sticky');
-//   } else {
-//     $('.toolbar-wrapper').removeClass('sticky');
-//   }
-// }
-
-// window.addEventListener('scroll', stickyToolbar)
-
-
-
-// });
-
-
 $(document).ready(function() {
-    //Enter Your Class or ID
     var $stickyMenu = $('.toolbar-wrapper');
-
     var stickyNavTop = $($stickyMenu).offset().top;
-
-    //Get Height of Navbar Div
     var navHeight = $($stickyMenu).outerHeight();
 
     var stickyNav = function(){
@@ -138,16 +110,3 @@ $(document).ready(function() {
         stickyNav();
     });
 });
-
-// function createSticky(sticky) {
-	
-// 	if (typeof sticky !== "undefined") {
-
-// 		var	pos = sticky.offset().top,
-// 				win = $(window);
-			
-// 		win.on("scroll", function() {
-//     		win.scrollTop() >= pos ? sticky.addClass("sticky") : sticky.removeClass("sticky");      
-// 		});			
-// 	}
-// }
