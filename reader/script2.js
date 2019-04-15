@@ -121,10 +121,10 @@ $(document).ready(function() {
         var scrollTop = $(window).scrollTop();
         if (scrollTop > stickyNavTop) { 
             $($stickyMenu).addClass('sticky');
-            $('.reader').css('padding-top', navHeight + 'px')
+            $('body').css('padding-top', navHeight + 'px')
         } else {
             $($stickyMenu).removeClass('sticky');
-            $('.reader').css('padding-top', '0')
+            $('body').css('padding-top', '0')
         }
     };
 
