@@ -94,12 +94,17 @@ $(function(){
     var stickyOffset = $('.toolbar-wrapper')[0].offsetTop;
 
 function stickyToolbar() {
-    console.log(window.pageYOffset, stickyOffset)
-  if (window.pageYOffset > stickyOffset) {
-    $('.toolbar-wrapper').addClass('sticky');
-  } else {
-    $('.toolbar-wrapper').removeClass('sticky');
-  }
+    requestAnimationFrame(() => {
+        if (window.pageYOffset >= stickyOffset) {
+            requestAnimationFrame(() => {
+                $('.toolbar-wrapper').addClass('sticky');
+            });
+        } else {
+            requestAnimationFrame(() => {
+                $('.toolbar-wrapper').removeClass('sticky');
+            });
+        }
+    })
 }
 
 window.addEventListener('scroll', stickyToolbar)
