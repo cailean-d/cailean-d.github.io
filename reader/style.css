@@ -142,12 +142,16 @@
     z-index: 100;
 }
 
-/* .sticky + .content {
-    padding-top: 117px;
-} */
-
 .book-description {
     background-color: #f1f1f1;
     padding: 30px;
     text-align: center;
+}
+
+.reader-fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: auto;
+    height: 100vh;
 }
