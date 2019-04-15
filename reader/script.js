@@ -43,6 +43,10 @@ $(document).ready(function() {
     $('.fullscreen-on').on('click', function() {
         $('.content').addClass('reader-fullscreen');
         $('body').trigger('click');
+        $('body').trigger('click');
+        $('body').trigger('click');
+        $('body').trigger('click');
+        $('body').trigger('click');
     })
 
     $('.toolbar > *').on('click', function() {
