@@ -16,8 +16,8 @@
 
 .toolbar-wrapper {
     text-align: center;
-    padding-bottom: 20px;
-    padding-top: 40px;
+    padding-bottom: 30px;
+    padding-top: 30px;
 }
 
 .reader .content {
@@ -58,7 +58,8 @@
         font-size: 12px;
     }
     .toolbar-wrapper {
-        padding-top: 0;
+        padding-top: 10px;
+        padding-bottom: 10px;
     }
 }
 
