@@ -110,9 +110,9 @@ loadPages(getNextPages(), true);
 
 $(document).ready(function() {
     //Enter Your Class or ID
-    var $stickyMenu = $('.tooltip-wrapper');
+    var $stickyMenu = $('.toolbar-wrapper');
 
-    var stickyNavTop = $($stickyMenu)[0].offsetTop;
+    var stickyNavTop = $($stickyMenu).offset().top;
 
     //Get Height of Navbar Div
     var navHeight = $($stickyMenu).height();
