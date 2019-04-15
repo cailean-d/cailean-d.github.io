@@ -86,12 +86,13 @@ window.addEventListener('mousewheel', loadPageOnScroll)
 
 loadPages(getNextPages(), true);
 
-var stickyOffset = $('.toolbar-wrapper')[0].offsetTop;
+var header = document.querySelector('.toolbar-wrapper');
+var stickyOffset = header.offsetTop;
 
 function stickyToolbar() {
   if (window.pageYOffset > stickyOffset) {
-    $('.toolbar-wrapper').addClass('sticky');
+    header.classList.add("sticky");
   } else {
-    $('.toolbar-wrapper').removeClass('sticky');
+    header.classList.remove("sticky");
   }
 }
