@@ -86,13 +86,12 @@ window.addEventListener('mousewheel', loadPageOnScroll)
 
 loadPages(getNextPages(), true);
 
-var header = document.querySelector('.toolbar-wrapper');
-var stickyOffset = header.offsetTop;
+// var stickyOffset = $('.toolbar-wrapper')[0].offsetTop;
 
-function stickyToolbar() {
-  if (window.pageYOffset > stickyOffset) {
-    header.classList.add("sticky");
-  } else {
-    header.classList.remove("sticky");
-  }
-}
+// function stickyToolbar() {
+//   if (window.pageYOffset > stickyOffset) {
+//     $('.toolbar-wrapper').addClass('sticky');
+//   } else {
+//     $('.toolbar-wrapper').removeClass('sticky');
+//   }
+// }
