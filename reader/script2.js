@@ -65,8 +65,8 @@ function getPrevPages() {
 }
 
 function loadPageOnScroll(elem, e) {
-    if ($(elem).hasClass('content') && !$(elem).hasClass('reader-fullscreen')) return;
     console.log(elem.classList)
+    if ($(elem).hasClass('content') && !$(elem).hasClass('reader-fullscreen')) return;
     if ((elem.clientHeight + elem.scrollTop) >= elem.scrollHeight) {
         if (!e.deltaY || (e.deltaY && e.deltaY > 0)) {
             if (!isLoading && !bottomIsLoaded) {
