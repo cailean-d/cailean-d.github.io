@@ -94,6 +94,7 @@ $(function(){
     var stickyOffset = $('.toolbar-wrapper')[0].offsetTop;
 
 function stickyToolbar() {
+    console.log(window.pageYOffset, stickyOffset)
   if (window.pageYOffset > stickyOffset) {
     $('.toolbar-wrapper').addClass('sticky');
   } else {
