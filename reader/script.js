@@ -40,8 +40,6 @@ var presets = {
 
 $(document).ready(function() {
 
-    $(".tooltip-wrapper").sticky({topSpacing:0});
-
     $('.toolbar > *').on('click', function() {
         $("#text-color-picker").spectrum('hide');
         $("#background-color-picker").spectrum('hide');
