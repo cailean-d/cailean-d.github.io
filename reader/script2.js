@@ -82,8 +82,8 @@ function loadPageOnScroll(elem, e) {
     }
 }
 
-$(window).on('scroll', e => loadPageOnScroll(doc, e))
-$(window).on('mousewheel', e => console.log(e.deltaY))
+window.addEventListener('scroll', e => loadPageOnScroll(doc, e))
+window.addEventListener('mousewheel', e => console.log(e.deltaY))
 $('.reader .content').on('scroll', e => loadPageOnScroll($('.reader .content')[0], e))
 $('.reader .content').on('mousewheel', e => loadPageOnScroll($('.reader .content')[0], e))
 
