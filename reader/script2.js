@@ -64,17 +64,23 @@ function getPrevPages() {
     return pagesToLoad;
 }
 
-window.onmousewheel = function(e) {
-    if ((doc.clientHeight + doc.scrollTop) >= doc.scrollHeight && e.deltaY > 0) {
-        if (!isLoading && !bottomIsLoaded) {
-            loadPages(getNextPages(), true)
+function loadPageOnScroll(e) {
+    if ((doc.clientHeight + doc.scrollTop) >= doc.scrollHeight &&) {
+        if (!e.deltaY || (e.deltaY && e.deltaY > 0)) {
+            if (!isLoading && !bottomIsLoaded) {
+                loadPages(getNextPages(), true)
+            }
         }
-    } else if (doc.scrollHeight > doc.clientHeight && doc.scrollTop == 0 && e.deltaY < 0) {
-        if (!isLoading && !topIsLoaded) {
-            loadPages(getPrevPages(), false)
+    } else if (doc.scrollHeight > doc.clientHeight && doc.scrollTop == 0) {
+        if (!e.deltaY || (e.deltaY && e.deltaY < 0)) {
+            if (!isLoading && !topIsLoaded) {
+                loadPages(getPrevPages(), false)
+            }
         }
     }
 }
 
+window.onmousewheel = loadPageOnScroll
+window.onscroll = loadPageOnScroll
 
 loadPages(getNextPages(), true);
