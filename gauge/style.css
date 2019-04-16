@@ -1,0 +1,44 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+#app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.gauge {
+  margin-bottom: -0px;
+}
+  
+.gauge text.label {
+  fill: #ff0000;
+  font-weight: bold;
+}
+
+.gauge text.value {
+  fill: #000000;
+  font-weight: bold;
+}
+
+.gauge .majorTick {
+  stroke: #fff;
+  stroke-width: 4px; /* 1px */
+}
+
+.gauge .minorTick {
+  stroke: #787785;
+  stroke-width: 1px;
+}
+
+.gauge .pointerLine {
+  stroke: rgb(5, 103, 163);
+  fill: rgb(5, 103, 163);
+}
+
+.gauge .pointerCircle {
+  stroke: rgb(5, 103, 163);
+  fill: rgb(5, 103, 163);
+}
