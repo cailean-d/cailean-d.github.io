@@ -4,15 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="style.css?">
+    <link rel="stylesheet" href="style.css?l">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css">
     <title>Reader</title>
 </head>
 <body> 
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">
+                    <img class="pull-left" alt="Brand" src="https://english-e-reader.net/images/eyeglasses_mini_logo_png8.png">
+                    English e-Reader
+                </a>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#responsive_menu" aria-expanded="false">
+                    <span class="sr-only">Open menu</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse" id="responsive_menu" aria-expanded="false" style="height: 1px;">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#"><span class="glyphicon glyphicon-search"></span>FIND</a>
+                    </li>
+                    <li>
+                        <a href="#"><span class="glyphicon glyphicon-education"></span>STUDY</a>
+                    </li>
+                    <li>
+                        <a href="#logout_modal" data-toggle="modal">
+                            <span class="glyphicon glyphicon-log-out"></span>
+                            LOG OUT
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <div class="reader">
         <div class="book-description">
-            <h1>Book Description</h1>
+            <!-- <div class="page-button">
+                <button type="button" onclick="loadPage(3-1)" class="btn btn-default btn-sm ">
+                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                    Previous page
+                </button>
+            </div> -->
+            <div>
+                <div>
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                    <span>E. M. Foster</span>
+                </div>
+                <div>
+                    <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+                    <a href="/book/a-passage-to-india-e-m-foster">A Passage to India</a>
+                    <button type="button" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Already in favourites">
+                        <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
+                    </button>
+                </div>
+                <p class="text-center">
+                    Page: <input id="pageInput" name="page" size="2" value="1">
+                    of 60
+                </p>
+            </div>
+            <!-- <div class="page-button">
+                <button type="button" onclick="loadPage(3+1)" class="btn btn-default btn-sm pull-right">
+                    Next Page
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+                </button>
+            </div> -->
         </div>
         <div class="toolbar-wrapper">
             <div class="btn-group toolbar" role="group" aria-label="..." style="display: none !important">
@@ -21,10 +80,11 @@
                         <span class="glyphicon glyphicon-tasks"></span>
                         <span class="caret"></span>
                     </button>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu theme-list">
                         <li><a href="#" class="theme-preset-0">Default</a></li>
                         <li><a href="#" class="theme-preset-1">Light</a></li>
                         <li><a href="#" class="theme-preset-2">Dark</a></li>
+                        <li><a href="#" class="theme-preset-3">Recommended</a></li>
                     </ul>
                 </div>
                 <button type="button" class="btn btn-default" data-toggle="tooltip" title="Text color">
@@ -61,6 +121,17 @@
                         <li><a href="#" class="reader-font-1">Times New Roman</a></li>
                         <li><a href="#" class="reader-font-2">Georgia</a></li>
                         <li><a href="#" class="reader-font-3">Verdana</a></li>
+                    </ul>
+                </div>
+                <div class="btn-group" role="group" data-toggle="tooltip" title="Font Style">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-italic"></span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" class="reader-font-style-0">Normal</a></li>
+                        <li><a href="#" class="reader-font-style-1">Bold</a></li>
+                        <li><a href="#" class="reader-font-style-2">Italic</a></li>
                     </ul>
                 </div>
                 <div class="btn-group" role="group" data-toggle="tooltip" title="Font size">
@@ -138,17 +209,79 @@
             </div>
         </div>
         <div class="content">
+            <div class="page-btn prev-page">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </div>
             <div class="fullscreen-off">
                 <span class="glyphicon glyphicon-fullscreen"></span>
             </div>
+            <div class="page-btn next-page">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </div>
+            <div class="inner"></div>
         </div>
     </div>
+    <footer class="footer-bs">
+        <div class="row">
+            <div class="col-md-3 footer-brand animated fadeInLeft">
+                <img alt="English-e-reader logo" src="https://english-e-reader.net/images/150.png">
+    
+                <p class="text-justify">English e-Reader is the biggest online library of graded e-books</p>
+                    <p class="text-justify">Here you can find plenty ebooks in different digital formats: epub, fb2, mobi, rtf, txt, as well as audio books in mp3 format. You can download ebook in format you want or just read online for free.</p>
+                <p class="text-justify">© 2015-2019 English e-Reader</p>
+            </div>
+            <div class="col-md-3 footer-nav animated fadeInUp">
+                <h4>Levels</h4>
+                <div class="col-md-6">
+                    <ul class="list">
+                        <li><a href="#">Elementary</a></li>
+                        <li><a href="#">Pre-intermediate</a></li>
+                        <li><a href="#">Intermediate</a></li>
+                        <li><a href="#">Upper-intermediate</a></li>
+                        <li><a href="#">Advanced</a></li>
+                        <li><a href="#">Unabridged</a></li>
+                    </ul>
+                </div>
+            </div>
+    
+            <div class="col-md-2 footer-nav animated fadeInUp">
+            <h4>Categories </h4>
+                <div class="col-md-6">
+                    <ul class="list">
+                        <li><a href="#">Genres</a></li>
+                        <li><a href="#">Series</a></li>
+                        <li><a href="#">Tags</a></li>
+                        <li><a href="#">Tops</a></li>
+                    </ul>
+                </div>
+            </div>
+    
+            <div class="col-md-2 footer-nav animated fadeInUp">
+                <h4>Info </h4>
+                <div class="col-md-6">
+                    <ul class="list">
+                        <li><a href="#">Articles</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">About</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2 footer-social animated fadeInDown">
+                <h4>Follow Us</h4>
+                <ul>
+                    <li><a href="https://twitter.com/englishebooks1" class="pure-button button-socicon"><span class="socicon socicon-twitter"></span>  Twitter</a></li>
+                    <li><a href="https://www.facebook.com/groups/english.e.books" class="pure-button button-socicon"><span class="socicon socicon-facebook"></span>  Facebook</a></li>
+                    <li><a href="https://plus.google.com/communities/116725622881459706627" class="pure-button button-socicon"><span class="socicon socicon-googleplus"></span>  Google+</a></li>
+                    <li><a href="https://vk.com/english_e_books" class="pure-button button-socicon"><span class="socicon socicon-vkontakte"></span>  Vkontakte</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.sticky/1.0.4/jquery.sticky.min.js"></script>
     <script src="cookie.js"></script>
-    <script src="script.js?"></script>
-    <script src="script2.js?"></script>
+    <script src="script.js?l"></script>
+    <script src="script3.js?l"></script>
 </body>
 </html>

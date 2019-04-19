@@ -9,13 +9,14 @@ let doc = document.documentElement;
 
 function loadPages(pages, dir) {
     if (pages && pages[0]) {
-        fetch('pages/' + pages.shift() + '.html').then(res => {
+        var p = pages.shift();
+        fetch('pages/' + p + '.html').then(res => {
             if (res.status == 200) {
                 res.text().then(text => {
                     if (dir) {
-                        data += text;
+                        data += '<div class="page' + p + '">' + text + '</div>';
                     } else {
-                        data = text + data;
+                        data = '<div class="page' + p + '">' + text + '</div>' + data;
                     }
                     loadPages(pages, dir);
                 })
@@ -87,26 +88,3 @@ $('.reader .content')[0].addEventListener('scroll', e => loadPageOnScroll($('.re
 $('.reader .content')[0].addEventListener('mousewheel', e => loadPageOnScroll($('.reader .content')[0], e))
 
 loadPages(getNextPages(), true);
-
-$(document).ready(function() {
-    var $stickyMenu = $('.toolbar-wrapper');
-    var stickyNavTop = $($stickyMenu).offset().top;
-    var navHeight = $($stickyMenu).outerHeight();
-
-    var stickyNav = function(){
-        var scrollTop = $(window).scrollTop();
-        if (scrollTop > stickyNavTop) { 
-            $($stickyMenu).addClass('sticky');
-            $('body').css('padding-top', navHeight + 'px')
-        } else {
-            $($stickyMenu).removeClass('sticky');
-            $('body').css('padding-top', '0')
-        }
-    };
-
-    stickyNav();
-
-    $(window).scroll(function() {
-        stickyNav();
-    });
-});

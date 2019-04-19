@@ -1,0 +1,12 @@
+{
+    "color": "#fff",
+    "backgroundColor": "#fff",
+    "backgroundImage": "img/background2.jpg",
+    "fontFamily": "Arial",
+    "fontSize": 16,
+    "fontInterval": "",
+    "fontStyle": "italic",
+    "textAlign": "start",
+    "textIndent": 0, 
+    "textPadding": 40
+}
