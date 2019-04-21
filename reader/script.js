@@ -65,15 +65,15 @@ $(document).ready(function() {
     });
 
     $('.toolbar-hide').on('click', function() {
-        $('.toolbar').attr('style', 'display: none !important');
-        $('.toolbar-hide').hide();
-        $('.toolbar-show').show();
+        $('.toolbar-wrapper').attr('style', 'display: none !important');
+        $('.book-description').show();
+        // $('.toolbar-hide').hide();
     })
 
     $('.toolbar-show').on('click', function() {
-        $('.toolbar').attr('style', 'display: inline-flex !important');
-        $('.toolbar-hide').show();
-        $('.toolbar-show').hide();
+        $('.toolbar-wrapper').attr('style', 'display: flex !important');
+        $('.book-description').hide();
+        // $('.toolbar-hide').show();
     })
 
     $('[data-toggle="tooltip"]').tooltip({ trigger: "hover", container: 'body' });
@@ -197,7 +197,7 @@ function setTheme(name) {
         'padding-right': theme.textPadding ? theme.textPadding + 'px' : '',
         'font-style': theme.fontStyle && theme.fontStyle != 'bold' ? theme.fontStyle : '',
         'font-weight': theme.fontStyle && theme.fontStyle == 'bold' ? 'bold' : '',
-    })
+    });
 
     $(readerSelector).parent().css({
         'background-color': theme.backgroundColor ? theme.backgroundColor : '',
@@ -262,35 +262,35 @@ function initSettings() {
 
 // load recommended theme
 fetch('theme.json').then(res => {
-    res.json().then((data) => {
+    res.json().then(data => {
         presets.recommended = data;
     })
 })
 
 
-// sticky toolbar
-$(document).ready(function() {
-    var $stickyMenu = $('.toolbar-wrapper');
-    var stickyNavTop = $($stickyMenu).offset().top;
-    var navHeight = $($stickyMenu).outerHeight();
+// // sticky toolbar
+// $(document).ready(function() {
+//     var $stickyMenu = $('.toolbar-wrapper');
+//     var stickyNavTop = $($stickyMenu).offset().top;
+//     var navHeight = $($stickyMenu).outerHeight();
 
-    var stickyNav = function(){
-        var scrollTop = $(window).scrollTop();
-        if (scrollTop > stickyNavTop - 54) { 
-            $($stickyMenu).addClass('sticky');
-            $('body').css('padding-top', navHeight + 'px')
-        } else {
-            $($stickyMenu).removeClass('sticky');
-            $('body').css('padding-top', '0')
-        }
-    };
+//     var stickyNav = function(){
+//         var scrollTop = $(window).scrollTop();
+//         if (scrollTop > stickyNavTop - 54) { 
+//             $($stickyMenu).addClass('sticky');
+//             $('body').css('padding-top', navHeight + 'px')
+//         } else {
+//             $($stickyMenu).removeClass('sticky');
+//             $('body').css('padding-top', '0')
+//         }
+//     };
 
-    stickyNav();
+//     stickyNav();
 
-    $(window).scroll(function() {
-        stickyNav();
-    });
-});
+//     $(window).scroll(function() {
+//         stickyNav();
+//     });
+// });
 
 
 function lightOrDark(color) {

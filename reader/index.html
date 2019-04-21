@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="style.css?l">
+    <link rel="stylesheet" href="style.css?ll">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css">
     <title>Reader</title>
@@ -39,249 +39,221 @@
                     </li>
                 </ul>
             </div>
-        </div>
-    </nav>
-    <div class="reader">
-        <div class="book-description">
-            <!-- <div class="page-button">
-                <button type="button" onclick="loadPage(3-1)" class="btn btn-default btn-sm ">
-                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-                    Previous page
-                </button>
-            </div> -->
-            <div>
-                <div>
+            <hr class="line">
+            <div class="book-description">
+                <!-- <div class="page-button">
+                    <button type="button" onclick="loadPage(3-1)" class="btn btn-default btn-sm ">
+                        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                        Previous page
+                    </button>
+                </div> -->
+                <!-- <div> -->
+                <div class="row">
+                    <div class="col-xs-3">
+                        <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+                        <a href="/book/a-passage-to-india-e-m-foster">A Passage to India</a>        
+                        <button type="button" class="btn btn-default btn-sm fav-btn" data-toggle="tooltip" data-placement="top" title="Already in favourites">
+                            <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-4">
+                        <p class="text-center">
+                            Page: <input id="pageInput" name="page" size="2" value="1">
+                            of 60</p>
+                    </div>
+                    <div class="col-xs-3">
+                        <p class="text-right">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                            E. M. Foster
+                        </p>
+                    </div>
+                    <div class="col-xs-1">
+                        <div class="btn-group toggle-group" role="group" aria-label="...">
+                            <button type="button" class="btn btn-default toolbar-show" data-toggle="tooltip" title="Show toolbar">
+                                <span class="glyphicon glyphicon-menu-hamburger"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+    
+    
+                <!-- <div>
                     <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                     <span>E. M. Foster</span>
                 </div>
+                <p class="text-center">
+                    Page: <input id="pageInput" name="page" size="2" value="1">
+                    of 60
+                </p>
                 <div>
                     <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
                     <a href="/book/a-passage-to-india-e-m-foster">A Passage to India</a>
                     <button type="button" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Already in favourites">
                         <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
                     </button>
-                </div>
-                <p class="text-center">
-                    Page: <input id="pageInput" name="page" size="2" value="1">
-                    of 60
-                </p>
+                </div> -->
+    
+    
+                <!-- </div> -->
+                <!-- <div class="page-button">
+                    <button type="button" onclick="loadPage(3+1)" class="btn btn-default btn-sm pull-right">
+                        Next Page
+                        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+                    </button>
+                </div> -->
             </div>
-            <!-- <div class="page-button">
-                <button type="button" onclick="loadPage(3+1)" class="btn btn-default btn-sm pull-right">
-                    Next Page
-                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
-                </button>
-            </div> -->
-        </div>
-        <div class="toolbar-wrapper">
-            <div class="btn-group toolbar" role="group" aria-label="..." style="display: none !important">
-                <div class="btn-group" role="group" data-toggle="tooltip" title="Theme presets">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="glyphicon glyphicon-tasks"></span>
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu theme-list">
-                        <li><a href="#" class="theme-preset-0">Default</a></li>
-                        <li><a href="#" class="theme-preset-1">Light</a></li>
-                        <li><a href="#" class="theme-preset-2">Dark</a></li>
-                        <li><a href="#" class="theme-preset-3">Recommended</a></li>
-                    </ul>
-                </div>
-                <button type="button" class="btn btn-default" data-toggle="tooltip" title="Text color">
-                    <span class="glyphicon glyphicon-text-color"></span>
-                    <input style="display: none" id="text-color-picker">
-                </button>
-                <button type="button" class="btn btn-default" data-toggle="tooltip" title="Background color">
-                    <span class="glyphicon glyphicon-text-background"></span>
-                    <input style="display: none" id="background-color-picker">
-                </button>
-                <div class="btn-group" role="group" data-toggle="tooltip" title="Background texture">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        <span class="glyphicon glyphicon-picture"></span>                        
-                        <span class="caret"></span>
-                    </button>
-                    <div class="dropdown-menu background-list" aria-labelledby="dropdownMenu1">
-                        <img 
-                            src="img/background1.jpg" 
-                            alt="background1" 
-                            class="reader-background bg-texture-0">
-                        <img 
-                            src="img/background2.jpg" 
-                            alt="background2" 
-                            class="reader-background bg-texture-1">
+            <div class="toolbar-wrapper">
+                <div class="btn-group toolbar" role="group" aria-label="...">
+                    <div class="btn-group" role="group" data-toggle="tooltip" title="Theme presets">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="glyphicon glyphicon-tasks"></span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu theme-list">
+                            <li><a href="#" class="theme-preset-0">Default</a></li>
+                            <li><a href="#" class="theme-preset-1">Light</a></li>
+                            <li><a href="#" class="theme-preset-2">Dark</a></li>
+                            <li><a href="#" class="theme-preset-3">Recommended</a></li>
+                        </ul>
                     </div>
+                    <button type="button" class="btn btn-default" data-toggle="tooltip" title="Text color">
+                        <span class="glyphicon glyphicon-text-color"></span>
+                        <input style="display: none" id="text-color-picker">
+                    </button>
+                    <button type="button" class="btn btn-default" data-toggle="tooltip" title="Background color">
+                        <span class="glyphicon glyphicon-text-background"></span>
+                        <input style="display: none" id="background-color-picker">
+                    </button>
+                    <div class="btn-group" role="group" data-toggle="tooltip" title="Background texture">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <span class="glyphicon glyphicon-picture"></span>                        
+                            <span class="caret"></span>
+                        </button>
+                        <div class="dropdown-menu background-list" aria-labelledby="dropdownMenu1">
+                            <img 
+                                src="img/background1.jpg" 
+                                alt="background1" 
+                                class="reader-background bg-texture-0">
+                            <img 
+                                src="img/background2.jpg" 
+                                alt="background2" 
+                                class="reader-background bg-texture-1">
+                        </div>
+                        </div>
+                    <div class="btn-group" role="group" data-toggle="tooltip" title="Font Family">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="glyphicon glyphicon-font"></span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" class="reader-font-0">Arial</a></li>
+                            <li><a href="#" class="reader-font-1">Times New Roman</a></li>
+                            <li><a href="#" class="reader-font-2">Georgia</a></li>
+                            <li><a href="#" class="reader-font-3">Verdana</a></li>
+                        </ul>
                     </div>
-                <div class="btn-group" role="group" data-toggle="tooltip" title="Font Family">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="glyphicon glyphicon-font"></span>
-                        <span class="caret"></span>
+                    <div class="btn-group" role="group" data-toggle="tooltip" title="Font Style">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="glyphicon glyphicon-italic"></span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" class="reader-font-style-0">Normal</a></li>
+                            <li><a href="#" class="reader-font-style-1">Bold</a></li>
+                            <li><a href="#" class="reader-font-style-2">Italic</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group" role="group" data-toggle="tooltip" title="Font size">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="glyphicon glyphicon-text-size"></span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" class="font-size-0">12</a></li>
+                            <li><a href="#" class="font-size-1">14</a></li>
+                            <li><a href="#" class="font-size-2">16</a></li>
+                            <li><a href="#" class="font-size-3">20</a></li>
+                            <li><a href="#" class="font-size-4">24</a></li>
+                            <li><a href="#" class="font-size-5">26</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group" role="group" data-toggle="tooltip" title="Line spacing">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="glyphicon glyphicon-text-height"></span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" class="font-interval-0">Normal</a></li>
+                            <li><a href="#" class="font-interval-1">22</a></li>
+                            <li><a href="#" class="font-interval-2">24</a></li>
+                            <li><a href="#" class="font-interval-3">26</a></li>
+                            <li><a href="#" class="font-interval-4">30</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group" role="group" data-toggle="tooltip" title="Text align">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="glyphicon glyphicon-align-center"></span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" class="text-align-0">Start</a></li>
+                            <li><a href="#" class="text-align-1">End</a></li>
+                            <li><a href="#" class="text-align-2">Justify</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group" role="group" data-toggle="tooltip" title="Paragraph indent">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="glyphicon glyphicon-indent-left"></span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" class="text-indent-0">No indent</a></li>
+                            <li><a href="#" class="text-indent-1">Min</a></li>
+                            <li><a href="#" class="text-indent-2">Max</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group" role="group" data-toggle="tooltip" title="Text indent">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="glyphicon glyphicon-resize-horizontal"></span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" class="text-padding-0">0</a></li>
+                            <li><a href="#" class="text-padding-1">10</a></li>
+                            <li><a href="#" class="text-padding-2">20</a></li>
+                            <li><a href="#" class="text-padding-3">40</a></li>
+                        </ul>
+                    </div>
+                    <button type="button" class="btn btn-default fullscreen-on" data-toggle="tooltip" title="Enable fullscreen">
+                        <span class="glyphicon glyphicon-fullscreen"></span>
                     </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#" class="reader-font-0">Arial</a></li>
-                        <li><a href="#" class="reader-font-1">Times New Roman</a></li>
-                        <li><a href="#" class="reader-font-2">Georgia</a></li>
-                        <li><a href="#" class="reader-font-3">Verdana</a></li>
-                    </ul>
-                </div>
-                <div class="btn-group" role="group" data-toggle="tooltip" title="Font Style">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="glyphicon glyphicon-italic"></span>
-                        <span class="caret"></span>
+                    <button type="button" class="btn btn-default toolbar-hide" data-toggle="tooltip" title="Hide toolbar">
+                        <span class="glyphicon glyphicon-remove"></span>
                     </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#" class="reader-font-style-0">Normal</a></li>
-                        <li><a href="#" class="reader-font-style-1">Bold</a></li>
-                        <li><a href="#" class="reader-font-style-2">Italic</a></li>
-                    </ul>
                 </div>
-                <div class="btn-group" role="group" data-toggle="tooltip" title="Font size">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="glyphicon glyphicon-text-size"></span>
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#" class="font-size-0">12</a></li>
-                        <li><a href="#" class="font-size-1">14</a></li>
-                        <li><a href="#" class="font-size-2">16</a></li>
-                        <li><a href="#" class="font-size-3">20</a></li>
-                        <li><a href="#" class="font-size-4">24</a></li>
-                        <li><a href="#" class="font-size-5">26</a></li>
-                    </ul>
-                </div>
-                <div class="btn-group" role="group" data-toggle="tooltip" title="Line spacing">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="glyphicon glyphicon-text-height"></span>
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#" class="font-interval-0">Normal</a></li>
-                        <li><a href="#" class="font-interval-1">22</a></li>
-                        <li><a href="#" class="font-interval-2">24</a></li>
-                        <li><a href="#" class="font-interval-3">26</a></li>
-                        <li><a href="#" class="font-interval-4">30</a></li>
-                    </ul>
-                </div>
-                <div class="btn-group" role="group" data-toggle="tooltip" title="Text align">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="glyphicon glyphicon-align-center"></span>
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#" class="text-align-0">Start</a></li>
-                        <li><a href="#" class="text-align-1">End</a></li>
-                        <li><a href="#" class="text-align-2">Justify</a></li>
-                    </ul>
-                </div>
-                <div class="btn-group" role="group" data-toggle="tooltip" title="Paragraph indent">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="glyphicon glyphicon-indent-left"></span>
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#" class="text-indent-0">No indent</a></li>
-                        <li><a href="#" class="text-indent-1">Min</a></li>
-                        <li><a href="#" class="text-indent-2">Max</a></li>
-                    </ul>
-                </div>
-                <div class="btn-group" role="group" data-toggle="tooltip" title="Text indent">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="glyphicon glyphicon-resize-horizontal"></span>
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#" class="text-padding-0">0</a></li>
-                        <li><a href="#" class="text-padding-1">10</a></li>
-                        <li><a href="#" class="text-padding-2">20</a></li>
-                        <li><a href="#" class="text-padding-3">40</a></li>
-                    </ul>
-                </div>
-                <button type="button" class="btn btn-default fullscreen-on" data-toggle="tooltip" title="Enable fullscreen">
-                    <span class="glyphicon glyphicon-fullscreen"></span>
-                </button>
-                <button type="button" style="display: none" class="btn btn-default toolbar-hide" data-toggle="tooltip" title="Hide toolbar">
-                    <span class="glyphicon glyphicon-remove"></span>
-                </button>
-            </div>
-            <div class="btn-group toggle-group" role="group" aria-label="...">
-                <button type="button" class="btn btn-default toolbar-show" data-toggle="tooltip" title="Show toolbar">
-                    <span class="glyphicon glyphicon-menu-hamburger"></span>
-                </button>
             </div>
         </div>
+    </nav>
+    <div class="reader">
         <div class="content">
-            <div class="page-btn prev-page">
+            <!-- <div class="page-btn prev-page">
                 <span class="glyphicon glyphicon-chevron-left"></span>
-            </div>
+            </div> -->
             <div class="fullscreen-off">
                 <span class="glyphicon glyphicon-fullscreen"></span>
             </div>
-            <div class="page-btn next-page">
+            <!-- <div class="page-btn next-page">
                 <span class="glyphicon glyphicon-chevron-right"></span>
-            </div>
+            </div> -->
             <div class="inner"></div>
         </div>
     </div>
-    <footer class="footer-bs">
-        <div class="row">
-            <div class="col-md-3 footer-brand animated fadeInLeft">
-                <img alt="English-e-reader logo" src="https://english-e-reader.net/images/150.png">
-    
-                <p class="text-justify">English e-Reader is the biggest online library of graded e-books</p>
-                    <p class="text-justify">Here you can find plenty ebooks in different digital formats: epub, fb2, mobi, rtf, txt, as well as audio books in mp3 format. You can download ebook in format you want or just read online for free.</p>
-                <p class="text-justify">© 2015-2019 English e-Reader</p>
-            </div>
-            <div class="col-md-3 footer-nav animated fadeInUp">
-                <h4>Levels</h4>
-                <div class="col-md-6">
-                    <ul class="list">
-                        <li><a href="#">Elementary</a></li>
-                        <li><a href="#">Pre-intermediate</a></li>
-                        <li><a href="#">Intermediate</a></li>
-                        <li><a href="#">Upper-intermediate</a></li>
-                        <li><a href="#">Advanced</a></li>
-                        <li><a href="#">Unabridged</a></li>
-                    </ul>
-                </div>
-            </div>
-    
-            <div class="col-md-2 footer-nav animated fadeInUp">
-            <h4>Categories </h4>
-                <div class="col-md-6">
-                    <ul class="list">
-                        <li><a href="#">Genres</a></li>
-                        <li><a href="#">Series</a></li>
-                        <li><a href="#">Tags</a></li>
-                        <li><a href="#">Tops</a></li>
-                    </ul>
-                </div>
-            </div>
-    
-            <div class="col-md-2 footer-nav animated fadeInUp">
-                <h4>Info </h4>
-                <div class="col-md-6">
-                    <ul class="list">
-                        <li><a href="#">Articles</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">About</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-2 footer-social animated fadeInDown">
-                <h4>Follow Us</h4>
-                <ul>
-                    <li><a href="https://twitter.com/englishebooks1" class="pure-button button-socicon"><span class="socicon socicon-twitter"></span>  Twitter</a></li>
-                    <li><a href="https://www.facebook.com/groups/english.e.books" class="pure-button button-socicon"><span class="socicon socicon-facebook"></span>  Facebook</a></li>
-                    <li><a href="https://plus.google.com/communities/116725622881459706627" class="pure-button button-socicon"><span class="socicon socicon-googleplus"></span>  Google+</a></li>
-                    <li><a href="https://vk.com/english_e_books" class="pure-button button-socicon"><span class="socicon socicon-vkontakte"></span>  Vkontakte</a></li>
-                </ul>
-            </div>
-        </div>
-    </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.js"></script>
     <script src="cookie.js"></script>
-    <script src="script.js?l"></script>
-    <script src="script3.js?l"></script>
+    <script src="script.js?ll"></script>
+    <script src="script2.js?ll"></script>
 </body>
 </html>

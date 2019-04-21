@@ -43,16 +43,64 @@ $(document).ready(function() {
 })    
 
 
-
-var checkScrollBars = function(){
-    var b = $('.content');
-    var normalw = 0;
-    var scrollw = 0;
-    if(b.prop('scrollHeight')>b.height()){
-        normalw = window.innerWidth;
-        scrollw = normalw - b.width();
-        $('#container').css({marginRight:'-'+scrollw+'px'});
+function loadPages(pages, dir) {
+    // if (pages[0] && pages[0] > pageAmount) {
+    //     bottomIsLoaded = true;
+    //     return;
+    // }
+    if (pages && pages[0]) {
+        let p = pages.shift();
+        fetch('pages/' + p + '.html').then(res => {
+            if (res.status == 200) {
+                res.text().then(text => {
+                    if (dir) {
+                        data += '<div class="page' + p + '">' + text + '</div>';
+                    } else {
+                        data = '<div class="page' + p + '">' + text + '</div>' + data;
+                    }
+                    loadPages(pages, dir);
+                })
+            } else {
+                setTimeout(_ => isLoading = false, 300);                
+                $('.loader-wrapper').remove();
+                if (dir) {
+                    bottomIsLoaded = true;
+                    setCookie('last-page', bottomPage - pageCount * 2, { expires: 2592000 });
+                } else {
+                    topIsLoaded = true;
+                }
+            }
+        });
+    }  else {
+        setTimeout(_ => isLoading = false, 300);
+        $('.loader-wrapper').remove();
+        if (dir) {
+            $(readerSelector).append(data)
+        } else {
+            $(readerSelector).prepend(data)
+        }
+        data = '';
     }
 }
 
-checkScrollBars();
+function getNextPages() {
+    isLoading = true;
+    let pagesToLoad = []
+    for(let i = 0; i < pageCount; i++){
+        pagesToLoad.push(bottomPage++)
+    }
+    $(readerSelector).append('<div class="loader-wrapper"><div class="loader"></div></div>')
+    setCookie('last-page', pagesToLoad[0], { expires: 2592000 });
+    return pagesToLoad;
+}
+
+function getPrevPages() {
+    isLoading = true;
+    let pagesToLoad = []
+    for(let i = 0; i < pageCount; i++){
+        if (topPage == 1) break;
+        pagesToLoad.push(--topPage)
+    }
+    $(readerSelector).prepend('<div class="loader-wrapper"><div class="loader"></div></div>')
+    return pagesToLoad;
+}
