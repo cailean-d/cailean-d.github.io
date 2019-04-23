@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="style.css?ll">
+    <link rel="stylesheet" href="style.css?">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css">
     <title>Reader</title>
@@ -39,36 +39,26 @@
                     </li>
                 </ul>
             </div>
-            <hr class="line">
             <div class="book-description">
-                <!-- <div class="page-button">
-                    <button type="button" onclick="loadPage(3-1)" class="btn btn-default btn-sm ">
-                        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-                        Previous page
-                    </button>
-                </div> -->
-                <!-- <div> -->
-                <div class="row">
-                    <div class="col-xs-3">
+                <div class="row-flex">
+                    <div class="desc-title">
                         <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
-                        <a href="/book/a-passage-to-india-e-m-foster">A Passage to India</a>        
-                        <button type="button" class="btn btn-default btn-sm fav-btn" data-toggle="tooltip" data-placement="top" title="Already in favourites">
-                            <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
-                        </button>
+                        <a href="/book/a-passage-to-india-e-m-foster" title="The Bird of Happiness and Other Wise Tales">The Bird of Happiness and Other Wise Tales</a>        
                     </div>
-                    <div class="col-xs-1"></div>
-                    <div class="col-xs-4">
-                        <p class="text-center">
-                            Page: <input id="pageInput" name="page" size="2" value="1">
-                            of 60</p>
+                    <div class="text-center">
+                        <div class="btn-group flex-nowrap" role="group" aria-label="...">
+                            <button type="button" class="btn btn-default page-btn" data-toggle="tooltip" data-placement="top" title="Prev page" id="prev_page">
+                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn page-btn page-input">
+                                <input id="pageInput" name="page" size="2" value="1" style="margin-top: -3px">
+                            </button>
+                            <button type="button" class="btn btn-default page-btn" data-toggle="tooltip" data-placement="top" title="Next page" id="next_page">
+                                <i class="glyphicon glyphicon-chevron-right"></i>
+                            </button>
+                        </div>
                     </div>
-                    <div class="col-xs-3">
-                        <p class="text-right">
-                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                            E. M. Foster
-                        </p>
-                    </div>
-                    <div class="col-xs-1">
+                    <div class="text-right">
                         <div class="btn-group toggle-group" role="group" aria-label="...">
                             <button type="button" class="btn btn-default toolbar-show" data-toggle="tooltip" title="Show toolbar">
                                 <span class="glyphicon glyphicon-menu-hamburger"></span>
@@ -76,35 +66,17 @@
                         </div>
                     </div>
                 </div>
-    
-    
-                <!-- <div>
-                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                    <span>E. M. Foster</span>
-                </div>
-                <p class="text-center">
-                    Page: <input id="pageInput" name="page" size="2" value="1">
-                    of 60
-                </p>
-                <div>
-                    <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
-                    <a href="/book/a-passage-to-india-e-m-foster">A Passage to India</a>
-                    <button type="button" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Already in favourites">
-                        <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
-                    </button>
-                </div> -->
-    
-    
-                <!-- </div> -->
-                <!-- <div class="page-button">
-                    <button type="button" onclick="loadPage(3+1)" class="btn btn-default btn-sm pull-right">
-                        Next Page
-                        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
-                    </button>
-                </div> -->
             </div>
             <div class="toolbar-wrapper">
                 <div class="btn-group toolbar" role="group" aria-label="...">
+                    <button type="button" class="btn btn-default btn-sm fav-btn" data-toggle="tooltip" data-placement="top" title="Add to favourites">
+                        <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Report a typo">
+                        <a href="#buglist_modal" data-toggle="modal" class="text-dark">
+                            <i class="glyphicon glyphicon-exclamation-sign"></i>
+                        </a>
+                    </button>
                     <div class="btn-group" role="group" data-toggle="tooltip" title="Theme presets">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="glyphicon glyphicon-tasks"></span>
@@ -237,15 +209,9 @@
     </nav>
     <div class="reader">
         <div class="content">
-            <!-- <div class="page-btn prev-page">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-            </div> -->
             <div class="fullscreen-off">
                 <span class="glyphicon glyphicon-fullscreen"></span>
             </div>
-            <!-- <div class="page-btn next-page">
-                <span class="glyphicon glyphicon-chevron-right"></span>
-            </div> -->
             <div class="inner"></div>
         </div>
     </div>
@@ -253,7 +219,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.js"></script>
     <script src="cookie.js"></script>
-    <script src="script.js?ll"></script>
-    <script src="script2.js?ll"></script>
+    <script src="script.js?"></script>
+    <script src="script2.js?"></script>
 </body>
 </html>

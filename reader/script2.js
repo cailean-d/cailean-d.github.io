@@ -108,4 +108,18 @@ $(document).ready(function() {
         }
     })
 
+    $('#prev_page').click(() => {
+        if ($('#pageInput').val() > 1) {
+            isLoading = true;
+            loadPage(+$('#pageInput').val() - 1);
+        }
+    })
+
+    $('#next_page').click(() => {
+        if ($('#pageInput').val() < maxPages) {
+            isLoading = true;
+            loadPage(+$('#pageInput').val() + 1);
+        }
+    })
+
 })    

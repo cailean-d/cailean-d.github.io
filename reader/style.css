@@ -17,16 +17,17 @@
 
 
 .reader {
-    max-width: 900px;
+    max-width: 1000px;
     margin: 20px auto;
     margin-top: 110px;
 }
 
 .toolbar-wrapper {
     text-align: center;
-    display: none;
+    display: none !important;
     justify-content: center;
-    margin-bottom: 5px;
+    /* margin-bottom: 5px; */
+    /* padding: 5px 10px; */
     /* padding-bottom: 20px; */
     /* padding-top: 20px; */
     /* background: #fff; */
@@ -80,9 +81,9 @@
 }
 
 @media screen and (max-width: 540px) {
-    .toolbar {
-        padding-left: 20px;
-        padding-right: 20px;
+    .toolbar, .book-description .row-flex {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
     }
 
     .reader-background {
@@ -148,7 +149,7 @@
     z-index: 100;
 }
 
-.book-description {
+.book-description, .toolbar-wrapper {
     /* background-color: #f1f1f1; */
     /* padding: 20px; */
     /* text-align: center; */
@@ -156,6 +157,19 @@
     /* justify-content: space-between; */
     /* align-items: center; */
     /* border-radius: 3px; */
+    position: absolute;
+    width: 100%;
+    margin-top: 4px;
+    left: 0px;
+    display: flex;
+    justify-content: center;
+}
+
+.book-description .row-flex, .toolbar-wrapper .toolbar {
+    width: 1000px;
+    background: #f0efef;
+    /* padding-top: 8px; */
+    padding: 5px 10px;
 }
 
 .reader-fullscreen {
@@ -198,9 +212,43 @@
     margin-right: 5px;
 }
 
-.navbar-fixed-top {
-    /* height: 54px; */
+
+.page-btn {
+    height: 30px;
 }
+
+.page-btn input {
+    height: inherit;
+}
+
+.page-input {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+
+.row-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.row-flex > div {
+    flex-grow: 1;
+}
+
+.row-flex > div {
+    flex-basis: 50%;
+}
+
+/* .row-flex > div:nth-child(2) {
+    flex-basis: 50%;
+} */
+
+/* 
+.navbar-fixed-top {
+    height: 54px;
+} */
 
 /* 
 .content {
@@ -282,7 +330,7 @@ h2 {
 }
 
 
-.toggle-group .btn, .toolbar .btn {
+.toggle-group .btn, .toolbar .btn, .flex-nowrap .btn {
     padding-top: 2px;
     padding-bottom: 2px;
 }
@@ -300,4 +348,56 @@ h2 {
     .text-xs-center {
         text-align: center !important;
     } 
+}
+
+
+.desc-title {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.desc-title span {
+    margin-right: 3px;
+}
+
+.desc-title a {
+    display: inline-block;
+    white-space: nowrap;
+    width: 250px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+@media (max-width: 800px) {
+    .desc-title a {
+        width: 150px;
+    } 
+}
+
+@media (max-width: 540px) {
+    .desc-title a {
+        width: 100px;
+    } 
+}
+
+@media (max-width: 420px) {
+    .desc-title a {
+        width: 70px;
+    } 
+}
+
+@media (max-width: 360px) {
+    .desc-title a {
+        width: 50px;
+    } 
+}
+
+.flex-nowrap {
+    flex-wrap: nowrap;
+}
+
+
+.text-dark {
+    color: #000;
 }
