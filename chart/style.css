@@ -14,7 +14,8 @@
 
 .ct-bar-label-container {
   stroke: #dbe2f5;
-  stroke-width: 20px;
+  fill: #dbe2f5;
+  /* stroke-width: 20px; */
 }
 
 .ct-bar-label {

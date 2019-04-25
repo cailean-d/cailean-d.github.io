@@ -48,25 +48,30 @@ var highModifier = 0.55;        // коеффициент высоты
 function labelPlugin() {
     return function labelPlugin(chart) {
         chart.on('draw', function(data) {
-          var barHorizontalCenter, barVerticalCenter, label, value, line;
+          var barHorizontalCenter, barVerticalCenter, label, value, rect;
           if (data.type === "bar") {
             barHorizontalCenter = data.x1 + (data.element.width() * .5);
             barVerticalCenter = data.y1 + (data.element.height() * -1) - 10;
             value = data.element.attr('ct:value');
             if (value !== '0') {
 
-                line = new Chartist.Svg('line');
-                line.addClass('ct-bar-label-container');
+                rect = new Chartist.Svg('rect');
+                rect.addClass('ct-bar-label-container');
                 var cHeight = 20;
-                var barOffset =  (data.element.height() * -1) + 10;
+                var cWidth = 25;
+                var xOffset = cWidth / 2;
+                var radius = 3;
+                var barOffset =  (data.element.height() * -1) + 15;
                 var barOffset2 = data.y1 + (data.element.height() * -1) - 15;
                 var cy1 = data.element.height() > cHeight ? data.y1 + barOffset : barOffset2;
                 var cy2 = cy1 + cHeight;
-                line.attr({
-                    x1: data.x1,
-                    x2: data.x2,
-                    y1: cy1,
-                    y2: cy2
+                rect.attr({
+                    x: data.x1 - xOffset,
+                    y: cy1,
+                    height: cHeight,
+                    width: cWidth,
+                    rx: radius,
+                    ry: radius
                 })
 
                 label = new Chartist.Svg('text');
@@ -78,8 +83,7 @@ function labelPlugin() {
                     'text-anchor': 'middle'
                 });
 
-
-                data.group.append(line);
+                data.group.append(rect);
                 return data.group.append(label);
             }
         }
