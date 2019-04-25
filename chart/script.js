@@ -57,8 +57,8 @@ function labelPlugin() {
 
                 rect = new Chartist.Svg('rect');
                 rect.addClass('ct-bar-label-container');
-                var cHeight = 20;
-                var cWidth = 25;
+                var cHeight = 15;
+                var cWidth = 20;
                 var xOffset = cWidth / 2;
                 var radius = 3;
                 var barOffset =  (data.element.height() * -1) + 10;
