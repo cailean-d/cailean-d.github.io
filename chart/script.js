@@ -61,7 +61,7 @@ function labelPlugin() {
                 var cWidth = 25;
                 var xOffset = cWidth / 2;
                 var radius = 3;
-                var barOffset =  (data.element.height() * -1) + 15;
+                var barOffset =  (data.element.height() * -1) + 10;
                 var barOffset2 = data.y1 + (data.element.height() * -1) - 15;
                 var cy1 = data.element.height() > cHeight ? data.y1 + barOffset : barOffset2;
                 var cy2 = cy1 + cHeight;
