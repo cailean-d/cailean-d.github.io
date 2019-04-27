@@ -80,7 +80,7 @@ $(document).ready(function() {
     $('[data-toggle="tooltip"]').click(function () { $(this).tooltip("hide");});
 
     $('.theme-list').on('click', '#custom_theme', function() {
-        setTheme('custom');
+        setTheme('custom', true);
     })
 
     $("#text-color-picker").spectrum({
@@ -169,24 +169,30 @@ $(document).ready(function() {
 
     Object.keys(presets).forEach(function(key, i) {
         $('.theme-preset-' + i).on('click', function() {
-            setTheme(key);
+            setTheme(key, true);
         })
     })
 
 });
 
-function setTheme(name) {
-
-    let theme = presets[name];
+function setTheme(name, reset) {
+    let theme = presets[name], options, backgOptions;
     if (!theme) return;
+    let prevThemeName = getCookie('theme');
     setCookie('theme', name, { expires: 2592000 });
     
     if (name == 'custom') {
+        if (prevThemeName && prevThemeName != 'custom' && !reset) {
+            let prevTheme = presets[prevThemeName];
+            for(let key in prevTheme) {
+                theme[key] = prevTheme[key];
+            }
+        }
         addCustomThemeButton();
         setCookie('theme-set', JSON.stringify(presets.custom), { expires: 2592000 });
     }
 
-    $(readerSelector).css({
+    options = {
         'color': theme.color ? theme.color : '',
         'font-family': theme.fontFamily ? theme.fontFamily : '',
         'font-size': theme.fontSize ? theme.fontSize + 'px' : '',
@@ -197,12 +203,15 @@ function setTheme(name) {
         'padding-right': theme.textPadding ? theme.textPadding + 'px' : '',
         'font-style': theme.fontStyle && theme.fontStyle != 'bold' ? theme.fontStyle : '',
         'font-weight': theme.fontStyle && theme.fontStyle == 'bold' ? 'bold' : '',
-    });
+    };
 
-    $(readerSelector).parent().css({
+    backgOptions =  {
         'background-color': theme.backgroundColor ? theme.backgroundColor : '',
         'background-image': theme.backgroundImage ? 'url("' + theme.backgroundImage + '")' : ''
-    })
+    };
+
+    $(readerSelector).css(options);
+    $(readerSelector).parent().css(backgOptions);
 
     setPageBackground(theme.backgroundImage, theme.backgroundColor)
 }

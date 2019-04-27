@@ -13,7 +13,6 @@ function loadPageOnScroll(elem, e) {
     if (scrolledByButton) return;
     if ($(elem).hasClass('content') && !$(elem).hasClass('reader-fullscreen')) return;
     if(!$(elem).hasClass('content') && $('.reader-fullscreen').length) return;
-    console.log('load pages');
     if (elem.clientHeight == elem.scrollHeight && elem.scrollTop == 0) {
         if (e.deltaY > 0) {
             startLoadBottom();
