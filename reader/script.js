@@ -261,12 +261,14 @@ function initSettings() {
 
 
 // load recommended theme
-fetch('theme.json').then(res => {
-    res.json().then(data => {
-        presets.recommended = data;
-    })
-})
+var themeLink = 'theme.json';
 
+if (themeLink) {
+    $('.theme-preset-3').show();
+    $.ajax(themeLink).done(function (data) {
+        presets.recommended = data;
+    });
+}    
 
 // // sticky toolbar
 // $(document).ready(function() {
