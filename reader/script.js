@@ -48,15 +48,19 @@ $(document).ready(function() {
     initSettings();
 
     $('.fullscreen-on').on('click', function() {
+        var winScrollOffset = $(window).scrollTop(); 
         $(this).hide();
         $('.content').addClass('reader-fullscreen');
         $('body').css('overflow', 'hidden');
+        $('.content').scrollTop(winScrollOffset);
         setTimeout(_ => $(this).show(), 300);
     })
 
     $('.fullscreen-off').on('click', function() {
+        var contentScrollOffset = $('.content').scrollTop();
         $('.content').removeClass('reader-fullscreen');
         $('body').css('overflow', '');
+        $(window).scrollTop(contentScrollOffset);
     })
 
     $('.toolbar > *').on('click', function() {
