@@ -60,7 +60,7 @@ function onPageScroll(elem) {
 
     determinePageOnScroll();
 
-    if (elHeight + elem.scrollTop >= elem.scrollHeight) { // bottom corner
+    if (elHeight + elem.scrollTop + 60 >= elem.scrollHeight) { // bottom corner
         startLoadBottom();
     } else if (elem.scrollTop == 0) { // top corner
         startLoadTop();
