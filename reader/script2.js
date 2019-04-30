@@ -47,11 +47,18 @@ function onPageScroll(elem) {
     if ($(elem).hasClass('content') && !$(elem).hasClass('reader-fullscreen')) return;
     if(!$(elem).hasClass('content') && $('.reader-fullscreen').length) return;
 
+    // console.log(elem.scrollTop, elem.scrollHeight, elem.clientHeight);
+
+    $('.debug .scrolltop span').html(elem.scrollTop)
+    $('.debug .scrollheight span').html(elem.scrollHeight)
+    $('.debug .clientheight span').html(elem.clientHeight)
+    $('.debug .scrolledheight span').html(elem.clientHeight + elem.scrollTop)
+
     determinePageOnScroll();
 
     if (elem.clientHeight + elem.scrollTop >= elem.scrollHeight) { // bottom corner
         startLoadBottom();
-    } else if (elem.scrollHeight > elem.clientHeight && elem.scrollTop == 0) { // top corner
+    } else if (elem.scrollTop == 0) { // top corner
         startLoadTop();
     }
 }

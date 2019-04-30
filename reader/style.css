@@ -33,6 +33,7 @@
     text-align: center;
     display: none !important;
     justify-content: center;
+    flex-wrap: wrap;
     /* margin-bottom: 5px; */
     /* padding: 5px 10px; */
     /* padding-bottom: 20px; */
@@ -81,22 +82,10 @@
     .glyphicon {
         font-size: 12px;
     }
-    .toolbar-wrapper {
+    /* .toolbar-wrapper {
         padding-top: 10px;
         padding-bottom: 10px;
-    }
-}
-
-@media screen and (max-width: 540px) {
-    .toolbar, .book-description .row-flex {
-        padding-left: 20px !important;
-        padding-right: 20px !important;
-    }
-
-    .reader-background {
-        width: 150px !important;
-        height: 70px !important;
-    }
+    } */
 }
 
 .reader-background {
@@ -321,7 +310,7 @@ h2 {
 
 #pageInput {
     text-align: center;
-    /* width: 100%; */
+    width: 100%;
     padding: 3px 2px;
     /* margin: 8px 0; */
     display: inline-block;
@@ -371,12 +360,12 @@ h2 {
 .desc-title a {
     display: inline-block;
     white-space: nowrap;
-    width: 250px;
+    width: 300px;
     text-overflow: ellipsis;
     overflow: hidden;
 }
 
-@media (max-width: 800px) {
+/* @media (max-width: 800px) {
     .desc-title a {
         width: 150px;
     } 
@@ -386,17 +375,17 @@ h2 {
     .desc-title a {
         width: 100px;
     } 
-}
+} */
 
 @media (max-width: 420px) {
     .desc-title a {
-        width: 70px;
+        width: 250px;
     } 
 }
 
-@media (max-width: 360px) {
+@media (max-width: 340px) {
     .desc-title a {
-        width: 50px;
+        width: 200px;
     } 
 }
 
@@ -407,4 +396,26 @@ h2 {
 
 .text-dark {
     color: #000;
+}
+
+
+@media screen and (max-width: 350px) {
+    .navbar-brand img{
+        width: 70px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .book-description .row-flex{
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+
+
+.page-wrapper {
+    width: 100%;
+    background: #f0efef;
+    padding: 5px;
 }

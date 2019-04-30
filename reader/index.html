@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="style.css?lllll">
+    <link rel="stylesheet" href="style.css?lllllll">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css">
     <title>Reader</title>
@@ -44,19 +44,6 @@
                     <div class="desc-title">
                         <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
                         <a href="/book/a-passage-to-india-e-m-foster" title="The Bird of Happiness and Other Wise Tales">The Bird of Happiness and Other Wise Tales</a>        
-                    </div>
-                    <div class="text-center">
-                        <div class="btn-group flex-nowrap" role="group" aria-label="...">
-                            <button type="button" class="btn btn-default page-btn" data-toggle="tooltip" data-placement="top" title="Prev page" id="prev_page">
-                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                            </button>
-                            <button type="button" class="btn page-btn page-input">
-                                <input id="pageInput" name="page" size="2" value="1" style="margin-top: -3px">
-                            </button>
-                            <button type="button" class="btn btn-default page-btn" data-toggle="tooltip" data-placement="top" title="Next page" id="next_page">
-                                <i class="glyphicon glyphicon-chevron-right"></i>
-                            </button>
-                        </div>
                     </div>
                     <div class="text-right">
                         <div class="btn-group toggle-group" role="group" aria-label="...">
@@ -204,6 +191,21 @@
                         <span class="glyphicon glyphicon-remove"></span>
                     </button>
                 </div>
+                <div class="page-wrapper">
+                    <div class="text-center">
+                        <div class="btn-group flex-nowrap" role="group" aria-label="...">
+                            <!-- <button type="button" class="btn btn-default page-btn" data-toggle="tooltip" data-placement="top" title="Prev page" id="prev_page">
+                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            </button> -->
+                            <button type="button" class="btn page-btn page-input">
+                                <input id="pageInput" name="page" size="2" value="1" style="margin-top: -3px">
+                            </button>
+                            <!-- <button type="button" class="btn btn-default page-btn" data-toggle="tooltip" data-placement="top" title="Next page" id="next_page">
+                                <i class="glyphicon glyphicon-chevron-right"></i>
+                            </button> -->
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -215,11 +217,29 @@
             <div class="inner"></div>
         </div>
     </div>
+    <div style="position: fixed; top: 0; left: 0; z-index: 20000; background: #fff" class="debug">
+        <div class="scrolltop">
+            scrolltop: 
+            <span></span>
+        </div>
+        <div class="scrollheight">
+            scrollheight: 
+            <span></span>
+        </div>
+        <div class="clientheight">
+            clientheight: 
+            <span></span>
+        </div>
+        <div class="scrolledheight">
+            scrolledheight: 
+            <span></span>
+        </div>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.js"></script>
     <script src="cookie.js"></script>
     <script src="script.js?llll"></script>
-    <script src="script2.js?llll"></script>
+    <script src="script2.js?llllll"></script>
 </body>
 </html>
