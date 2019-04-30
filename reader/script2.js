@@ -47,18 +47,20 @@ function onPageScroll(elem) {
     if ($(elem).hasClass('content') && !$(elem).hasClass('reader-fullscreen')) return;
     if(!$(elem).hasClass('content') && $('.reader-fullscreen').length) return;
 
+    var elHeight = elem === document.documentElement ? window.innerHeight : elem.clientHeight;
+
     // console.log(elem.scrollTop, elem.scrollHeight, elem.clientHeight);
 
     $('.debug .scrolltop span').html(elem.scrollTop)
     $('.debug .scrollheight span').html(elem.scrollHeight)
     $('.debug .clientheight span').html(elem.clientHeight)
-    $('.debug .scrolledheight span').html(elem.clientHeight + elem.scrollTop)
+    $('.debug .scrolledheight span').html(window.innerHeight + elem.scrollTop)
     $('.debug .window-innerheight span').html(window.innerHeight)
     $('.debug .window-outerheight span').html(window.outerHeight)
 
     determinePageOnScroll();
 
-    if (elem.clientHeight + elem.scrollTop >= elem.scrollHeight) { // bottom corner
+    if (elHeight + elem.scrollTop >= elem.scrollHeight) { // bottom corner
         startLoadBottom();
     } else if (elem.scrollTop == 0) { // top corner
         startLoadTop();
