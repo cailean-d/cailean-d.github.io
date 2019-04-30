@@ -416,6 +416,11 @@ h2 {
 
 .page-wrapper {
     width: 100%;
-    background: #f0efef;
+}
+
+.page-wrapper > div {
     padding: 5px;
+    width: 1000px;
+    background: #f0efef;
+    margin: 0 auto;
 }
