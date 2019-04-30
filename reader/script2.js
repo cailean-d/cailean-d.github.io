@@ -53,6 +53,8 @@ function onPageScroll(elem) {
     $('.debug .scrollheight span').html(elem.scrollHeight)
     $('.debug .clientheight span').html(elem.clientHeight)
     $('.debug .scrolledheight span').html(elem.clientHeight + elem.scrollTop)
+    $('.debug .window-innerheight span').html(window.innerHeight)
+    $('.debug .window-outerheight span').html(window.outerHeight)
 
     determinePageOnScroll();
 
