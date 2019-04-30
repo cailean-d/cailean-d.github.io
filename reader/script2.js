@@ -49,15 +49,6 @@ function onPageScroll(elem) {
 
     var elHeight = elem === document.documentElement ? window.innerHeight : elem.clientHeight;
 
-    // console.log(elem.scrollTop, elem.scrollHeight, elem.clientHeight);
-
-    $('.debug .scrolltop span').html(elem.scrollTop)
-    $('.debug .scrollheight span').html(elem.scrollHeight)
-    $('.debug .clientheight span').html(elem.clientHeight)
-    $('.debug .scrolledheight span').html(window.innerHeight + elem.scrollTop)
-    $('.debug .window-innerheight span').html(window.innerHeight)
-    $('.debug .window-outerheight span').html(window.outerHeight)
-
     determinePageOnScroll();
 
     if (elHeight + elem.scrollTop + 60 >= elem.scrollHeight) { // bottom corner
