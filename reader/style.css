@@ -3,11 +3,12 @@
     color: #fff;
 }
 
-.theme-dark, 
+/* .theme-dark,  */
 .theme-dark .toolbar, 
-.theme-dark .book-description .row-flex,
+.theme-dark .toolbar-wrapper,
+.theme-dark .book-description,
 .theme-dark .page-wrapper > div {
-    background: #444 !important;
+    background: #2b2a2a !important;
 }
 
 .theme-dark .toolbar-wrapper .btn-group > *, 
@@ -17,7 +18,7 @@
 .theme-dark .row-flex *:focus,
 .theme-dark .page-wrapper .page-misc * {
     color: #ccc;
-    background: #444;
+    background: #2b2a2a;
 }
 
 .theme-dark .toolbar-wrapper .dropdown-backdrop {
