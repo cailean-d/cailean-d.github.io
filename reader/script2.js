@@ -167,11 +167,15 @@ function changePageByInput(e) {
                 isScrolledByButton = false;
             });
         } else {
+            isScrolledByButton = true;
             let pagesToLoad = getPages(1, startPage);
             isBottomLoaded = isTopLoaded = false;
             topPage = startPage;
             bottomPage = pagesToLoad[pagesToLoad.length - 1] + 1;
-            loadPage(pagesToLoad);
+            loadPage(pagesToLoad, undefined, function() {
+                document.documentElement.scrollTo(0, 1);
+                isScrolledByButton = false;
+            });
         }
     }
 }

@@ -80,10 +80,11 @@ $(document).ready(function() {
         // $('.toolbar-hide').show();
     })
 
-    $('[data-toggle="tooltip"]').tooltip({ trigger: "hover", container: 'body' });
+    $('[data-toggle="tooltip"]').tooltip({ trigger: "hover", container: '.navbar' });
     $('[data-toggle="tooltip"]').click(function () { $(this).tooltip("hide");});
 
-    $('.theme-list').on('click', '#custom_theme', function() {
+    $('.theme-list').on('click', '#custom_theme', function(e) {
+        e.preventDefault();
         setTheme('custom', true);
     })
 
@@ -112,67 +113,77 @@ $(document).ready(function() {
     });
 
     fonts.forEach(function(item, i) {
-        $('.reader-font-' + i).on('click', function() {
+        $('.reader-font-' + i).on('click', function(e) {
+            e.preventDefault();
             presets.custom.fontFamily = item;
             setTheme('custom');
         })
     });
 
     fontStyles.forEach(function(item, i) {
-        $('.reader-font-style-' + i).on('click', function() {
+        $('.reader-font-style-' + i).on('click', function(e) {
+            e.preventDefault();
             presets.custom.fontStyle = item;
             setTheme('custom');
         })
     });
 
     fontSizes.forEach(function(item, i) {
-        $('.font-size-' + i).on('click', function() {
+        $('.font-size-' + i).on('click', function(e) {
+            e.preventDefault();
             presets.custom.fontSize = item;
             setTheme('custom');
         })
     });
 
     fontInterval.forEach(function(item, i) {
-        $('.font-interval-0').on('click', function() {
+        $('.font-interval-0').on('click', function(e) {
+            e.preventDefault();
             presets.custom.fontInterval = 'unset';
             setTheme('custom');
         })
-        $('.font-interval-' + (i + 1)).on('click', function() {
+        $('.font-interval-' + (i + 1)).on('click', function(e) {
+            e.preventDefault();
             presets.custom.fontInterval = item;
             setTheme('custom');
         })
     });
 
     textAlign.forEach(function(item, i) {
-        $('.text-align-' + i).on('click', function() {
+        $('.text-align-' + i).on('click', function(e) {
+            e.preventDefault();
             presets.custom.textAlign = item;
             setTheme('custom');
         })
     });
 
     textIndent.forEach(function(item, i) {
-        $('.text-indent-' + i).on('click', function() {
+        $('.text-indent-' + i).on('click', function(e) {
+            e.preventDefault();
             presets.custom.textIndent = item;
             setTheme('custom');
         })
     });
 
     textPadding.forEach(function(item, i) {
-        $('.text-padding-' + i).on('click', function() {
+        $('.text-padding-' + i).on('click', function(e) {
+            e.preventDefault();
             presets.custom.textPadding = item;
             setTheme('custom');
         })
     })
 
     textures.forEach(function(item, i) {
-        $('.bg-texture-' + i).on('click', function() {
+        $('.bg-texture-' + i).on('click', function(e) {
+            e.preventDefault();
             presets.custom.backgroundImage = item;
             setTheme('custom');
         });
     });
 
     Object.keys(presets).forEach(function(key, i) {
-        $('.theme-preset-' + i).on('click', function() {
+        $('.theme-preset-' + i).on('click', function(e) {
+            e.preventDefault();
             setTheme(key, true);
         })
     })
@@ -244,10 +255,11 @@ function addCustomThemeButton() {
 
 function initSettings() {
 
-    let themeSet;
+    let themeSet = getCookie('theme-set');
+    let themeName = getCookie('theme');
 
-    if (getCookie('theme-set')) {
-        themeSet = JSON.parse(getCookie('theme-set'));
+    if (themeSet) {
+        themeSet = JSON.parse(themeSet);
     }
 
     if (themeSet) {
@@ -265,8 +277,8 @@ function initSettings() {
         };
     }
 
-    if (getCookie('theme')) {
-        setTheme(getCookie('theme'));
+    if (themeName) {
+        setTheme(themeName);
     } else {
         setTheme('default');
     }
