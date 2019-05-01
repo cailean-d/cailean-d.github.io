@@ -198,9 +198,9 @@
 .content .fullscreen-off {
     position: fixed;
     top: 0;
-    right: 0;
+    left: 0;
     display: none;
-    padding: 10px 20px;
+    padding: 5px 10px;
     cursor: pointer;
     margin-right: 15px;
     font-size: 20px;
