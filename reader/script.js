@@ -227,6 +227,7 @@ function setTheme(name, reset) {
 
     $(readerSelector).css(options);
     $(readerSelector).parent().css(backgOptions);
+    $('body').css(backgOptions);
 
     setPageBackground(theme.backgroundImage, theme.backgroundColor)
 }
