@@ -126,6 +126,7 @@
     left: 0;
     bottom: 0;
     width: 100%;
+    background: transparent;
 }
 
 .loader-wrapper > div {
@@ -135,6 +136,7 @@
     max-width: 1000px;
     padding: 10px;
     text-align: right;
+    background: transparent;
 }
 
 .loader {
