@@ -131,7 +131,8 @@
 .loader-wrapper > div {
     margin: 0 auto;
     display: block;
-    width: 1000px;
+    width: 100%;
+    max-width: 1000px;
     padding: 10px;
     text-align: right;
 }
