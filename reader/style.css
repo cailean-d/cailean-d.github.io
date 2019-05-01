@@ -127,6 +127,7 @@
     bottom: 0;
     width: 100%;
     background: transparent;
+    z-index: 1500;
 }
 
 .loader-wrapper > div {
