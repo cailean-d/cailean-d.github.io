@@ -60,7 +60,6 @@ function onPageScroll(elem) {
 
 function startLoadTop(scrollToPage) {
     if (!isLoading && !isTopLoaded) {
-        isLoading = true;
         loadPage(getPages(-1), false, function() {
             scrollByButton(scrollToPage);
         })
@@ -69,7 +68,6 @@ function startLoadTop(scrollToPage) {
 
 function startLoadBottom(scrollToPage) {
     if (!isLoading && !isBottomLoaded) {
-        isLoading = true;
         loadPage(getPages(1), true, function() {
             scrollByButton(scrollToPage);
         })
@@ -120,7 +118,7 @@ function loadPage(pages, dir, cb) {
             data = '';
             if (typeof cb === 'function') cb();
         }
-        isLoading = false;
+        hideLoading();
     }
         
 }
@@ -145,7 +143,8 @@ function changePageByButton() {
 }
 
 function changePageByInput(e) {
-    if (e.keyCode == 13) {
+    var isKeyEnter = e.keyCode == 13;
+    if (isKeyEnter) {
         var pageNumber = +$(this).val();
         var p = Math.ceil(maxPages / pageCount);
         
@@ -214,6 +213,9 @@ function getPages(dir, startPage) {
         setCookie('last-page', pagesToLoad[pagesToLoad.length - 1], { expires: 2592000 });
     } else if (dir > 0 && pagesToLoad[0]) {
         setCookie('last-page', pagesToLoad[0], { expires: 2592000 });
+    }
+    if (pagesToLoad.length > 0) {
+        showLoading();
     }
     return pagesToLoad;
 }
@@ -324,6 +326,16 @@ function restoreOffsetPosition() {
             }
         }
     }
+}
+
+function showLoading() {
+    isLoading = true;
+    $('.loader-wrapper').show();
+}
+
+function hideLoading() {
+    isLoading = false;
+    $('.loader-wrapper').hide();
 }
 
 $(document).ready(function() {
