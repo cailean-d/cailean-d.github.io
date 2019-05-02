@@ -53,7 +53,7 @@ $(document).ready(function() {
         $('.content').addClass('reader-fullscreen');
         $('body').css('overflow', 'hidden');
         $('.content').scrollTop(winScrollOffset);
-        setTimeout(_ => $(this).show(), 300);
+        setTimeout(function(){ $(this).show() }, 300);
     })
 
     $('.fullscreen-off').on('click', function() {
@@ -91,8 +91,7 @@ $(document).ready(function() {
     $("#text-color-picker").spectrum({
         ...colorPickerOptions,
         change: function(color) {
-            presets.custom.color = color.toHexString();
-            setTheme('custom')
+            setTheme('custom', false, {name: 'color', value: color.toHexString()})
         },
         beforeShow: function() {
             $("#background-color-picker").spectrum('hide');
@@ -102,9 +101,10 @@ $(document).ready(function() {
     $("#background-color-picker").spectrum({
         ...colorPickerOptions,
         change: function(color) {
-            presets.custom.backgroundColor = color.toHexString();
-            presets.custom.backgroundImage = '';
-            setTheme('custom');
+            setTheme('custom', false, [
+                {name: 'backgroundColor', value: color.toHexString()},
+                {name: 'backgroundImage', value: ''}
+            ]);
         },
         beforeShow: function() {
             $("#text-color-picker").spectrum('hide');
@@ -115,69 +115,60 @@ $(document).ready(function() {
     fonts.forEach(function(item, i) {
         $('.reader-font-' + i).on('click', function(e) {
             e.preventDefault();
-            presets.custom.fontFamily = item;
-            setTheme('custom');
+            setTheme('custom', false, {name: 'fontFamily', value: item});
         })
     });
 
     fontStyles.forEach(function(item, i) {
         $('.reader-font-style-' + i).on('click', function(e) {
             e.preventDefault();
-            presets.custom.fontStyle = item;
-            setTheme('custom');
+            setTheme('custom', false, {name: 'fontStyle', value: item});
         })
     });
 
     fontSizes.forEach(function(item, i) {
         $('.font-size-' + i).on('click', function(e) {
             e.preventDefault();
-            presets.custom.fontSize = item;
-            setTheme('custom');
+            setTheme('custom', false, {name: 'fontSize', value: item});
         })
     });
 
     fontInterval.forEach(function(item, i) {
         $('.font-interval-0').on('click', function(e) {
             e.preventDefault();
-            presets.custom.fontInterval = 'unset';
-            setTheme('custom');
+            setTheme('custom', false, {name: 'fontInterval', value: 'unset'});
         })
         $('.font-interval-' + (i + 1)).on('click', function(e) {
             e.preventDefault();
-            presets.custom.fontInterval = item;
-            setTheme('custom');
+            setTheme('custom', false, {name: 'fontInterval', value: item});
         })
     });
 
     textAlign.forEach(function(item, i) {
         $('.text-align-' + i).on('click', function(e) {
             e.preventDefault();
-            presets.custom.textAlign = item;
-            setTheme('custom');
+            setTheme('custom', false, {name: 'textAlign', value: item});
         })
     });
 
     textIndent.forEach(function(item, i) {
         $('.text-indent-' + i).on('click', function(e) {
             e.preventDefault();
-            presets.custom.textIndent = item;
-            setTheme('custom');
+            setTheme('custom', false, {name: 'textIndent', value: item});
         })
     });
 
     textPadding.forEach(function(item, i) {
         $('.text-padding-' + i).on('click', function(e) {
             e.preventDefault();
-            presets.custom.textPadding = item;
-            setTheme('custom');
+            setTheme('custom', false, {name: 'textPadding', value: item});
         })
     })
 
     textures.forEach(function(item, i) {
         $('.bg-texture-' + i).on('click', function(e) {
             e.preventDefault();
-            presets.custom.backgroundImage = item;
-            setTheme('custom');
+            setTheme('custom', false, {name: 'backgroundImage', value: item});
         });
     });
 
@@ -190,21 +181,30 @@ $(document).ready(function() {
 
 });
 
-function setTheme(name, reset) {
+function setTheme(name, reset, props) {
     let theme = presets[name], options, backgOptions;
     if (!theme) return;
     let prevThemeName = getCookie('theme');
     setCookie('theme', name, { expires: 2592000 });
+
+
+    console.log(name, prevThemeName);
     
     if (name == 'custom') {
         if (prevThemeName && prevThemeName != 'custom' && !reset) {
-            let prevTheme = presets[prevThemeName];
-            for(let key in prevTheme) {
-                theme[key] = prevTheme[key];
-            }
+            presets.custom = clone(presets[prevThemeName]);
+            theme = presets.custom;
+        }
+
+        if (props instanceof Array) {
+            props.forEach(function(v) {
+                theme[v.name] = v.value;
+            })
+        } else if (typeof props === 'object') {
+            theme[props.name] = props.value;
         }
         addCustomThemeButton();
-        setCookie('theme-set', JSON.stringify(presets.custom), { expires: 2592000 });
+        setCookie('theme-set', JSON.stringify(theme), { expires: 2592000 });
     }
 
     options = {
@@ -398,4 +398,13 @@ function getImageLightness(imageSrc,callback) {
         var brightness = Math.floor(colorSum / (this.width*this.height));
         callback(brightness);
     }
+}
+
+function clone(obj) {
+    if (null == obj || "object" != typeof obj) return obj;
+    var copy = obj.constructor();
+    for (var attr in obj) {
+        if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
+    }
+    return copy;
 }
