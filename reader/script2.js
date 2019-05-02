@@ -51,8 +51,13 @@ function onPageScroll(elem) {
 
     determinePageOnScroll();
 
+    var h = window.innerHeight
+            || document.documentElement.clientHeight
+            || document.body.clientHeight;
+
     $('.debug .top span').html(elem.scrollTop + ' = 0')
     $('.debug .bottom span').html(elHeight + elem.scrollTop + 60 + ' >= ' + elem.scrollHeight)
+    $('.debug .height span').html(elHeight + ' ' + h)
 
     if (elHeight + elem.scrollTop + 60 >= elem.scrollHeight) { // bottom corner
         startLoadBottom();
