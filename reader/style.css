@@ -200,6 +200,10 @@ body, .reader .content {
     z-index: 1050;
 }
 
+.reader-fullscreen > .inner > *:last-child {
+    margin-bottom: 40px;
+}
+
 .content .fullscreen-off {
     position: fixed;
     top: 0;
