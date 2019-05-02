@@ -51,13 +51,11 @@ function onPageScroll(elem) {
 
     determinePageOnScroll();
 
-    var h = window.innerHeight
-            || document.documentElement.clientHeight
-            || document.body.clientHeight;
-
     $('.debug .top span').html(elem.scrollTop + ' = 0')
     $('.debug .bottom span').html(elHeight + elem.scrollTop + 60 + ' >= ' + elem.scrollHeight)
-    $('.debug .height span').html(elHeight + ' ' + h)
+    $('.debug .isLoading span').html(isLoading)
+    $('.debug .isTopLoaded span').html(isTopLoaded)
+    $('.debug .isBottomLoaded span').html(isBottomLoaded)
 
     if (elHeight + elem.scrollTop + 60 >= elem.scrollHeight) { // bottom corner
         startLoadBottom();
