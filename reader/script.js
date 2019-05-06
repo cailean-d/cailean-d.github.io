@@ -274,14 +274,14 @@ function addCustomThemeButton() {
 function initSettings() {
 
     var theme = getCookie('theme');
+    var themeName, themeSet;
 
     if (theme) {
         theme = JSON.parse(theme);
+        themeSet = theme['theme-opts'];
+        themeName = theme['theme-name'];
     }
-
-    var themeSet = theme['theme-opts'];
-    var themeName = theme['theme-name'];
-
+   
     if (themeSet) {
         presets.custom = {
             color: themeSet.color,
