@@ -183,17 +183,17 @@ $(document).ready(function() {
 
 function setTheme(name, reset, props) {
 
-    var themex = getCookie('theme');
-    if (themex) {
-        themex = JSON.parse(themex);
+    var savedTheme = getCookie('theme');
+    if (savedTheme) {
+        savedTheme = JSON.parse(savedTheme);
     } else {
-        themex = {};
+        savedTheme = {};
     }
 
     var theme = presets[name], options, backgOptions;
     if (!theme) return;
-    var prevThemeName = themex['theme-name'];
-    themex['theme-name'] = name;
+    var prevThemeName = savedTheme['theme-name'];
+    savedTheme['theme-name'] = name;
 
     if (name == 'custom') {
         if (prevThemeName && prevThemeName != 'custom' && !reset) {
@@ -209,20 +209,13 @@ function setTheme(name, reset, props) {
             theme[props.name] = props.value;
         }
         addCustomThemeButton();
-        themex['theme-opts'] = theme;
+        savedTheme['theme-opts'] = theme;
 
-        $.ajax('/savetheme', {
-            cache: false, 
-            method: 'post', 
-            processData: false,
-            contentType: 'application/json',
-            data: JSON.stringify(themex)
-        })
     } else {
-        themex['theme-opts'] = {};
+        savedTheme['theme-opts'] = {};
     }
 
-    setCookie('theme', JSON.stringify(themex), { expires: 2592000 });
+    saveTheme(savedTheme);
 
     options = {
         'color': theme.color ? theme.color : '',
