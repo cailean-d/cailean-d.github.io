@@ -20,26 +20,23 @@ $.fn.isInViewport = function() {
     return elementBottom > viewportTop && elementTop < viewportBottom;
 };
 
-function loadPageOnScroll(elem, e) {
-    if (isScrolledByButton) return;
-    if ($(elem).hasClass('content') && !$(elem).hasClass('reader-fullscreen')) return;
-    if(!$(elem).hasClass('content') && $('.reader-fullscreen').length) return;
-    if (elem.clientHeight == elem.scrollHeight && elem.scrollTop == 0) {
-        if (e.deltaY > 0) {
-            startLoadBottom();
-       } else {
-            startLoadTop();
-       }
-    } else if ((elem.clientHeight + elem.scrollTop) >= elem.scrollHeight) {
-        if (!e.deltaY || (e.deltaY && e.deltaY > 0)) {
-            startLoadBottom();
-        }
-    } else if (elem.scrollHeight > elem.clientHeight && elem.scrollTop == 0) {
-        if (!e.deltaY || (e.deltaY && e.deltaY < 0)) {
-            startLoadTop();
-        }
-    }
-}
+var debounce = function(func, wait, immediate) {
+    var timeout;
+    return function() {
+      var context = this, args = arguments;
+      var later = function() {
+          timeout = null;
+          if (!immediate) func.apply(context, args);
+      };
+      var callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
+    };
+ };
+
+var debouncedSavePage = debounce(savePage, 500);
+var debouncedPageOnScroll = debounce(onPageScroll, 100);
 
 function onPageScroll(elem) {
     
@@ -134,7 +131,7 @@ function changePageByButton() {
             isScrolledByButton = false;
         });
         $('#pageInput').val(pageNumber);
-        setCookie('last-page', startPage, { expires: 2592000 });
+        debouncedSavePage(startPage);
     } else if(pageOffset < 0) { // prev page
         startLoadTop(true);
     } else if (pageOffset > 0) { // next page
@@ -161,7 +158,7 @@ function changePageByInput(e) {
         
         if (pageElement.length > 0) {
             isScrolledByButton = true;
-            setCookie('last-page', startPage, { expires: 2592000 });
+            debouncedSavePage(startPage);
             scrollToTarget(pageElement[0], function() {
                 isScrolledByButton = false;
             });
@@ -209,14 +206,14 @@ function getPages(dir, startPage) {
         }
     }
 
-    if (dir < 0 && pagesToLoad[pagesToLoad.length - 1]) {
-        setCookie('last-page', pagesToLoad[pagesToLoad.length - 1], { expires: 2592000 });
-    } else if (dir > 0 && pagesToLoad[0]) {
-        setCookie('last-page', pagesToLoad[0], { expires: 2592000 });
-    }
-    if (pagesToLoad.length > 0) {
-        showLoading();
-    }
+    // if (dir < 0 && pagesToLoad[pagesToLoad.length - 1]) {
+    //     setCookie('last-page', pagesToLoad[pagesToLoad.length - 1], { expires: 2592000 });
+    // } else if (dir > 0 && pagesToLoad[0]) {
+    //     setCookie('last-page', pagesToLoad[0], { expires: 2592000 });
+    // }
+    // if (pagesToLoad.length > 0) {
+    //     showLoading();
+    // }
     return pagesToLoad;
 }
 
@@ -258,15 +255,6 @@ function preventScroll(cb) {
     $(el).scrollTop(new_scroll);
 }
 
-function debounceFn(timer, cb, time) {
-    if(timer) {
-        window.clearTimeout(timer);
-    }
-    timer = window.setTimeout(function() {
-        cb();
-    }, time || 100);
-}
-
 function determinePageOnScroll() {
     $('.page').each(function() {
         if ($(this).isInViewport()) {
@@ -274,8 +262,7 @@ function determinePageOnScroll() {
             var page = elClass.split(' ')[1].slice(4);
             var startPage = page * pageCount - (pageCount - 1);
             $('#pageInput').val(page);
-            setCookie('last-page', startPage, { expires: 2592000 });
-
+            debouncedSavePage(startPage);
             saveOffsetPosition(page);
         }
     });
@@ -338,15 +325,19 @@ function hideLoading() {
     $('.loader-wrapper').hide();
 }
 
+function savePage(p) {
+    var pagex = getCookie('last-page');
+    if (p != pagex) {
+        setCookie('last-page', p , { expires: 2592000 });
+    }
+}
+
 $(document).ready(function() {
     loadPage(getPages(1), undefined, restoreOffsetPosition);
     $('#pageInput').val(Math.ceil((bottomPage - 1) / pageCount));
-    var debounceTimer, debounceTimer2, debounceTimer3, debounceTimer4;
     var reader = $(readerSelector).parent()[0];
-    window.addEventListener('scroll', e => debounceFn(debounceTimer, _ => onPageScroll(doc)))
-    reader.addEventListener('scroll', e => debounceFn(debounceTimer3, _ => onPageScroll(reader)))
-    // window.addEventListener('mousewheel', e => debounceFn(debounceTimer2, _ => loadPageOnScroll(doc, e)))
-    // reader.addEventListener('mousewheel', e => debounceFn(debounceTimer4, _ => loadPageOnScroll(reader, e)))
+    window.addEventListener('scroll', e => debouncedPageOnScroll(doc))
+    reader.addEventListener('scroll', e => debouncedPageOnScroll(reader))
 
     $('#pageInput').on('keypress', changePageByInput)
     $('#prev_page').click(changePageByButton)

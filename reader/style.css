@@ -108,6 +108,11 @@ body, .reader .content {
     border-color: #777;
 }
 
+.active-background, 
+.active-background:hover {
+    border-color: #5bd0b6 !important;
+}
+
 .sp-replacer {
     opacity: 0;
     position: absolute;
@@ -511,4 +516,14 @@ h2 {
     .page-wrapper .page-misc {
         width: 265px;
     }
+}
+
+
+.active-option, 
+.active-option:hover, 
+.active-option:focus,
+.active-option a,
+.active-option a:hover,
+.active-option a:focus {
+    font-weight: bold !important;
 }
