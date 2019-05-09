@@ -211,9 +211,9 @@ function getPages(dir, startPage) {
     // } else if (dir > 0 && pagesToLoad[0]) {
     //     setCookie('last-page', pagesToLoad[0], { expires: 2592000 });
     // }
-    // if (pagesToLoad.length > 0) {
-    //     showLoading();
-    // }
+    if (pagesToLoad.length > 0) {
+        showLoading();
+    }
     return pagesToLoad;
 }
 

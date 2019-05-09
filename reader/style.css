@@ -451,7 +451,7 @@ h2 {
 
 .page-wrapper .page-misc {
     margin: 0 auto;
-    width: 768px;
+    width: 828px;
     display: flex;
     /* width: 100%; */
     justify-content: space-between;
@@ -467,24 +467,29 @@ h2 {
     /* justify-content: center; */
 }
 
+@media screen and (max-width: 846px) {
+    .page-wrapper .page-misc {
+        width: 768px;
+    }
+}
 @media screen and (max-width: 787px) {
     .page-wrapper .page-misc {
-        width: 710px;
+        width: 709px;
     }
 }
 @media screen and (max-width: 728px) {
     .page-wrapper .page-misc {
-        width: 650px;
+        width: 651px;
     }
 }
-@media screen and (max-width: 720px) {
+@media screen and (max-width: 636px) {
     .page-wrapper .page-misc {
-        width: 573px;
+        width: 572px;
     }
 }
 @media screen and (max-width: 592px) {
     .page-wrapper .page-misc {
-        width: 529px;
+        width: 530px;
     }
 }
 @media screen and (max-width: 548px) {
@@ -512,6 +517,11 @@ h2 {
         width: 308px;
     }
 }
+@media screen and (max-width: 328px) {
+    .page-wrapper .page-misc {
+        width: 308px;
+    }
+}
 @media screen and (max-width: 327px) {
     .page-wrapper .page-misc {
         width: 265px;
@@ -526,4 +536,13 @@ h2 {
 .active-option a:hover,
 .active-option a:focus {
     font-weight: bold !important;
+}
+
+
+.save-theme {
+    padding: 0 !important;
+}
+
+.save-theme > div {
+    padding: 2px 12px;
 }

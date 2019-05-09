@@ -54,13 +54,34 @@ $(document).ready(function() {
 
     initSettings();
 
+    $('#save-theme-btn').on('click', function(e) {
+        var theme = getCookie('theme');
+        if (!theme) {
+            $('.save-theme-alert').html('Theme is not set');
+            $('.save-theme-alert').show();
+            return;
+        }
+        theme = JSON.parse(theme);
+        var themeName = $('#title-input').val();
+        if (!themeName) {
+            $('.save-theme-alert').html('Theme name cannot be empty');
+            $('.save-theme-alert').show();
+            return;
+        }
+        theme['theme-alias'] = themeName;
+        $('.save-theme-alert').hide();
+        $('#save_theme_modal').modal('hide');
+        $('#title-input').val('');
+        alert(JSON.stringify(theme));
+    })
+
     $('.fullscreen-on').on('click', function() {
         var winScrollOffset = $(window).scrollTop(); 
         $(this).hide();
         $('.content').addClass('reader-fullscreen');
         $('body').css('overflow', 'hidden');
         $('.content').scrollTop(winScrollOffset);
-        setTimeout(function(){ $(this).show() }, 300);
+        setTimeout(function(){ $('.fullscreen-on').show() }, 300);
     })
 
     $('.fullscreen-off').on('click', function() {
