@@ -4,20 +4,41 @@ let isBottomLoaded = false;
 let isScrolledByButton = false;
 let topPage = +getCookie('last-page') || 1;
 let bottomPage = +getCookie('last-page') || 1;
-let pageCount = 3;
+let pageCount = 2 /* 3 */;
 let maxPages = 60;
 let data = '';
 let doc = document.documentElement;
 let scrolledPage;
 
-$.fn.isInViewport = function() {
+var initPage = getCookie('last-page')
+var initParagraph = getCookie('paragraph');
+
+var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
+if (w > 1400) {
+    pageCount = 5;
+} else if (w > 1200) {
+    pageCount = 4;
+} else if (w > 500) {
+    pageCount = 3;
+}
+
+$.fn.isInViewport = function(elem) {
     var elementTop = $(this).offset().top;
     var elementBottom = elementTop + $(this).outerHeight();
 
-    var viewportTop = $(window).scrollTop();
-    var viewportBottom = viewportTop + $(window).height();
+    var viewportTop = $(elem).scrollTop() + $('.inner').offset().top;
+    var viewportBottom = viewportTop /* + $(elem).height() */;
 
-    return elementBottom > viewportTop && elementTop < viewportBottom;
+    // if ($(this)[0].classList.contains('page1')) {
+    //     console.log('1: ', elementBottom + ' > ' + viewportTop, ', ', elementTop + ' <= ' + viewportBottom)
+    // }
+    // if ($(this)[0].classList.contains('page2')) {
+    //     console.log('2: ', elementBottom + ' > ' + viewportTop, ', ', elementTop + ' <= ' + viewportBottom)
+    // }
+
+    return elementBottom > viewportTop && elementTop <= viewportBottom;
 };
 
 var debounce = function(func, wait, immediate) {
@@ -46,7 +67,7 @@ function onPageScroll(elem) {
 
     var elHeight = elem === document.documentElement ? window.innerHeight : elem.clientHeight;
 
-    determinePageOnScroll();
+    determinePageOnScroll(elem);
 
     if (elHeight + elem.scrollTop + 60 >= elem.scrollHeight) { // bottom corner
         startLoadBottom();
@@ -88,29 +109,29 @@ function loadPage(pages, dir, cb) {
         let p = pages.shift();
         $.ajax('pages/' + p + '.html').done(function(text) {
             if (dir === true || dir === undefined) {
-                data += '<div class="sub-page' + p + '">' + text + '</div>';
+                data += '<div class="page' + p + '">' + text + '</div>';
             } else {
-                data = '<div class="sub-page' + p + '">' + text + '</div>' + data;
+                data = '<div class="page' + p + '">' + text + '</div>' + data;
             }
             loadPage(pages, dir, cb);          
         });
     } else {
         if (data) {
-            let pageNumber = dir ? Math.ceil((bottomPage - 1) / pageCount) : Math.ceil(topPage / pageCount);
-            if (dir === undefined) pageNumber = $('#pageInput').val();
-            let html = '<div class="page page' + pageNumber + '">' + data + '</div>';
+            // let pageNumber = dir ? Math.ceil((bottomPage - 1) / pageCount) : Math.ceil(topPage / pageCount);
+            // if (dir === undefined) pageNumber = $('#pageInput').val();
+            // let html = '<div class="page page' + pageNumber + '">' + data + '</div>';
             if (dir === true) {
-                $('#pageInput').attr('data-page', pageNumber);
-                if (isScrolledByButton) $('#pageInput').val(pageNumber);
-                $(readerSelector).append(html); 
+                // $('#pageInput').attr('data-page', pageNumber);
+                // if (isScrolledByButton) $('#pageInput').val(pageNumber);
+                $(readerSelector).append(data); 
             } else if (dir === false) {
                 preventScroll(function() {
-                    $('#pageInput').attr('data-page', pageNumber);
-                    if (isScrolledByButton) $('#pageInput').val(pageNumber);
-                    $(readerSelector).prepend(html);
+                    // $('#pageInput').attr('data-page', pageNumber);
+                    // if (isScrolledByButton) $('#pageInput').val(pageNumber);
+                    $(readerSelector).prepend(data);
                 });
             } else {
-                $(readerSelector).html(html);
+                $(readerSelector).html(data);
             }
             data = '';
             if (typeof cb === 'function') cb();
@@ -255,26 +276,57 @@ function preventScroll(cb) {
     $(el).scrollTop(new_scroll);
 }
 
-function determinePageOnScroll() {
-    $('.page').each(function() {
-        if ($(this).isInViewport()) {
+function determinePageOnScroll(elem) {
+    $('*[class*="page"]').each(function() {
+        $(this).css('background', '');
+        if ($(this).isInViewport(elem)) {
+            $(this).css('background', '#2a982a');
             var elClass = $(this).attr('class');
-            var page = elClass.split(' ')[1].slice(4);
+            var page = /* elClass.split(' ')[1] */elClass.slice(4);
+            // console.log('page in view - ', page);
             var startPage = page * pageCount - (pageCount - 1);
             $('#pageInput').val(page);
-            debouncedSavePage(startPage);
-            saveOffsetPosition(page);
+            debouncedSavePage(page);
+            determineParagraph(page, elem);
+            // saveOffsetPosition(page, elem);
         }
     });
 }
 
-function saveOffsetPosition(page) {
-    var headerOffset = parseInt($('.reader').css('margin-top')) + 40 || 100;
+function determineParagraph(page, elem) {
+    $('*[class*="page"] > *').each(function() {
+        requestAnimationFrame(() => {
+            $(this).css('background', '');
+        })
+    });
+    $('.page' + page + ' > *').each(function(index) {
+        if ($(this).isInViewport(elem)) {
+            // console.log('page = ', page, ', paragrapth = ', index)
+            setCookie('paragraph', index, { expires: 2592000 });
+            requestAnimationFrame(() => {
+                $(this).css('background', '#ab5b9d');
+            });
+            return false;
+        }
+    });
+}
+
+function restoreParagraph() {
+    var el = $('.page' + initPage + ' > *')[initParagraph];
+    if (!el) return;
+    var elementTop = $(el).offset().top;
+    var headerOffset = $('.inner').offset().top;
+    window.scrollTo(0, elementTop - headerOffset);
+}
+
+function saveOffsetPosition(page, elem) {
+    var headerOffset = $('.inner').offset().top;
     var pageOffset = $('.page' + page).offset().top - 112;
-    var scrollTop = $(window).scrollTop();
+
+    var scrollTop = $(elem).scrollTop();
     var pageHeight = $('.page' + page).outerHeight();
     var newScrollOffset = scrollTop - pageOffset;
-    var pageBottom = pageOffset + pageHeight - window.innerHeight + headerOffset;
+    var pageBottom = pageOffset + pageHeight - elem.innerHeight + headerOffset;
 
     var scrollObject = {};
     scrollObject['offset'] = newScrollOffset;
@@ -333,8 +385,12 @@ function savePage(p) {
 }
 
 $(document).ready(function() {
-    loadPage(getPages(1), undefined, restoreOffsetPosition);
-    $('#pageInput').val(Math.ceil((bottomPage - 1) / pageCount));
+    $('#pageInput').val(bottomPage);
+    if (bottomPage + pageCount - 1 > maxPages) {
+        topPage = bottomPage = maxPages - pageCount + 1;
+    } 
+    loadPage(getPages(1), undefined, /* restoreOffsetPosition */ restoreParagraph);
+    // $('#pageInput').val(Math.ceil((bottomPage - 1) / pageCount));
     var reader = $(readerSelector).parent()[0];
     window.addEventListener('scroll', e => debouncedPageOnScroll(doc))
     reader.addEventListener('scroll', e => debouncedPageOnScroll(reader))

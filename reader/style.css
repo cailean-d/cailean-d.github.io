@@ -546,3 +546,19 @@ h2 {
 .save-theme > div {
     padding: 2px 12px;
 }
+
+.content .inner p {
+    margin: 0;
+    padding: 0 0 10px;
+}
+
+.content .inner .h1, 
+.content .inner .h2, 
+.content .inner .h3, 
+.content .inner h1, 
+.content .inner h2, 
+.content .inner h3 {
+    margin: 0;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}

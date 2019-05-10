@@ -46,7 +46,10 @@ var presets = {
         backgroundColor: '#000'
     }, 
     recommended: {},
-    custom: {}
+    custom: {},
+    key: function(n) {
+        return this[Object.keys(this)[n]];
+    }
 }
 
 
@@ -201,6 +204,7 @@ $(document).ready(function() {
     });
 
     Object.keys(presets).forEach(function(key, i) {
+        if (key == 'key') return;
         $('.theme-preset-' + i).on('click', function(e) {
             e.preventDefault();
             setTheme(key, true);
