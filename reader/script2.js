@@ -4,7 +4,7 @@ let isBottomLoaded = false;
 let isScrolledByButton = false;
 let topPage = +getCookie('last-page') || 1;
 let bottomPage = +getCookie('last-page') || 1;
-let pageCount = 2 /* 3 */;
+let pageCount /* 3 */;
 let maxPages = 60;
 let data = '';
 let doc = document.documentElement;
@@ -16,12 +16,20 @@ var initParagraph = getCookie('paragraph');
 var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 
-if (w > 1400) {
-    pageCount = 5;
-} else if (w > 1200) {
-    pageCount = 4;
-} else if (w > 500) {
-    pageCount = 3;
+var pageBreakpoints = [
+    { w: 1400, page: 5 },
+    { w: 1200, page: 4 },
+    { w: 500, page: 3 },
+    { w: 0, page: 2 },
+]
+
+
+for(var x = 0; x < pageBreakpoints.length; x++){
+    var element = pageBreakpoints[x];
+    if (w > element.w) {
+        pageCount = element.page;
+        break;
+    }
 }
 
 $.fn.isInViewport = function(elem) {
@@ -30,13 +38,6 @@ $.fn.isInViewport = function(elem) {
 
     var viewportTop = $(elem).scrollTop() + $('.inner').offset().top;
     var viewportBottom = viewportTop /* + $(elem).height() */;
-
-    // if ($(this)[0].classList.contains('page1')) {
-    //     console.log('1: ', elementBottom + ' > ' + viewportTop, ', ', elementTop + ' <= ' + viewportBottom)
-    // }
-    // if ($(this)[0].classList.contains('page2')) {
-    //     console.log('2: ', elementBottom + ' > ' + viewportTop, ', ', elementTop + ' <= ' + viewportBottom)
-    // }
 
     return elementBottom > viewportTop && elementTop <= viewportBottom;
 };
@@ -164,34 +165,36 @@ function changePageByInput(e) {
     var isKeyEnter = e.keyCode == 13;
     if (isKeyEnter) {
         var pageNumber = +$(this).val();
-        var p = Math.ceil(maxPages / pageCount);
         
         if(pageNumber < 1) {
             $(this).val(1)
             pageNumber = 1;
-        } else if (pageNumber > p) {
-            $(this).val(p);
-            pageNumber = p;
+        } else if (pageNumber > maxPages) {
+            $(this).val(maxPages);
+            pageNumber = maxPages;
         }
 
         var pageElement = $('.page' + pageNumber);
-        let startPage = pageNumber * pageCount - (pageCount - 1);
         
         if (pageElement.length > 0) {
             isScrolledByButton = true;
-            debouncedSavePage(startPage);
+            // debouncedSavePage(startPage);
             scrollToTarget(pageElement[0], function() {
                 isScrolledByButton = false;
             });
         } else {
             isScrolledByButton = true;
-            let pagesToLoad = getPages(1, startPage);
+            bottomPage = topPage = pageNumber;
             isBottomLoaded = isTopLoaded = false;
-            topPage = startPage;
-            bottomPage = pagesToLoad[pagesToLoad.length - 1] + 1;
-            loadPage(pagesToLoad, undefined, function() {
+            if (bottomPage + pageCount - 1 > maxPages) {
+                topPage = bottomPage = maxPages - pageCount + 1;
+            } 
+            loadPage(getPages(1), undefined, function() {
                 document.documentElement.scrollTo(0, 1);
                 isScrolledByButton = false;
+                scrollToTarget($('.page' + pageNumber)[0], function() {
+                    isScrolledByButton = false;
+                });
             });
         }
     }
@@ -240,7 +243,7 @@ function getPages(dir, startPage) {
 
 function scrollToTarget(element, cb){
     
-    var headerOffset = parseInt($('.reader').css('margin-top')) + 10 || 100;
+    var headerOffset = $('.inner').offset().top;;
     var elementPosition = element.getBoundingClientRect().top;
     var offsetPosition = elementPosition - headerOffset + window.scrollY;
     
@@ -278,45 +281,57 @@ function preventScroll(cb) {
 
 function determinePageOnScroll(elem) {
     $('*[class*="page"]').each(function() {
-        $(this).css('background', '');
+        // $(this).css('background', '');
         if ($(this).isInViewport(elem)) {
-            $(this).css('background', '#2a982a');
+            // $(this).css('background', '#2a982a');
             var elClass = $(this).attr('class');
-            var page = /* elClass.split(' ')[1] */elClass.slice(4);
-            // console.log('page in view - ', page);
-            var startPage = page * pageCount - (pageCount - 1);
+            var page = elClass.slice(4);
+            // var startPage = page * pageCount - (pageCount - 1);
             $('#pageInput').val(page);
-            debouncedSavePage(page);
-            determineParagraph(page, elem);
+            $('.page' + page + ' > *').each(function(paragraph) {
+                if ($(this).isInViewport(elem)) {
+                    debouncedSavePage(page, paragraph);
+                    // console.log('page = ', page, ', paragrapth = ', index)
+                    // setCookie('paragraph', index, { expires: 2592000 });
+                    // requestAnimationFrame(() => {
+                    //     $(this).css('background', '#ab5b9d');
+                    // });
+                    return false;
+                }
+            });
+            // determineParagraph(page, elem);
             // saveOffsetPosition(page, elem);
         }
     });
 }
 
 function determineParagraph(page, elem) {
-    $('*[class*="page"] > *').each(function() {
-        requestAnimationFrame(() => {
-            $(this).css('background', '');
-        })
-    });
+    // $('*[class*="page"] > *').each(function() {
+    //     requestAnimationFrame(() => {
+    //         $(this).css('background', '');
+    //     })
+    // });
     $('.page' + page + ' > *').each(function(index) {
         if ($(this).isInViewport(elem)) {
             // console.log('page = ', page, ', paragrapth = ', index)
             setCookie('paragraph', index, { expires: 2592000 });
-            requestAnimationFrame(() => {
-                $(this).css('background', '#ab5b9d');
-            });
+            // requestAnimationFrame(() => {
+            //     $(this).css('background', '#ab5b9d');
+            // });
             return false;
         }
     });
 }
 
-function restoreParagraph() {
+function restorePosition() {
     var el = $('.page' + initPage + ' > *')[initParagraph];
-    if (!el) return;
-    var elementTop = $(el).offset().top;
-    var headerOffset = $('.inner').offset().top;
-    window.scrollTo(0, elementTop - headerOffset);
+    if (el) {
+        var elementTop = $(el).offset().top;
+        var headerOffset = $('.inner').offset().top;
+        window.scrollTo(0, elementTop - headerOffset);
+    } else {
+        scrollToTarget($('.page' + initPage)[0]);
+    }
 }
 
 function saveOffsetPosition(page, elem) {
@@ -377,11 +392,9 @@ function hideLoading() {
     $('.loader-wrapper').hide();
 }
 
-function savePage(p) {
-    var pagex = getCookie('last-page');
-    if (p != pagex) {
-        setCookie('last-page', p , { expires: 2592000 });
-    }
+function savePage(page, paragraph) {
+    setCookie('last-page', page , { expires: 2592000 });
+    setCookie('paragraph', paragraph, { expires: 2592000 });
 }
 
 $(document).ready(function() {
@@ -389,7 +402,7 @@ $(document).ready(function() {
     if (bottomPage + pageCount - 1 > maxPages) {
         topPage = bottomPage = maxPages - pageCount + 1;
     } 
-    loadPage(getPages(1), undefined, /* restoreOffsetPosition */ restoreParagraph);
+    loadPage(getPages(1), undefined, /* restoreOffsetPosition */ restorePosition);
     // $('#pageInput').val(Math.ceil((bottomPage - 1) / pageCount));
     var reader = $(readerSelector).parent()[0];
     window.addEventListener('scroll', e => debouncedPageOnScroll(doc))

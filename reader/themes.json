@@ -1,0 +1,22 @@
+{
+    "themes": [
+        {
+            "theme-name": "test1",
+            "theme-opts": {
+                "color": "#f00"
+            }
+        },
+        {
+            "theme-name": "test2",
+            "theme-opts": {
+                "color": "#0f0"
+            }
+        },
+        {
+            "theme-name": "test3",
+            "theme-opts": {
+                "color": "#00f"
+            }
+        }
+    ]
+}
