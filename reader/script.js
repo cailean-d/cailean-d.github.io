@@ -1,4 +1,6 @@
 var readerSelector = '.reader .content .inner';
+var isLoaded = false;
+var isHideThemeWarning = getCookie('hide-theme-warning');
 
 var colorPickerOptions = {
     color: '#000',
@@ -81,6 +83,14 @@ $(document).ready(function() {
 
     $('#save-theme-cancel').on('click', function() {
         resetSaveThemeModal();
+    });
+
+    $('#close_theme_warning').on('click', function() {
+        var isHide = $('#hide_theme_warning').prop('checked');
+        if (isHide) {
+            setCookie('hide-theme-warning', 1, { expires: 2592000 })
+            isHideThemeWarning = true;
+        }
     });
 
     $('.fullscreen-on').on('click', function() {
@@ -237,6 +247,7 @@ function setTheme(name, reset, props) {
         if (prevThemeName && prevThemeName != 'custom' && !reset) {
             presets.custom = clone(presets[prevThemeName]);
             theme = presets.custom;
+
         }
 
         if (props instanceof Array) {
@@ -247,6 +258,7 @@ function setTheme(name, reset, props) {
             theme[props.name] = props.value;
         }
         addCustomThemeButton();
+        if (isLoaded && props && !isHideThemeWarning) $('#theme_warning').modal('show');
     }
 
     savedTheme['theme-opts'] = theme;
@@ -356,6 +368,7 @@ function getAllThemes() {
             $('.theme-list').append('<li><a href="#" data-theme="'+themeName+'">'+themeName+'</a></li>');
         });
         initThemeSettings();
+        isLoaded = true;
     })
 }
 
@@ -411,6 +424,7 @@ function setActiveColorPicker(id, color) {
         }, 500);
     }
 }
+
 
 // // load recommended theme
 // var themeLink = 'theme.json';
