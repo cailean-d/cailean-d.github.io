@@ -10,8 +10,8 @@ let data = '';
 let doc = document.documentElement;
 let scrolledPage;
 
-var initPage = getCookie('last-page')
-var initParagraph = getCookie('paragraph');
+var initPage = getCookie('last-page') || 1;
+var initParagraph = getCookie('paragraph') || 0;
 
 var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
@@ -332,6 +332,7 @@ function restorePosition() {
     } else {
         scrollToTarget($('.page' + initPage)[0]);
     }
+    if (document.documentElement.scrollTop == 0) window.scrollTo(0, 1);
 }
 
 function saveOffsetPosition(page, elem) {

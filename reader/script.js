@@ -87,10 +87,7 @@ $(document).ready(function() {
 
     $('#close_theme_warning').on('click', function() {
         var isHide = $('#hide_theme_warning').prop('checked');
-        if (isHide) {
-            setCookie('hide-theme-warning', 1, { expires: 2592000 })
-            isHideThemeWarning = true;
-        }
+        if (isHide) hideThemeWarning();
     });
 
     $('.fullscreen-on').on('click', function() {
@@ -247,7 +244,6 @@ function setTheme(name, reset, props) {
         if (prevThemeName && prevThemeName != 'custom' && !reset) {
             presets.custom = clone(presets[prevThemeName]);
             theme = presets.custom;
-
         }
 
         if (props instanceof Array) {
@@ -362,6 +358,7 @@ function addThemeToList(theme) {
 
 function getAllThemes() {
     $.ajax('themes.json').done(function(data){
+        if (data.themes.length > 0) hideThemeWarning();
         data.themes.forEach(function(v) {
             var themeName = v['theme-name'];
             presets[themeName] = v['theme-opts']; 
@@ -403,6 +400,7 @@ function setActiveOption(arr, opt, className) {
     var sIndex = className == 'font-size' ? 1 : 0;
     $('*[class^="'+ className + '"]').removeClass('active-option');
     if (index != -1) {
+        if (className == 'font-interval') index++;
         $('.' + className + '-' + index).addClass('active-option');
     } else {
         $('.' + className + '-' + sIndex).addClass('active-option');        
@@ -423,6 +421,11 @@ function setActiveColorPicker(id, color) {
             $("#" + id + "-color-picker").spectrum("set", color);
         }, 500);
     }
+}
+
+function hideThemeWarning() {
+    setCookie('hide-theme-warning', 1, { expires: 2592000 })
+    isHideThemeWarning = true;
 }
 
 
