@@ -131,7 +131,7 @@ Vue.component('vue-map', {
             let markerStyle = new ol.style.Style({
                 image: new ol.style.Icon(({
                     anchor: [0.5, 1],
-                    src: "http://cdn.mapmarker.io/api/v1/pin?text=P&size=35&hoffset=1",
+                    src: "https://cdn.mapmarker.io/api/v1/pin?text=P&size=35&hoffset=1",
                     rotation: 0 * (Math.PI/180) 
                 }))
             });
