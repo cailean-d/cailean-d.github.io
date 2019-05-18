@@ -9,6 +9,7 @@ Vue.component('vue-map', {
     data: () => ({
         map: null,
         overlay: null,
+        markers: [],
         textColor: '#0ff',
         textHoverColor: '#f00',
         textOffset: 9,
@@ -49,6 +50,7 @@ Vue.component('vue-map', {
             });
 
             this.map.on("pointermove", e => {
+                // change color
                 this.resetTextColor();
                 let hit = this.map.forEachFeatureAtPixel(e.pixel, (feature, layer) => {
                     if (feature.get('id') == 'text') {
@@ -57,6 +59,7 @@ Vue.component('vue-map', {
                     return true;
                 }); 
 
+                // pointer on hover
                 if (hit) {
                     this.map.getTarget().style.cursor = 'pointer';
                 } else {
@@ -64,12 +67,13 @@ Vue.component('vue-map', {
                 }
             });
 
+            // remove marker
             this.map.getViewport().addEventListener('contextmenu', e => {
                 e.preventDefault();
                 let c = this.map.getEventCoordinate(e);
                 let p = this.map.getPixelFromCoordinate(c);
                 this.map.forEachFeatureAtPixel(p, (feature, layer) => {
-                    this.map.removeLayer(layer);
+                    this.removeMarker(layer);
                 })
                 
             })
@@ -108,6 +112,7 @@ Vue.component('vue-map', {
             });
         },
         drawMarker(marker) {
+            this.markers.push(marker);
             let features = [];
             let longitude = marker.lng;
             let latitude = marker.lat;
@@ -151,6 +156,7 @@ Vue.component('vue-map', {
             
             let vectorSource = new ol.source.Vector({ features: features });
             let vectorLayer = new ol.layer.Vector({ source: vectorSource });
+            vectorLayer.set('index', this.markers.length - 1);
 
             this.map.addLayer(vectorLayer);
         },
@@ -162,7 +168,6 @@ Vue.component('vue-map', {
         setMarket(coordinate) {
             let coords = ol.proj.transform(coordinate, 'EPSG:3857', 'EPSG:4326');
             let marker = {lng: coords[0], lat: coords[1], angle: 0};
-            console.log('new marker: ', marker.lng, marker.lat, marker.angle);
             this.drawMarker(marker);
         },
         rotateMarker(layer) {
@@ -174,7 +179,7 @@ Vue.component('vue-map', {
                     let rotation = image.getRotation();
                     let newRotation = rotation +  this.angleRotation * (Math.PI/180);
                     let newAngle = Math.round((newRotation * (180/Math.PI)) % 360);
-                    console.log('new rotation: ' + newAngle)
+                    this.markers[layer.get('index')].angle = newAngle;
                     image.setRotation(newRotation);
                     i.setStyle(style);
                 }
@@ -199,10 +204,24 @@ Vue.component('vue-map', {
                 }
             })
         },
+        fixLayerIndex() {
+            let index = 0;
+            let layers = this.map.getLayers().getArray();
+            layers.forEach(i => {
+                if (i.type == 'VECTOR') {
+                    i.set('index', index++);
+                }
+            })
+        },
         addPixelsToCoords(coords, pixels) {
             let pixel = this.map.getPixelFromCoordinate(coords);
             pixel[1] = pixel[1] + pixels;
             return this.map.getCoordinateFromPixel(pixel);
+        },
+        removeMarker(layer) {
+            this.markers.splice(layer.get('index'), 1);
+            this.map.removeLayer(layer);
+            this.fixLayerIndex();
         },
         loadMarkers() {
             fetch('markers.json')
@@ -215,6 +234,11 @@ Vue.component('vue-map', {
                 })
             })
         },
+        sendMarkers() {
+            let data = { markers: this.markers };
+            let jsonData = JSON.stringify(data);
+            console.log(jsonData);
+        }
     }
 })
 
