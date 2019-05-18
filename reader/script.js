@@ -69,11 +69,7 @@ $(document).ready(function() {
         theme = JSON.parse(theme);
         var themeName = $('#title-input').val();
         var isShared = $('#shared_theme').prop('checked');
-        if (!themeName) {
-            $('.save-theme-alert').html('Theme name cannot be empty');
-            $('.save-theme-alert').show();
-            return;
-        }
+        if (!isThemeNameValid(themeName)) return;
         theme['theme-name'] = themeName;
         theme['public'] = isShared;
         resetSaveThemeModal();
@@ -426,6 +422,23 @@ function setActiveColorPicker(id, color) {
 function hideThemeWarning() {
     setCookie('hide-theme-warning', 1, { expires: 2592000 })
     isHideThemeWarning = true;
+}
+
+function isThemeNameValid(name) {
+    if (!name) {
+        $('.save-theme-alert').html('Theme name cannot be empty');
+        $('.save-theme-alert').show();
+        return;
+    }
+
+    for (var prop in presets) {
+        if (name == prop) {
+            $('.save-theme-alert').html('Theme name is already in use');
+            $('.save-theme-alert').show();
+            return;
+        }
+    }
+    return true;
 }
 
 
