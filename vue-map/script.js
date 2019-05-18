@@ -9,16 +9,17 @@ Vue.component('vue-map', {
     data: () => ({
         map: null,
         overlay: null,
-        textColor: '#559060',
+        textColor: '#0ff',
         textHoverColor: '#f00',
+        textOffset: 9,
         startCoords: [46.0676732, 41.3403794],
         zoom: 5,
         minZoom: 5,
         maxZoom: 19,
         angleRotation: 45,
-        markerText: 'rotate',
+        markerText: '#',
         markerSource: 'marker.png',
-        markerScale: 0.5
+        markerScale: 0.5,
     }),
     mounted() {
         this.initialize();
@@ -62,6 +63,16 @@ Vue.component('vue-map', {
                     this.map.getTarget().style.cursor = '';
                 }
             });
+
+            this.map.getViewport().addEventListener('contextmenu', e => {
+                e.preventDefault();
+                let c = this.map.getEventCoordinate(e);
+                let p = this.map.getPixelFromCoordinate(c);
+                this.map.forEachFeatureAtPixel(p, (feature, layer) => {
+                    this.map.removeLayer(layer);
+                })
+                
+            })
 
         },
         initOverlay() {
@@ -129,7 +140,7 @@ Vue.component('vue-map', {
                       color: '#fff', width: 2
                     }),
                     text: this.markerText,
-                    offsetY: 20
+                    offsetY: this.textOffset
                 })
             })
         
