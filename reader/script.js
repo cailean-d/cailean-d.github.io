@@ -432,7 +432,7 @@ function isThemeNameValid(name) {
     }
 
     for (var prop in presets) {
-        if (name == prop) {
+        if (name.toLowerCase() == prop.toLowerCase()) {
             $('.save-theme-alert').html('Theme name is already in use');
             $('.save-theme-alert').show();
             return;
