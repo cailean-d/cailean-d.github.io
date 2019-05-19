@@ -21,6 +21,7 @@ Vue.component('vue-map', {
         markerText: '#',
         markerSource: 'marker.png',
         markerScale: 0.5,
+        overlayOffsetY: -7,
     }),
     mounted() {
         this.initialize();
@@ -74,8 +75,7 @@ Vue.component('vue-map', {
                 let p = this.map.getPixelFromCoordinate(c);
                 this.map.forEachFeatureAtPixel(p, (feature, layer) => {
                     this.removeMarker(layer);
-                })
-                
+                })  
             })
 
         },
@@ -85,7 +85,8 @@ Vue.component('vue-map', {
                 autoPan: true,
                 autoPanAnimation: {
                   duration: 250
-                }
+                },
+                offset: [0, this.overlayOffsetY]
             });
 
             this.$refs.popupCloser.onclick = () => {
@@ -161,9 +162,8 @@ Vue.component('vue-map', {
             this.map.addLayer(vectorLayer);
         },
         showOverlay(feature) {
-            let point = this.addPixelsToCoords(feature.getGeometry().getCoordinates(), -10);
             this.$refs.popupContent.innerHTML = '<p>Some text</p>';
-            this.overlay.setPosition(point);
+            this.overlay.setPosition(feature.getGeometry().getCoordinates());
         },
         setMarket(coordinate) {
             let coords = ol.proj.transform(coordinate, 'EPSG:3857', 'EPSG:4326');
@@ -213,12 +213,8 @@ Vue.component('vue-map', {
                 }
             })
         },
-        addPixelsToCoords(coords, pixels) {
-            let pixel = this.map.getPixelFromCoordinate(coords);
-            pixel[1] = pixel[1] + pixels;
-            return this.map.getCoordinateFromPixel(pixel);
-        },
         removeMarker(layer) {
+            this.overlay.setPosition(undefined);
             this.markers.splice(layer.get('index'), 1);
             this.map.removeLayer(layer);
             this.fixLayerIndex();
