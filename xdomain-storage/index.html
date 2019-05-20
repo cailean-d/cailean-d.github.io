@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+        <p>
+        <button id="send">Send Data</button>
+        <button id="rec">Rec Data</button>
+        </p>
+        
+        <iframe id="receiver" src="http://localhost:5500/xdomain-storage/iframe.html" width="500" height="200">
+            <p>Your browser does not support iframes.</p>
+        </iframe>
+
+        <script>
+        
+        const data =  333/* doSomeThingToGetData() */
+        const iframe = document.getElementById('receiver')
+
+        document.querySelector('#send').onclick = _ => {
+            iframe.contentWindow.postMessage({
+                action: 'save',
+                key: 'keyForData',
+                value: data
+            })
+        }
+
+        document.querySelector('#rec').onclick = _ => {
+            iframe.contentWindow.postMessage({
+            action: 'get',
+            key: 'keyForData'
+            })
+        }
+
+
+            
+            window.addEventListener("message", messageHandler, false);
+            function messageHandler(event) {
+            const { action, key, value } = event.data
+            if (action == 'returnData'){
+                // useData(key, value)
+                console.log(key, value);
+            }
+        }
+        </script>
+</body>
+</html>
