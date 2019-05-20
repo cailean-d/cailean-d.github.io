@@ -45,6 +45,7 @@
             
             window.addEventListener("message", messageHandler, false);
             function messageHandler(event) {
+                console.log(event)
             const { action, key, value } = event.data
             if (action == 'returnData'){
                 // useData(key, value)

@@ -18,8 +18,8 @@
 
         function messageHandler(event) {
             console.log(event.origin)
-            if (!domains.includes(event.origin))
-                return;
+            // if (!domains.includes(event.origin))
+            //     return;
             const { action, key, value } = event.data
             if (action == 'save'){
                 window.localStorage.setItem(key, JSON.stringify(value))
