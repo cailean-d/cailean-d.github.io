@@ -12,47 +12,50 @@
     </style>
 </head>
 <body>
-    <iframe id="receiver" src="https://cailean.cf/xdomain-storage/iframe.html"></iframe>
+    <iframe id="receiver" src="frame.html"></iframe>
 
-
-        <p>
+    <p>
+        <input type="text" id="key" placeholder="key">
+        <input type="text" id="value" placeholder="value">
         <button id="send">Send Data</button>
         <button id="rec">Rec Data</button>
-        </p>
+    </p>
         
 
-        <script>
-        
+    <script>
+    
         const data =  4444/* doSomeThingToGetData() */
         const iframe = document.getElementById('receiver')
+        const key = document.querySelector('#key');
+        const value = document.querySelector('#value');
 
         document.querySelector('#send').onclick = _ => {
-            console.log('sending...')
-            iframe.contentWindow.postMessage({
-                action: 'save',
-                key: 'keyForData',
-                value: data
-            })
+            setData(key.value, value.value);
         }
 
         document.querySelector('#rec').onclick = _ => {
-            iframe.contentWindow.postMessage({
-            action: 'get',
-            key: 'keyForData'
-            })
+            getData(key.value);
         }
 
+        
+        window.addEventListener("message", messageHandler, false);
 
-            
-            window.addEventListener("message", messageHandler, false);
-            function messageHandler(event) {
-                console.log(event)
-            const { action, key, value } = event.data
+        function messageHandler(e) {
+
+            const { action, key, value } = e.data
+
             if (action == 'returnData'){
-                // useData(key, value)
                 console.log(key, value);
             }
         }
-        </script>
+
+        function setData(key, value) {
+            iframe.contentWindow.postMessage({ action: 'save', key: key, value: value }, '*')
+        }
+
+        function getData(key) {
+            iframe.contentWindow.postMessage({ action: 'get', key: key }, '*')
+        }
+    </script>
 </body>
 </html>
