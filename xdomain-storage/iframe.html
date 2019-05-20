@@ -31,9 +31,9 @@
                     localStorage.clear();
                 }
             } else if (action == 'get') {
-                let value = window.localStorage.getItem(key);
-                if (value) value = JSON.parse(value)
-                parent.postMessage({ action: 'returnData', key, value }, '*')
+                let data = localStorage.getItem(key);
+                if (data) data = JSON.parse(data)
+                parent.postMessage({ action: 'returnData', key, data }, '*')
             }
         }
     </script>
