@@ -52,10 +52,10 @@
 
             function messageHandler(e) {
                 
-                const { action, key, value } = e.data
+                const { action, key, data } = e.data
                 
                 if (action == 'returnData'){
-                    console.log(value)
+                    console.log(data)
                     // console.log(key, data);
                     // alert(key + ' = ' + data)
 
