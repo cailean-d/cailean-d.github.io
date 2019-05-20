@@ -14,38 +14,51 @@
 <body>
     <iframe id="receiver" src="iframe.html"></iframe>
 
-    <p>
+    <!-- <p>
         <input type="text" id="key" placeholder="key">
         <input type="text" id="value" placeholder="value">
         <button id="send">Send Data</button>
         <button id="rec">Rec Data</button>
-    </p>
+    </p> -->
+
+    <form id="form1">
+        <input type="text" name="name" placeholder="name">
+        <input type="text" name="phone" placeholder="phone">
+        <input type="submit" value="Send">
+    </form>
         
 
     <script>
     
         const iframe = document.getElementById('receiver')
-        const key = document.querySelector('#key');
-        const value = document.querySelector('#value');
+        const form = document.querySelector('#form1');
+        const nameField = form.querySelector('[name=name]');
+        const phoneField = form.querySelector('[name=phone]')
 
-        document.querySelector('#send').onclick = _ => {
-            setData(key.value, value.value);
+        form.onsubmit = _ => {
+            setData('form', { name: nameField.value, phone: phoneField.value });
         }
 
-        document.querySelector('#rec').onclick = _ => {
-            getData(key.value);
-        }
+        // document.querySelector('#rec').onclick = _ => {
+        //     getData(key.value);
+        // }
 
         
         window.addEventListener("message", messageHandler, false);
+        getData('form');
 
         function messageHandler(e) {
 
             const { action, key, value } = e.data
 
             if (action == 'returnData'){
-                console.log(key, value);
-                alert(key + ' = ' + value)
+                // console.log(key, data);
+                // alert(key + ' = ' + data)
+
+                if (value && key == 'form') {
+                    nameField.value = data.name;
+                    phoneField.value = data.phone;
+                }
             }
         }
 
