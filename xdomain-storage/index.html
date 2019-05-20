@@ -69,6 +69,7 @@
         }
 
         function getData(key) {
+            console.log(1)
             iframe.contentWindow.postMessage({ action: 'get', key: key }, '*')
         }
     </script>
