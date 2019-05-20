@@ -25,9 +25,14 @@
             const { action, key, value } = e.data
             
             if (action == 'save'){
-                window.localStorage.setItem(key, JSON.stringify(value))
+                try {
+                    localStorage.setItem(key, JSON.stringify(value))
+                } catch (e) {
+                    localStorage.clear();
+                }
             } else if (action == 'get') {
-                let value = JSON.parse(window.localStorage.getItem(key))
+                let value = window.localStorage.getItem(key);
+                if (value) value = JSON.parse(value)
                 parent.postMessage({ action: 'returnData', key, value }, '*')
             }
         }
