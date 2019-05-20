@@ -35,7 +35,8 @@
         const nameField = form.querySelector('[name=name]');
         const phoneField = form.querySelector('[name=phone]')
 
-        form.onsubmit = _ => {
+        form.onsubmit = e => {
+            e.preventDefault();
             setData('form', { name: nameField.value, phone: phoneField.value });
         }
 
