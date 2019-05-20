@@ -5,8 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        #receiver {
+            display: none;
+        }
+    </style>
 </head>
 <body>
+    <iframe id="receiver" src="iframe.html"></iframe>
+
+    <form id="form1">
+        <input type="text" name="name" placeholder="name">
+        <input type="text" name="phone" placeholder="phone">
+        <input type="submit" value="Send">
+    </form>
+        
+
+    <script>
+
+        window.onload = function() {
     
+            const iframe = document.getElementById('receiver')
+            const form = document.querySelector('#form1');
+            const nameField = form.querySelector('[name=name]');
+            const phoneField = form.querySelector('[name=phone]')
+
+            form.onsubmit = e => {
+                e.preventDefault();
+                setData('form', { name: nameField.value, phone: phoneField.value });
+            }
+            
+            window.addEventListener("message", messageHandler, false);
+            getData('form');
+
+            function messageHandler(e) {
+                
+                const { action, key, data } = e.data
+                
+                if (action == 'returnData'){
+                    if (data && key == 'form') {
+                        nameField.value = data.name;
+                        phoneField.value = data.phone;
+                    }
+                }
+            }
+
+            function setData(key, value) {
+                iframe.contentWindow.postMessage({ action: 'save', key: key, value: value }, '*')
+            }
+
+            function getData(key) {
+                iframe.contentWindow.postMessage({ action: 'get', key: key }, '*')
+            }
+        }
+
+    </script>
 </body>
 </html>
