@@ -30,42 +30,45 @@
 
     <script>
 
-        const iframe = document.getElementById('receiver')
-        const form = document.querySelector('#form1');
-        const nameField = form.querySelector('[name=name]');
-        const phoneField = form.querySelector('[name=phone]')
+        window.onload = function() {
+    
+            const iframe = document.getElementById('receiver')
+            const form = document.querySelector('#form1');
+            const nameField = form.querySelector('[name=name]');
+            const phoneField = form.querySelector('[name=phone]')
 
-        form.onsubmit = e => {
-            e.preventDefault();
-            setData('form', { name: nameField.value, phone: phoneField.value });
-        }
+            form.onsubmit = e => {
+                e.preventDefault();
+                setData('form', { name: nameField.value, phone: phoneField.value });
+            }
 
-        // document.querySelector('#rec').onclick = _ => {
-        //     getData(key.value);
-        // }
+            // document.querySelector('#rec').onclick = _ => {
+            //     getData(key.value);
+            // }
 
-        
-        window.addEventListener("message", messageHandler, false);
-        getData('form');
-
-        function messageHandler(e) {
             
-            const { action, key, data } = e.data
-            
-            if (action == 'returnData'){
-                if (data && key == 'form') {
-                    nameField.value = data.name;
-                    phoneField.value = data.phone;
+            window.addEventListener("message", messageHandler, false);
+            getData('form');
+
+            function messageHandler(e) {
+                
+                const { action, key, data } = e.data
+                
+                if (action == 'returnData'){
+                    if (data && key == 'form') {
+                        nameField.value = data.name;
+                        phoneField.value = data.phone;
+                    }
                 }
             }
-        }
 
-        function setData(key, value) {
-            iframe.contentWindow.postMessage({ action: 'save', key: key, value: value }, '*')
-        }
+            function setData(key, value) {
+                iframe.contentWindow.postMessage({ action: 'save', key: key, value: value }, '*')
+            }
 
-        function getData(key) {
-            iframe.contentWindow.postMessage({ action: 'get', key: key }, '*')
+            function getData(key) {
+                iframe.contentWindow.postMessage({ action: 'get', key: key }, '*')
+            }
         }
 
     </script>
