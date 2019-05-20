@@ -49,10 +49,11 @@
         getData('form');
 
         function messageHandler(e) {
-
+            
             const { action, key, value } = e.data
-
+            
             if (action == 'returnData'){
+                console.log(value)
                 // console.log(key, data);
                 // alert(key + ' = ' + data)
 
