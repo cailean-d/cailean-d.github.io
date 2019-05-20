@@ -12,6 +12,8 @@
     </style>
 </head>
 <body>
+
+    <!-- подключаем фрейм -->
     <iframe id="receiver" src="iframe.html"></iframe>
 
     <form id="form1">
@@ -19,20 +21,28 @@
         <input type="text" name="phone" placeholder="phone">
         <input type="submit" value="Send">
     </form>
-        
 
     <script>
 
         window.onload = function() {
     
-            const iframe = document.getElementById('receiver')
-            const form = document.querySelector('#form1');
-            const nameField = form.querySelector('[name=name]');
-            const phoneField = form.querySelector('[name=phone]')
+            var iframe = document.getElementById('receiver') // фрейм
+            var form = document.querySelector('#form1');    // форма
 
-            form.onsubmit = e => {
+            // нужные поля формы
+            var nameField = form.querySelector('[name=name]');
+            var phoneField = form.querySelector('[name=phone]')
+
+            form.onsubmit = function(e) {
                 e.preventDefault();
-                setData('form', { name: nameField.value, phone: phoneField.value });
+
+                // объек с данными, которые нужно сохранить
+                var data = { 
+                    name: nameField.value, 
+                    phone: phoneField.value 
+                };
+
+                setData('form', data);
             }
             
             window.addEventListener("message", messageHandler, false);
@@ -40,10 +50,12 @@
 
             function messageHandler(e) {
                 
-                const { action, key, data } = e.data
+                var { action, key, data } = e.data
                 
                 if (action == 'returnData'){
                     if (data && key == 'form') {
+
+                        // получем сохраненный объект data и применяем данные к нужным полям
                         nameField.value = data.name;
                         phoneField.value = data.phone;
                     }
