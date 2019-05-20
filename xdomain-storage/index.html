@@ -59,7 +59,7 @@
                     // console.log(key, data);
                     // alert(key + ' = ' + data)
 
-                    if (value && key == 'form') {
+                    if (data && key == 'form') {
                         nameField.value = data.name;
                         phoneField.value = data.phone;
                     }
@@ -71,7 +71,6 @@
             }
 
             function getData(key) {
-                console.log(1)
                 iframe.contentWindow.postMessage({ action: 'get', key: key }, '*')
             }
         }
