@@ -29,49 +29,53 @@
         
 
     <script>
+
+        window.onload = function() {
     
-        const iframe = document.getElementById('receiver')
-        const form = document.querySelector('#form1');
-        const nameField = form.querySelector('[name=name]');
-        const phoneField = form.querySelector('[name=phone]')
+            const iframe = document.getElementById('receiver')
+            const form = document.querySelector('#form1');
+            const nameField = form.querySelector('[name=name]');
+            const phoneField = form.querySelector('[name=phone]')
 
-        form.onsubmit = e => {
-            e.preventDefault();
-            setData('form', { name: nameField.value, phone: phoneField.value });
-        }
+            form.onsubmit = e => {
+                e.preventDefault();
+                setData('form', { name: nameField.value, phone: phoneField.value });
+            }
 
-        // document.querySelector('#rec').onclick = _ => {
-        //     getData(key.value);
-        // }
+            // document.querySelector('#rec').onclick = _ => {
+            //     getData(key.value);
+            // }
 
-        
-        window.addEventListener("message", messageHandler, false);
-        getData('form');
-
-        function messageHandler(e) {
             
-            const { action, key, value } = e.data
-            
-            if (action == 'returnData'){
-                console.log(value)
-                // console.log(key, data);
-                // alert(key + ' = ' + data)
+            window.addEventListener("message", messageHandler, false);
+            getData('form');
 
-                if (value && key == 'form') {
-                    nameField.value = data.name;
-                    phoneField.value = data.phone;
+            function messageHandler(e) {
+                
+                const { action, key, value } = e.data
+                
+                if (action == 'returnData'){
+                    console.log(value)
+                    // console.log(key, data);
+                    // alert(key + ' = ' + data)
+
+                    if (value && key == 'form') {
+                        nameField.value = data.name;
+                        phoneField.value = data.phone;
+                    }
                 }
+            }
+
+            function setData(key, value) {
+                iframe.contentWindow.postMessage({ action: 'save', key: key, value: value }, '*')
+            }
+
+            function getData(key) {
+                console.log(1)
+                iframe.contentWindow.postMessage({ action: 'get', key: key }, '*')
             }
         }
 
-        function setData(key, value) {
-            iframe.contentWindow.postMessage({ action: 'save', key: key, value: value }, '*')
-        }
-
-        function getData(key) {
-            console.log(1)
-            iframe.contentWindow.postMessage({ action: 'get', key: key }, '*')
-        }
     </script>
 </body>
 </html>
