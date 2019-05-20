@@ -25,7 +25,7 @@
                 window.localStorage.setItem(key, JSON.stringify(value))
             } else if (action == 'get') {
                 let value = JSON.parse(window.localStorage.getItem(key))
-                event.source.postMessage({
+                parent.postMessage({
                 action: 'returnData',
                 key,
                 value

@@ -23,10 +23,11 @@
 
         <script>
         
-        const data =  333/* doSomeThingToGetData() */
+        const data =  4444/* doSomeThingToGetData() */
         const iframe = document.getElementById('receiver')
 
         document.querySelector('#send').onclick = _ => {
+            console.log('sending...')
             iframe.contentWindow.postMessage({
                 action: 'save',
                 key: 'keyForData',
