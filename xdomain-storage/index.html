@@ -5,16 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <style>
-        #receiver {
-            display: none;
-        }
-    </style>
 </head>
 <body>
 
     <!-- подключаем фрейм -->
-    <iframe id="receiver" src="iframe.html"></iframe>
+    <iframe id="receiver" src="iframe.html" style="display: none"></iframe>
 
     <form id="form1">
         <input type="text" name="name" placeholder="name">
@@ -26,8 +21,9 @@
 
         window.onload = function() {
     
-            var iframe = document.getElementById('receiver') // фрейм
+            var iframe = document.querySelector('#receiver') // фрейм
             var form = document.querySelector('#form1');    // форма
+            var dataKey = 'form'; // ключ, по которому сохранять данные
 
             // нужные поля формы
             var nameField = form.querySelector('[name=name]');
@@ -42,18 +38,18 @@
                     phone: phoneField.value 
                 };
 
-                setData('form', data);
+                setData(dataKey, data);
             }
             
             window.addEventListener("message", messageHandler, false);
-            getData('form');
+            getData(dataKey);
 
             function messageHandler(e) {
                 
                 var { action, key, data } = e.data
                 
                 if (action == 'returnData'){
-                    if (data && key == 'form') {
+                    if (data && key == dataKey) {
 
                         // получем сохраненный объект data и применяем данные к нужным полям
                         nameField.value = data.name;

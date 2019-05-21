@@ -14,26 +14,26 @@
             "https://www.domain1.com",
             "https://www.domaine2.com",
             "http://localhost:5500",
-            "https://cailean.cf"
         ]
 
         window.addEventListener("message", messageHandler, false);
 
         function messageHandler(e) {
 
-            if (!domains.includes(e.origin))
-                return;
+            // if (!domains.includes(e.origin))
+            //     return;
 
             var { action, key, value } = e.data
             
-            if (action == 'save'){
+            if (action == 'save') {
                 try {
                     localStorage.setItem(key, JSON.stringify(value))
                 } catch (e) {
                     localStorage.clear();
+                    localStorage.setItem(key, JSON.stringify(value))
                 }
             } else if (action == 'get') {
-                let data = localStorage.getItem(key);
+                var data = localStorage.getItem(key);
                 if (data) data = JSON.parse(data)
                 parent.postMessage({ action: 'returnData', key, data }, '*')
             }
