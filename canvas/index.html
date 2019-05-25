@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Canvas</title>
+    <style>
+        body {text-align: center; margin-top: 50px; display: flex; align-items: center; flex-direction: column}
+        /* canvas { border: 1px solid #777} */
+        img { margin-bottom: 50px}
+        #color {position: fixed; top: 10px; right: 10px; width: 50px; height: 50px}
+    </style>
+</head>
+<body>
+    <!-- <img src="img.jpg" alt=""> -->
+    <div>
+        <canvas id="canvas" width="300" height="300"></canvas>
+        <div style="margin: 20px 0 150px">
+            <button id="drawing-mode">Enter drawing mode</button>
+            <button id="undo">undo</button>
+            <button id="redo">redo</button>
+            <button id="save">save</button>
+            <div style="margin-top: 20px">
+                <textarea id="text" cols="30" rows="10"></textarea>
+            </div>
+            <div>
+                <button id="text-btn">add text</button>
+            </div>
+        </div>
+        <div id="color" ></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/2.7.0/fabric.min.js"></script>
+    <!-- <script src="script.js"></script> -->
+    <script src="script2.js"></script>
+</body>
+</html>
