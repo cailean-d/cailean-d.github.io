@@ -7,8 +7,6 @@ let bottomPage = +getCookie('last-page') || 1;
 let pageCount /* 3 */;
 let maxPages = 60;
 let data = '';
-let doc = document.documentElement;
-let scrolledPage;
 
 var initPage = getCookie('last-page') || 1;
 var initParagraph = getCookie('paragraph') || 0;
@@ -61,18 +59,33 @@ var debouncedSavePage = debounce(savePage, 500);
 var debouncedPageOnScroll = debounce(onPageScroll, 100);
 
 function onPageScroll(elem) {
+
+    let scrollTop, innerHeight, scrollHeight
+
+    if (elem == window) {
+        scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        scrollHeight = Math.max(
+            document.body.scrollHeight, document.documentElement.scrollHeight,
+            document.body.offsetHeight, document.documentElement.offsetHeight,
+            document.body.clientHeight, document.documentElement.clientHeight
+        )
+        innerHeight = window.innerHeight || document.documentElement.clientHeight
+    } else {
+        scrollTop = elem.scrollTop
+        scrollHeight = elem.scrollHeight
+        innerHeight =  elem.clientHeight
+    }
     
     if (isScrolledByButton) return;
     if ($(elem).hasClass('content') && !$(elem).hasClass('reader-fullscreen')) return;
     if(!$(elem).hasClass('content') && $('.reader-fullscreen').length) return;
-
-    var elHeight = elem === document.documentElement ? window.innerHeight : elem.clientHeight;
-
+    
     determinePageOnScroll(elem);
+    showDebugInfo(scrollTop, innerHeight, scrollHeight)
 
-    if (elHeight + elem.scrollTop + 60 >= elem.scrollHeight) { // bottom corner
+    if (innerHeight + scrollTop + 10 >= scrollHeight) { // bottom corner
         startLoadBottom();
-    } else if (elem.scrollTop == 0) { // top corner
+    } else if (scrollTop == 0) { // top corner
         startLoadTop();
     }
 }
@@ -263,12 +276,15 @@ function scrollToTarget(element, cb){
 }
 
 function preventScroll(cb) {
-    var el;
     if ($('.reader-fullscreen').length) {
-        el = $(readerSelector).parent()[0]
+        changeElementScroll($(readerSelector).parent()[0])
     } else {
-        el = document.documentElement;
+        changeElementScroll(document.documentElement, cb)
+        changeElementScroll(document.body, cb)
     }
+}
+
+function changeElementScroll(el, cb) {
     var old_height = $(el)[0].scrollHeight; //store document height before modifications
     var old_scroll = $(el).scrollTop(); //remember the scroll position
     
@@ -386,16 +402,33 @@ function restoreOffsetPosition() {
 function showLoading() {
     isLoading = true;
     $('.loader-wrapper').show();
+    showDebugInfo()
 }
 
 function hideLoading() {
     isLoading = false;
     $('.loader-wrapper').hide();
+    showDebugInfo()
 }
 
 function savePage(page, paragraph) {
     setCookie('last-page', page , { expires: 2592000 });
     setCookie('paragraph', paragraph, { expires: 2592000 });
+}
+
+function showDebugInfo(top, inner, full) {
+    document.querySelector('.isLoading span').innerHTML = isLoading
+    document.querySelector('.isTopLoaded span').innerHTML = isTopLoaded
+    document.querySelector('.isBottomLoaded span').innerHTML = isBottomLoaded
+    document.querySelector('.isScrolledByButton span').innerHTML = isScrolledByButton
+    document.querySelector('.topPage span').innerHTML = topPage
+    document.querySelector('.bottomPage span').innerHTML = bottomPage
+    document.querySelector('.pageCount span').innerHTML = pageCount
+    document.querySelector('.maxPages span').innerHTML = maxPages
+    if (top) {
+        document.querySelector('.LoadTop span').innerHTML = top + ' == ' + 0
+        document.querySelector('.LoadBottom span').innerHTML = inner + top + 10 + ' >= ' + full
+    }
 }
 
 $(document).ready(function() {
@@ -406,7 +439,7 @@ $(document).ready(function() {
     loadPage(getPages(1), undefined, /* restoreOffsetPosition */ restorePosition);
     // $('#pageInput').val(Math.ceil((bottomPage - 1) / pageCount));
     var reader = $(readerSelector).parent()[0];
-    window.addEventListener('scroll', e => debouncedPageOnScroll(doc))
+    window.addEventListener('scroll', e => debouncedPageOnScroll(window))
     reader.addEventListener('scroll', e => debouncedPageOnScroll(reader))
 
     $('#pageInput').on('keypress', changePageByInput)
