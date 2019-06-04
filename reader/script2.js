@@ -81,7 +81,7 @@ function onPageScroll(elem) {
     if(!$(elem).hasClass('content') && $('.reader-fullscreen').length) return;
     
     determinePageOnScroll(elem);
-    showDebugInfo(scrollTop, innerHeight, scrollHeight)
+    // showDebugInfo(scrollTop, innerHeight, scrollHeight)
 
     if (innerHeight + scrollTop + 10 >= scrollHeight) { // bottom corner
         startLoadBottom();
@@ -402,13 +402,13 @@ function restoreOffsetPosition() {
 function showLoading() {
     isLoading = true;
     $('.loader-wrapper').show();
-    showDebugInfo()
+    // showDebugInfo()
 }
 
 function hideLoading() {
     isLoading = false;
     $('.loader-wrapper').hide();
-    showDebugInfo()
+    // showDebugInfo()
 }
 
 function savePage(page, paragraph) {
@@ -416,20 +416,20 @@ function savePage(page, paragraph) {
     setCookie('paragraph', paragraph, { expires: 2592000 });
 }
 
-function showDebugInfo(top, inner, full) {
-    document.querySelector('.isLoading span').innerHTML = isLoading
-    document.querySelector('.isTopLoaded span').innerHTML = isTopLoaded
-    document.querySelector('.isBottomLoaded span').innerHTML = isBottomLoaded
-    document.querySelector('.isScrolledByButton span').innerHTML = isScrolledByButton
-    document.querySelector('.topPage span').innerHTML = topPage
-    document.querySelector('.bottomPage span').innerHTML = bottomPage
-    document.querySelector('.pageCount span').innerHTML = pageCount
-    document.querySelector('.maxPages span').innerHTML = maxPages
-    if (top) {
-        document.querySelector('.LoadTop span').innerHTML = top + ' == ' + 0
-        document.querySelector('.LoadBottom span').innerHTML = inner + top + 10 + ' >= ' + full
-    }
-}
+// function showDebugInfo(top, inner, full) {
+//     document.querySelector('.isLoading span').innerHTML = isLoading
+//     document.querySelector('.isTopLoaded span').innerHTML = isTopLoaded
+//     document.querySelector('.isBottomLoaded span').innerHTML = isBottomLoaded
+//     document.querySelector('.isScrolledByButton span').innerHTML = isScrolledByButton
+//     document.querySelector('.topPage span').innerHTML = topPage
+//     document.querySelector('.bottomPage span').innerHTML = bottomPage
+//     document.querySelector('.pageCount span').innerHTML = pageCount
+//     document.querySelector('.maxPages span').innerHTML = maxPages
+//     if (top) {
+//         document.querySelector('.LoadTop span').innerHTML = top + ' == ' + 0
+//         document.querySelector('.LoadBottom span').innerHTML = inner + top + 10 + ' >= ' + full
+//     }
+// }
 
 $(document).ready(function() {
     $('#pageInput').val(bottomPage);
