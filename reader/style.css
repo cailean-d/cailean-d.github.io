@@ -555,3 +555,13 @@ h1, h2 {
     padding-top: 20px;
     padding-bottom: 10px;
 }
+
+/* 
+.sent:hover {
+    background: #0b1;
+} */
+
+[t] {
+    cursor: pointer;
+}
+
