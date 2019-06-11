@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    img {max-width: 100%;}
+    .img {width: 260px; height: 172px; position: absolute; overflow: hidden; transition: 1s transform}
+    .lt {top: 0; left: 0}
+    .lb {bottom: 0; left: 0}
+    .rt {top: 0; right: 0}
+    .rb {bottom: 0; right: 0}
+    .img img {position: relative; transform: scale(2)}
+    .lt img {top: 50%; left: 50%}
+    .lb img {bottom: 50%; left: 50%}
+    .rt img {top: 50%; right: 50%}
+    .rb img {bottom: 50%; right: 50%}
+
+    #welcome {
+      position: absolute;
+      width: 520px;
+      height: 344px;
+      z-index: 10;
+      top: 50%;
+      left: 50%;
+      margin: -172px 0 0 -260px;
+      background: #3e97c3;
+      text-align: center;
+      display: none;
+    }
+
+    #welcome a {
+      line-height: 344px;
+      font-size: 40px;
+    }
+  </style>
+</head>
+<body onload="init()">
+
+  <div id="welcome">
+    <a href="" id="link">Welcome</a>
+  </div>
+
+  <div class="img lt">
+    <img src="1.jpeg" alt="image">
+  </div>
+  <div class="img lb">
+    <img src="1.jpeg" alt="image">
+  </div>
+  <div class="img rt">
+    <img src="1.jpeg" alt="image">
+  </div>
+  <div class="img rb">
+    <img src="1.jpeg" alt="image">
+  </div>
+
+  <!-- <div style="position: fixed; top: 0; left: 0; width: 50vw; height: 50vh; background: rgba(0, 255, 255, 0.3)">
+  </div> -->
+
+  <script>
+
+  document.getElementById('link').href = document.location.href;
+  
+  function init() {
+    var imgs = document.getElementsByClassName("img")
+    var dy = 3
+    var dx = 4
+
+    imgs[0].style.transform = "translate(calc(50vw - 100%), calc(50vh - 100%))";
+    imgs[1].style.transform = "translate(calc(50vw - 100%), calc(-50vh + 100%))";
+    imgs[2].style.transform = "translate(calc(-50vw + 100%), calc(50vh - 100%))";
+    imgs[3].style.transform = "translate(calc(-50vw + 100%), calc(-50vh + 100%))";
+
+    imgs[0].addEventListener('transitionend', function() {
+      document.getElementById('welcome').style.display = 'block'; 
+    })
+
+    // var timer = setInterval(function() {
+
+    //   for (var i = 0; i < imgs.length; i++) {
+    //     var h = imgs[i].classList[1][0] == 'l' ? 'left' : 'right'
+    //     var v = imgs[i].classList[1][1] == 't' ? 'top' : 'bottom'
+
+    //     var x = parseInt(imgs[i].style[h]) || 0;
+    //     var y = parseInt(imgs[i].style[v]) || 0;
+
+    //     if (x + 260 >= window.innerWidth / 2 || y + 172 >= window.innerHeight / 2) {
+    //       // document.getElementById('welcome').style.display = 'block';
+    //       clearInterval(timer)
+    //     }
+
+    //     imgs[i].style[h] = x + dx + 'px'
+    //     imgs[i].style[v] = y + dy + 'px'
+    //   }
+      
+    // }, Math.min(dx, dy) * 10);
+
+  }  
+
+  </script>
+
+</body>
+</html>

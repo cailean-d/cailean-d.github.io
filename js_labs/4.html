@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <h2>Lab 4.2.12</h2>
+  <input type="text" id="circle_radius">
+  <button id="btn1">Информация об объекте</button>
+  <div id="info"></div>
+  <br>
+  <input type="text" id="circle1">
+  <input type="text" id="circle2">
+  <button id="btn2">Сравнить окружности</button>
+  <div>Больший объект: <span id="info2"></span></div>
+
+  
+  <script>
+    var radiusInput = document.getElementById('circle_radius')
+    var infoBtn = document.getElementById('btn1')
+    var cmpBtn = document.getElementById('btn2')
+    var infoBar = document.getElementById('info')
+    var infoBar2 = document.getElementById('info2')
+    var c1 = document.getElementById('circle1')
+    var c2 = document.getElementById('circle2')
+
+    function Circle(r) {
+      this.radius = parseInt(r) || 0
+      this.pi = Math.PI
+
+      this.area = function() {
+        return this.pi * Math.pow(this.radius, 2)
+      }
+
+      this.toString = function() {
+        return 'Окружность с радиусом ' + this.radius + ' и площадью ' + this.area();
+      }
+    }
+
+    Circle.greaterCircle = function(c1, c2) {
+      return c1.radius > c2.radius ? c1 : c2;
+    }
+
+    infoBtn.onclick = function() {
+      infoBar.innerHTML = new Circle(radiusInput.value);
+    }
+
+    cmpBtn.onclick = function() {
+      var x = new Circle(c1.value);
+      var y = new Circle(c2.value);
+      var z = Circle.greaterCircle(x, y)
+      infoBar2.innerHTML = z
+    }
+  
+  </script>
+
+</body>
+</html>

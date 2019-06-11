@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <h2>Lab 7.2</h2>
+  <button id="btn">Создать элемент</button>
+
+  <script>
+    var btn = document.getElementById("btn");
+
+    function Rect(w, h) {
+      var self = this;
+      self.dx = self.dy = 1;
+
+      var el = document.createElement('div');
+      el.style.width = w + 'px';
+      el.style.height = h + 'px';
+      el.style.backgroundColor = 'green';
+      el.style.position = 'absolute';
+      el.style.bottom = '10px';
+      el.style.left = '10px';
+      document.body.appendChild(el)
+
+      setInterval(function() {
+        var x = parseInt(el.style.left)
+        var y = parseInt(el.style.bottom)
+
+        if(x + self.dx + w > window.innerWidth || x + self.dx < 0) {
+          self.dx = -self.dx;
+        }
+
+        if(y + self.dy + h > window.innerHeight || y + self.dy < 0) {
+          self.dy = -self.dy;
+        }
+
+        el.style.left = x + self.dx + "px";
+        el.style.bottom = y + self.dy + "px";
+      }, 10)
+    }
+
+    btn.onclick = function() {
+      new Rect(100, 70)
+    }
+    
+  </script>
+
+</body>
+</html>

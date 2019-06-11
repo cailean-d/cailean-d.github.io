@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <h2>Lab 7.1</h2>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, dolorum <span id="mark">!</span></p>
+  <p>Lorem ipsum dolor sit amet.</p>
+
+  <script>
+    var m = document.getElementById("mark");
+    setInterval(() => {
+      m.innerHTML == '!' ? m.innerHTML = '?' : m.innerHTML = '!';
+    }, 1000);
+    m.onmouseenter = function() {
+      this.style.color = 'red';
+    }
+    m.onmouseleave = function() {
+      this.style.color = 'black';
+    }
+  </script>
+
+</body>
+</html>
