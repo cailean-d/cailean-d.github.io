@@ -8,51 +8,63 @@
 <body>
 
   <h2>Lab 4.2.12</h2>
-  <input type="text" id="circle_radius">
+  <input type="text" id="circle_radius" placeholder="радиус окружности">
   <button id="btn1">Информация об объекте</button>
   <div id="info"></div>
   <br>
-  <input type="text" id="circle1">
-  <input type="text" id="circle2">
+  <input type="text" id="circle1" placeholder="радиус 1й окружности">
+  <input type="text" id="circle2" placeholder="радиус 2й окружности">
   <button id="btn2">Сравнить окружности</button>
   <div>Больший объект: <span id="info2"></span></div>
 
   
   <script>
-    var radiusInput = document.getElementById('circle_radius')
-    var infoBtn = document.getElementById('btn1')
-    var cmpBtn = document.getElementById('btn2')
-    var infoBar = document.getElementById('info')
-    var infoBar2 = document.getElementById('info2')
-    var c1 = document.getElementById('circle1')
-    var c2 = document.getElementById('circle2')
+    // создаем ссылки на DOM объеты
+    var radiusInput = document.getElementById('circle_radius');
+    var infoBtn = document.getElementById('btn1');
+    var cmpBtn = document.getElementById('btn2');
+    var infoBar = document.getElementById('info');
+    var infoBar2 = document.getElementById('info2');
+    var c1 = document.getElementById('circle1');
+    var c2 = document.getElementById('circle2');
 
     function Circle(r) {
-      this.radius = parseInt(r) || 0
-      this.pi = Math.PI
+      this.radius = parseInt(r) || 0  // присваиваем переданный радиус объекту (0, если значение undefined)
+      this.pi = Math.PI // добавляем объекту свойство со значением pi
 
+      // метод вычисления площади окружности
       this.area = function() {
         return this.pi * Math.pow(this.radius, 2)
       }
 
+      /* 
+        вывод информации об объекте
+        метод toString автоматически вызывается там, где ожидаются данные в виде строки
+        (на страоке 59, 67 передаем просто объект и там вызывается этот метод)
+      */
       this.toString = function() {
         return 'Окружность с радиусом ' + this.radius + ' и площадью ' + this.area();
       }
     }
 
+
+    // метод класса (аналог статического метода)
     Circle.greaterCircle = function(c1, c2) {
       return c1.radius > c2.radius ? c1 : c2;
     }
 
+
+    // вывод информации об объекте при нажатии на кнопку
     infoBtn.onclick = function() {
       infoBar.innerHTML = new Circle(radiusInput.value);
     }
 
+
+    // сравнение объектов по нажатии на кнопку и вывод того, у которого больше радиус
     cmpBtn.onclick = function() {
       var x = new Circle(c1.value);
       var y = new Circle(c2.value);
-      var z = Circle.greaterCircle(x, y)
-      infoBar2.innerHTML = z
+      infoBar2.innerHTML = Circle.greaterCircle(x, y)
     }
   
   </script>

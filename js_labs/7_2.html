@@ -8,41 +8,55 @@
 <body>
 
   <h2>Lab 7.2</h2>
+
+  <!-- кнопка для создания новых объектов -->
   <button id="btn">Создать элемент</button>
 
   <script>
-    var btn = document.getElementById("btn");
+    var btn = document.getElementById("btn"); // ссылка на кнопку
 
+    // объект прямоугольник принимающий ширину и высотку объекта
     function Rect(w, h) {
-      var self = this;
-      self.dx = self.dy = 1;
+      var self = this; // сохраняем контекст this в другую переменную, чтобы была возможность обращаться к объекту Rect в таймере (setInterval)
+      self.dx = self.dy = 1 ; // коеффициент изменения позиции элемента ( на какое значение элемент будет изменять позицию при каждом срабатывании таймера (в пикселях) )
 
-      var el = document.createElement('div');
-      el.style.width = w + 'px';
-      el.style.height = h + 'px';
-      el.style.backgroundColor = 'green';
-      el.style.position = 'absolute';
-      el.style.bottom = '10px';
-      el.style.left = '10px';
-      document.body.appendChild(el)
+      var el = document.createElement('div'); // создаем новый DOM элемент (div)
 
+      // стили для элемента
+      el.style.width = w + 'px'; // ширина
+      el.style.height = h + 'px'; // высота
+      el.style.backgroundColor = 'green'; // цвет фона
+      el.style.position = 'absolute'; // абсолютное позиционирование
+      el.style.bottom = '10px'; // отступ по вертикали
+      el.style.left = '10px'; // отступ по горизонтали
+
+      document.body.appendChild(el) // добавляем элемент на страницу (в элемент body)
+
+
+      // запускаем таймер каждые 10мс
       setInterval(function() {
+
+        // вычисляем предыдущий отступ по вертикали и горозонтали
         var x = parseInt(el.style.left)
         var y = parseInt(el.style.bottom)
 
+        // если значние больше ширины экрана или меньше 0, то изменяем направление по горизонтали
         if(x + self.dx + w > window.innerWidth || x + self.dx < 0) {
           self.dx = -self.dx;
         }
 
+        // если значние больше высоты экрана или меньше 0, то изменяем направление по вертикали
         if(y + self.dy + h > window.innerHeight || y + self.dy < 0) {
           self.dy = -self.dy;
         }
 
-        el.style.left = x + self.dx + "px";
-        el.style.bottom = y + self.dy + "px";
-      }, 10)
+        // применяем новую позицию
+        el.style.left = x + self.dx + "px"; // по горизонтали
+        el.style.bottom = y + self.dy + "px"; // по вертикали
+      }, 5)
     }
 
+    // при нажатии на кнопку создаем новый прямоугольник 
     btn.onclick = function() {
       new Rect(100, 70)
     }

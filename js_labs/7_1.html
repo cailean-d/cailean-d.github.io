@@ -8,17 +8,26 @@
 <body>
 
   <h2>Lab 7.1</h2>
+  <!-- создаем span элемент и задаем ему id, для обращения к нему через js -->
   <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, dolorum <span id="mark">!</span></p>
   <p>Lorem ipsum dolor sit amet.</p>
 
   <script>
-    var m = document.getElementById("mark");
+    var m = document.getElementById("mark"); // ссылка на элемент mark
+
+    // запускаем таймер каждую секунду (1000 мс)
     setInterval(() => {
+      // меняем знак на ? и обратно
       m.innerHTML == '!' ? m.innerHTML = '?' : m.innerHTML = '!';
     }, 1000);
+
+    // при наведении курсора изменяем цвет на красный
     m.onmouseenter = function() {
+      // this - ссылка на объект m (id = mark)
       this.style.color = 'red';
     }
+
+    // в ином случае возвращаем обратно на черный цвет
     m.onmouseleave = function() {
       this.style.color = 'black';
     }

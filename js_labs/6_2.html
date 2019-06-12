@@ -5,18 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
-    img {max-width: 100%;}
-    .img {width: 260px; height: 172px; position: absolute; overflow: hidden; transition: 1s transform}
-    .lt {top: 0; left: 0}
-    .lb {bottom: 0; left: 0}
-    .rt {top: 0; right: 0}
-    .rb {bottom: 0; right: 0}
-    .img img {position: relative; transform: scale(2)}
-    .lt img {top: 50%; left: 50%}
-    .lb img {bottom: 50%; left: 50%}
-    .rt img {top: 50%; right: 50%}
-    .rb img {bottom: 50%; right: 50%}
+    body {overflow: hidden;} /* скрыть скролл */
+    img {max-width: 100%;}  /* картинка не более размера родителя */
 
+    /* абсолютное позиционирования для "кусочков" картинки для того, чтобы изменять их позицию на экране */
+    .img {width: 260px; height: 172px; position: absolute; overflow: hidden;}
+ 
+    /* относительное позиционирование картинки (чтобы отобразить ее по частям ) */
+    .img img {position: relative; transform: scale(2)} 
+
+    .lt img {top: 50%; left: 50%} /* отобразить ТОЛЬКО левый верхний угол картинки */
+    .lb img {bottom: 50%; left: 50%} /* левый нижний */
+    .rt img {top: 50%; right: 50%} /* правый верхний */
+    .rb img {bottom: 50%; right: 50%} /* правый нижний */
+
+    /* настройка изначальной позицию частей картинки */
+    /* l - left, r - right, t - top, b - bottom */
+    .lt {top: 0; left: 0; margin-top: -172px; margin-left: -260px} /* левый верхний */
+    .lb {bottom: 0; left: 0; margin-bottom: -172px; margin-left: -260px} /* левый нижний */
+    .rt {top: 0; right: 0; margin-top: -172px; margin-right: -260px} /* правый верхний */
+    .rb {bottom: 0; right: 0; margin-bottom: -172px; margin-right: -260px} /* правый нижний */
+
+
+    /* стили для окна приветствия */
     #welcome {
       position: absolute;
       width: 520px;
@@ -55,46 +66,39 @@
     <img src="1.jpeg" alt="image">
   </div>
 
-  <!-- <div style="position: fixed; top: 0; left: 0; width: 50vw; height: 50vh; background: rgba(0, 255, 255, 0.3)">
-  </div> -->
-
   <script>
-
-  document.getElementById('link').href = document.location.href;
   
   function init() {
-    var imgs = document.getElementsByClassName("img")
-    var dy = 3
-    var dx = 4
+    var imgs = document.getElementsByClassName("img") /* массив картинок */
+    document.getElementById('link').href = document.location.href; /* ссылка на текущую страницу */
 
-    imgs[0].style.transform = "translate(calc(50vw - 100%), calc(50vh - 100%))";
-    imgs[1].style.transform = "translate(calc(50vw - 100%), calc(-50vh + 100%))";
-    imgs[2].style.transform = "translate(calc(-50vw + 100%), calc(50vh - 100%))";
-    imgs[3].style.transform = "translate(calc(-50vw + 100%), calc(-50vh + 100%))";
+    var position = 0 /* изначальная позиция в % */
 
-    imgs[0].addEventListener('transitionend', function() {
-      document.getElementById('welcome').style.display = 'block'; 
-    })
+    // запускаем таймер каждые 30мс (timer - ссылка на таймер, чтобы его потом остановить)
+    var timer = setInterval(function() {
 
-    // var timer = setInterval(function() {
+      // если 50% ( на середине экрана ), остановить таймер
+      if (position >= 50) {
+        document.getElementById('welcome').style.display = 'block'; /* показать окно приветствия */
+        clearInterval(timer)
+      }
 
-    //   for (var i = 0; i < imgs.length; i++) {
-    //     var h = imgs[i].classList[1][0] == 'l' ? 'left' : 'right'
-    //     var v = imgs[i].classList[1][1] == 't' ? 'top' : 'bottom'
 
-    //     var x = parseInt(imgs[i].style[h]) || 0;
-    //     var y = parseInt(imgs[i].style[v]) || 0;
+      for (var i = 0; i < imgs.length; i++) {
 
-    //     if (x + 260 >= window.innerWidth / 2 || y + 172 >= window.innerHeight / 2) {
-    //       // document.getElementById('welcome').style.display = 'block';
-    //       clearInterval(timer)
-    //     }
+        /* определяем какую сторону изменять на основе класса */
+        /* первый индекс это "позиционный" класс.  [img lt]  =>  (lt, lb, rt, rb) */
+        /* второй индекс - символ строки соответственно */
+        var h = imgs[i].classList[1][0] == 'l' ? 'left' : 'right'
+        var v = imgs[i].classList[1][1] == 't' ? 'top' : 'bottom'
 
-    //     imgs[i].style[h] = x + dx + 'px'
-    //     imgs[i].style[v] = y + dy + 'px'
-    //   }
+        imgs[i].style[h] = position + '%'; /* изменяем позицию по горизонтали */
+        imgs[i].style[v] = position + '%'; /* изменяем позицию по вертикали */
+      }
+
+      position++; /* прибавляем 1% */
       
-    // }, Math.min(dx, dy) * 10);
+    }, 30);
 
   }  
 

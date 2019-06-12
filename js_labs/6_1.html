@@ -5,12 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
+    /* устанавливаем абсолютное позиционирование для "карт" */
     img {width: 50px; position: absolute;}
   </style>
 </head>
 <body>
+  <!-- произвольный текст -->
   <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellat dolorum id cupiditate illum eaque accusantium voluptatem molestias voluptatibus voluptatum facere neque expedita rem, architecto ab corrupti officia, fugiat sunt autem perspiciatis. Ab quaerat minus sit blanditiis vel maiores odio nobis!</p>
 
+
+  <!-- картинки (карты) - любое кол-во -->
+  <img src="1.png" alt="image">
+  <img src="1.png" alt="image">
+  <img src="1.png" alt="image">
   <img src="1.png" alt="image">
   <img src="1.png" alt="image">
   <img src="1.png" alt="image">
@@ -27,12 +34,15 @@
 
   <script>
 
-    var x = 20;
-    var imgs = document.getElementsByTagName('img')
-    for (let i = 0; i < imgs.length; i++) {
-      imgs[i].style.top = x + 'px'
-      imgs[i].style.left = x + 'px'
-      x+=20
+    var a = 2; // начальное значение отступа ( в сантиметрах )
+    var d = 0.5; // коеффициент смещения
+    var imgs = document.getElementsByTagName('img'); // список картинок
+
+    // каждой картинке увеличиваем отступ по вертикали и горизонтали ( в виде лесенки)
+    for (var i = 0; i < imgs.length; i++) {
+      imgs[i].style.top = a + 'cm'; // изменяем значение по вертикали
+      imgs[i].style.left = a + 'cm'; // изменяем значение по горизонтали
+      a += d; // изменяем отступ
     }
     
   </script>
