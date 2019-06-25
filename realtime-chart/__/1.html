@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    p { background: #333; width: 700px; height: 400px; overflow: hidden;}
+        body {
+        font-family: Verdana, sans-serif;
+        font-size: 8pt;
+        line-height: 12pt;
+        background: #ffffff;
+        color: #eee;
+    }
+    
+     .axis path, .axis line {
+        fill: none;
+        stroke: #eee;
+        shape-rendering: crispEdges;
+    }
+	
+    .line {
+        fill: rgba(197, 118, 37, 0.1);
+        stroke: rgb(197, 118, 37);
+        stroke-width: 2px;
+    }
+		
+  </style>
+</head>
+<body>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.9.2/d3.min.js"></script>
+  <script src="https://peterbeshai.com/d3-interpolate-path/d3-interpolate-path.js"></script>
+  <script>
+        var t = -1
+        var n = 40,
+        duration = 777
+        data = d3.range(n).map(next);
+
+    function next(){
+        return {time: ++t, value: Math.random()*10}
+    }
+
+    var margin = {
+        top: 6,
+        right: -20,
+        bottom: 20,
+        left: 40
+    },
+
+
+    width = 700 - margin.right,
+    height = 400 - margin.top - margin.bottom;
+
+    var x = d3.scaleLinear()
+        .domain([t-n+1, t])
+        .range([0, width]);
+
+    var y = d3.scaleTime()
+        .range([height, 0])
+        .domain([0, 10]);;
+
+    var line = d3.area()
+        .curve(d3.curveLinear)
+        .x(function (d, i) {return x(d.time);})
+        .y0(height)
+        .y1(function (d, i) {return y(d.value);});
+
+    var svg = d3.select("body").append("p").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .style("margin-left", -margin.left + "px")
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    svg.append("defs").append("clipPath")
+        .attr("id", "clip")
+        .append("rect")
+        .attr("width", width)
+        .attr("height", height);
+
+    var xAxis = d3.axisBottom().scale(x);
+    var axis = svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(x.axis=xAxis);
+
+    var path = svg.append("g")
+        .attr("clip-path", "url(#clip)")
+        .append("path")
+        .data([data])
+        .attr("class", "line")
+
+    // d3.select('.line')
+    // .transition()
+    // .duration(2000)
+    // .attrTween('d', function (d) {
+    //   var previous = d3.select(this).attr('d');
+    //   var current = line(d);
+    //   return d3.interpolatePath(previous, current);
+    // });
+
+    tick();
+
+    function tick() {
+
+        // update the domains
+        x.domain([t - n + 2 , t]);
+        
+        // push the accumulated count onto the back, and reset the count
+        data.push(next());
+
+        // redraw the line
+        svg.select(".line")
+            .attr("d", line)
+            .attr("transform", null);
+
+        // slide the x-axis left
+
+        axis.transition(d3.easeLinear)
+            .duration(duration)
+            .call(x.axis);
+
+        // slide the line left
+        path.transition(d3.easeLinear)
+            .duration(duration)
+            .attr("transform", "translate(" + x(t-n) + ")")
+            .on("end", tick);
+
+        // pop the old data point off the front
+        data.shift();
+
+    }
+
+  </script>
+</body>
+</html>
