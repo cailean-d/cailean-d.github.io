@@ -13,7 +13,7 @@ const
   smartgrid = require('smart-grid'),
   babel = require('gulp-babel'),
   rename = require('gulp-rename'),
-  uglify = require('gulp-uglify'),
+  uglify = require('gulp-uglify'), 
   $if = require('gulp-if')
 
 const prod = process.env.NODE_ENV == 'production' || false

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="wp-calc-finance" id="wp_calc_finance_0">
+      <input type="hidden" class="export_pdf" value="1" />
+      <input type="hidden" class="export_graph" value="1" />
+      <input type="hidden" class="watermark" value="S-CREDIT.INFO" />
+      <input type="hidden" class="textfirstpayment" value="Первый платеж" />
+      <input
+        type="hidden"
+        class="textmonthlypayment"
+        value="Ежемесячный платеж"
+      />
+      <input type="hidden" class="textPeriod" value="Период" />
+      <input type="hidden" class="textPayment" value="Платеж" />
+      <input type="hidden" class="textPrincipal" value="Погашение кредита" />
+      <input type="hidden" class="textInterest" value="Погашение процентов" />
+      <input type="hidden" class="textBalance" value="Остаток задолженности" />
+      <input type="hidden" class="textTotal" value="Итого" />
+      <input type="hidden" class="textmonths" value=" месяц" />
+      <input type="hidden" class="textyear" value=" год" />
+
+      <h3><span id="i-10">Рассчитать кредит онлайн</span></h3>
+
+      <form id="mainform">
+        <div class="wp-calc-finance-contract">
+          <div class="wp-calc-finance-col">
+            <div class="wp-calc-finance-col-4"><b>Сумма кредита:</b></div>
+            <div class="wp-calc-finance-col-4">
+              <input
+                class="credit"
+                value="10000"
+                size="4"
+                onkeyup="this.value = (this.value.replace(/\s*/g,'')).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');"
+                type="text"
+              />
+              Руб.
+              <div
+                class="wp-calc-finance-slider wp-calc-finance-slider-credit ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"
+                style=""
+              >
+                <div
+                  class="slider-btn ui-slider-handle ui-state-default ui-corner-all"
+                  style="left: 0%;"
+                ></div>
+                <div
+                  class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"
+                  style="width: 0%;"
+                ></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="wp-calc-finance-col">
+            <div class="wp-calc-finance-col-4"><b>Первоначальный взнос</b></div>
+            <div class="wp-calc-finance-col-4">
+              <input
+                type="text"
+                class="firstpay"
+                value="1000"
+                size="4"
+                onkeyup="this.value = (this.value.replace(/\s*/g,'')).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');"
+              />
+              Руб.
+            </div>
+          </div>
+
+          <div class="wp-calc-finance-col">
+            <div class="wp-calc-finance-col-4"><b>Срок кредита</b></div>
+
+            <div class="wp-calc-finance-col-4 wp-calc-finance-val">
+              <input class="term" value="12" size="4" type="text" />
+            </div>
+            <div class="wp-calc-finance-col-4 unit">
+              <select class="vremya"
+                ><option value="1" selected=""> месяцев </option
+                ><option value="2"> лет </option></select
+              >
+            </div>
+          </div>
+
+          <div class="wp-calc-finance-col">
+            <div class="wp-calc-finance-col-4"><b>Процентная ставка</b></div>
+            <div class="wp-calc-finance-col-4">
+              <input class="percent" size="4" value="10" type="text" />
+            </div>
+            <div class="wp-calc-finance-col-4">
+              <select class="nachisl"
+                ><option value="1">% в год</option
+                ><option value="2">% в месяц </option></select
+              >
+            </div>
+          </div>
+
+          <div class="wp-calc-finance-col">
+            <div class="wp-calc-finance-col-4"><b>Схема погашения</b></div>
+            <div class="wp-calc-finance-col-8">
+              <input type="hidden" class="Shema" value="annuitet" />
+              <ul class="btn-switcher">
+                <li
+                  class="switcher__button switcher__button--active"
+                  onclick="calc_finance_switch_btn_click(this, 'annuitet', 'Shema', 'wp_calc_finance_0');"
+                >
+                  аннуитет
+                </li>
+                <li
+                  class="switcher__button"
+                  onclick="calc_finance_switch_btn_click(this, 'classic', 'Shema', 'wp_calc_finance_0');"
+                >
+                  классический
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="wp-calc-finance-col">
+            <div class="wp-calc-finance-col-4">Единоразовая комиссия</div>
+            <div class="wp-calc-finance-col-4">
+              <input
+                size="4"
+                placeholder="%"
+                class="pr1"
+                value=""
+                type="text"
+              />
+              %
+            </div>
+            <div class="wp-calc-finance-col-4">
+              <input
+                size="4"
+                placeholder=""
+                class="com1"
+                value=""
+                type="text"
+              />
+              Руб.
+            </div>
+          </div>
+
+          <div class="wp-calc-finance-col">
+            <div class="wp-calc-finance-col-4">Ежемесячная комиссия</div>
+            <div class="wp-calc-finance-col-4">
+              <input
+                placeholder="%"
+                class="pr2"
+                value=""
+                size="4"
+                type="text"
+              />
+              %
+            </div>
+            <div class="wp-calc-finance-col-4">
+              <input
+                size="4"
+                placeholder=""
+                class="com2"
+                value=""
+                type="text"
+              />
+              Руб.
+            </div>
+          </div>
+
+          <div class="wp-calc-finance-col">
+            <div class="wp-calc-finance-col-4">Ежегодная комиссия</div>
+            <div class="wp-calc-finance-col-4">
+              <input
+                size="4"
+                placeholder="%"
+                class="pr3"
+                value=""
+                type="text"
+              />
+              %
+            </div>
+            <div class="wp-calc-finance-col-4">
+              <input
+                size="4"
+                placeholder=""
+                class="com3"
+                value=""
+                type="text"
+              />
+              Руб.
+            </div>
+          </div>
+
+          <div class="wp-calc-finance-col">
+            <div class="wp-calc-finance-col-12 buttons">
+              <input
+                class="calc_finance_button"
+                onclick="calc_finance_loan_consider_result('wp_calc_finance_0');"
+                value="Рассчитать"
+                style="visibility: visible;"
+                type="button"
+              />
+              <input
+                type="reset"
+                value="Сброс"
+                class="calc_finance_reset_button"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="wp-calc-finance-result" style="">
+          <div class="wp-calc-finance-col">
+            <div class="wp-calc-finance-col-6">
+              <b><span class="pay_header">Ежемесячный платеж</span> </b>
+            </div>
+            <div class="wp-calc-finance-col-6">
+              <input
+                type="text"
+                class="monthPay resaltmain result"
+                value="0.00"
+                readonly="readonly"
+              />
+              Руб.
+            </div>
+          </div>
+
+          <div class="wp-calc-finance-col">
+            <div class="wp-calc-finance-col-6">
+              <span>Ежемесячная комиссия<span></span></span>
+            </div>
+            <div class="wp-calc-finance-col-6">
+              <input
+                type="text"
+                class="monthlyFee resaltother result"
+                value="0.00"
+                readonly="readonly"
+              />
+              Руб.
+            </div>
+          </div>
+
+          <div class="wp-calc-finance-col">
+            <div class="wp-calc-finance-col-6">
+              <span><b>Переплата в денежном выражении</b><span></span></span>
+            </div>
+            <div class="wp-calc-finance-col-6">
+              <input
+                type="text"
+                class="overpayment resaltmain result"
+                value="0.00"
+                readonly="readonly"
+              />
+              Руб.
+            </div>
+          </div>
+
+          <div class="wp-calc-finance-col">
+            <div class="wp-calc-finance-col-2"></div>
+            <div class="wp-calc-finance-col-10"><i>в том числе</i></div>
+          </div>
+
+          <div class="wp-calc-finance-col">
+            <div class="wp-calc-finance-col-6">
+              <span>Проценты по кредиту<span></span></span>
+            </div>
+            <div class="wp-calc-finance-col-6">
+              <input
+                type="text"
+                class="interestOnLoan resaltother result"
+                value="0.00"
+                readonly="readonly"
+              />
+              Руб.
+            </div>
+          </div>
+
+          <div class="wp-calc-finance-col">
+            <div class="wp-calc-finance-col-6">
+              <span>Ежемесячные выплаты по процентам<span></span></span>
+            </div>
+            <div class="wp-calc-finance-col-6">
+              <input
+                type="text"
+                class="monthlyPayment resaltother result"
+                value="0.00"
+                readonly="readonly"
+              />
+              Руб.
+            </div>
+          </div>
+
+          <div class="wp-calc-finance-col">
+            <div class="wp-calc-finance-col-6">
+              <span>Единоразовая комиссия<span></span></span>
+            </div>
+            <div class="wp-calc-finance-col-6">
+              <input
+                type="text"
+                class="singleFee resaltother result"
+                value="0.00"
+                readonly="readonly"
+              />
+              Руб.
+            </div>
+          </div>
+
+          <div class="wp-calc-finance-col">
+            <div class="wp-calc-finance-col-6">
+              <span>Ежемесячная комиссия<span></span></span>
+            </div>
+            <div class="wp-calc-finance-col-6">
+              <input
+                type="text"
+                class="summMonthlyFee resaltother result"
+                value="0.00"
+                readonly="readonly"
+              />
+              Руб.
+            </div>
+          </div>
+
+          <div class="wp-calc-finance-col">
+            <div class="wp-calc-finance-col-6">
+              <span>Ежегодные платежи<span></span></span>
+            </div>
+            <div class="wp-calc-finance-col-6">
+              <input
+                type="text"
+                class="summEearFee resaltother result"
+                value="0.00"
+                readonly="readonly"
+              />
+              Руб.
+            </div>
+          </div>
+
+          <div class="wp-calc-finance-col">
+            <div class="wp-calc-finance-col-6">
+              <span><b>Переплата в процентах</b><span></span></span>
+            </div>
+            <div class="wp-calc-finance-col-6">
+              <input
+                type="text"
+                class="overpaymentPercentage resaltmain result"
+                value="0.00"
+                readonly="readonly"
+              />
+              %
+            </div>
+          </div>
+
+          <div class="wp-calc-finance-col">
+            <div class="wp-calc-finance-col-6">
+              <span><b>Общая сумма к возврату</b><span></span></span>
+            </div>
+            <div class="wp-calc-finance-col-6">
+              <input
+                type="text"
+                class="allPay resaltmain result"
+                value="0.00"
+                readonly="readonly"
+              />
+              Руб.
+            </div>
+          </div>
+        </div>
+
+        <div class="wp-calc-finance-col" style="">
+          <div class="wp-calc-finance-col-12">
+            <center>
+              <input
+                class="calc_finance_button"
+                value="Показать таблицу"
+                onclick="calc_finance_loan_schedule('wp_calc_finance_0');"
+                style="visibility: visible;"
+                type="button"
+              />
+            </center>
+          </div>
+        </div>
+
+        <div class="table_data"></div>
+      </form>
+
+      <div
+        id="wp_calc_finance_0_chart_modal"
+        style="display:none;"
+        title="График платежей"
+      >
+        <div id="wp_calc_finance_0_chart" style=""></div>
+      </div>
+    </div>
+
+    <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha256-rByPlHULObEjJ6XQxW/flG2r+22R5dKiAoef+aXWfik=" crossorigin="anonymous" />
+  <script src="https://s-credit.info/wp-includes/js/jquery/ui/core.min.js"></script>
+  <script src="https://s-credit.info/wp-includes/js/jquery/ui/widget.min.js"></script>
+  <script src="https://s-credit.info/wp-includes/js/jquery/ui/mouse.min.js"></script>
+  <script src="https://s-credit.info/wp-includes/js/jquery/ui/slider.min.js"></script>
+  <script src="https://s-credit.info/wp-content/plugins/wp-calc-finance/public/js/wp-calc-finance-min.js"></script>
+  <script src="script.js"></script>
+  </body>
+</html>
