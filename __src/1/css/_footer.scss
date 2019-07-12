@@ -1,0 +1,47 @@
+footer {
+  padding-top: 69px;
+  padding-bottom: 60px;
+
+  .logo {
+    text-align: center;
+    margin-left: -5px;
+  }
+}
+
+.socials {
+  margin-top: 38px;
+
+  nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid #ebebeb;
+    border-bottom: 1px solid #ebebeb;
+    padding: 22px 0;
+
+    a {
+      color: #777777;
+      font-size: 14px;
+      font-weight: 400;
+      margin: 0 28px;
+
+      &:hover {
+        color: #000;
+      }
+    }
+  }
+}
+
+.copy {
+  margin-top: 37px;
+  color: #9c9c9c;
+  font-size: 13px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.33px;
+  text-align: center;
+  span {
+    color: #000000;
+    font-weight: 700;
+  }
+}
