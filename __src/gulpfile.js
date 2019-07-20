@@ -19,7 +19,7 @@ const
 const prod = process.env.NODE_ENV == 'production' || false
 
 
-const folder = '1'
+const folder = '2'
 const config = {
   src: `./${folder}/`,
   dist: `./../design/${folder}/`
@@ -89,7 +89,7 @@ const smartgridTask = done => {
     offset: '30px',
     mobileFirst: false,
     container: {
-      maxWidth: '1200px', 
+      maxWidth: '1000px', 
       fields: '30px'
     },
   }

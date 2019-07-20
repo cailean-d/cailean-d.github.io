@@ -1,0 +1,101 @@
+.team {
+  background-image: url('../images/team_background.png');
+  padding-top: 65px;
+  padding-bottom: 69px;
+
+  @include sm-block {
+    background-image: none;
+    background-color: #2c2648;
+  }
+
+  .title {
+    font-family: 'Playfair Display';
+    text-align: center;
+
+    h2 {
+      color: #ffffff;
+      font-size: 22px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 0;
+    }
+
+    p {
+      color: #f9f9f9;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.95px;
+      margin-top: 11px;
+    }
+
+    .separator {
+      width: 50px;
+      height: 2px;
+      background-color: #ffffff;
+      opacity: 0.2;
+      margin: 0 auto;
+    }
+  }
+
+  .team_members {
+    @include row-flex();
+    justify-content: center;
+    margin-top: 49px;
+
+    &__item {
+      @include col();
+      @include size(3);
+      @include size-sm(5);
+      @include size-xs(8);
+
+      @include sm(margin-bottom, 20px);
+
+      img {
+        width: 100%;
+      }
+
+      border: 1px solid #e1e1e1;
+
+      .details {
+        text-align: center;
+        padding: 22px 0;
+
+        .name {
+          color: #ffffff;
+          font-family: 'Roboto - Black';
+          font-size: 14px;
+          font-weight: 400;
+          text-transform: uppercase;
+          letter-spacing: 0.7px;
+        }
+
+        .position {
+          color: #fafafa;
+          font-family: Roboto;
+          font-size: 13px;
+          font-weight: 300;
+          text-transform: uppercase;
+          margin-top: 5px;
+        }
+      }
+    }
+  }
+
+  .bottom {
+    margin-top: 72px;
+    text-align: center;
+
+    p {
+      color: #f3f3f3;
+      font-family: Roboto;
+      font-size: 14px;
+      font-weight: 300;
+      letter-spacing: 0.7px;
+    }
+
+    a {
+      margin-top: 12px;
+    }
+  }
+}

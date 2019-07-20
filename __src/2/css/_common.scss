@@ -4,7 +4,8 @@
 
 body {
   // width: 1600px;
-  // font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif;
+  overflow-x: hidden;
 }
 
 img {
@@ -18,4 +19,9 @@ img {
 
 .container {
   @include wrapper();
+}
+
+.row {
+  @include row-flex();
+  justify-content: center;
 }

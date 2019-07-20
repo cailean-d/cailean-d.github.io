@@ -1,3 +1,14 @@
 @import './../../node_modules/normalize.css/normalize';
+@import url('https://fonts.googleapis.com/css?family=Hammersmith+One|Playfair+Display:400,900|Roboto:400,900&display=swap');
 @import 'smart-grid';
+@import 'variables';
 @import 'common';
+@import 'header';
+@import 'navigation';
+@import 'about';
+@import 'expertise';
+@import 'team';
+@import 'works';
+@import 'testimonials';
+@import 'contact';
+@import 'footer';

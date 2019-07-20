@@ -1,0 +1,151 @@
+.contact {
+  padding-top: 44px;
+  padding-bottom: 71px;
+
+  .contact_form,
+  .client {
+    @include col();
+  }
+
+  .contact_form {
+    @include size(6);
+    @include size-sm(12);
+    @include sm(margin-bottom, 40px);
+  }
+
+  .client {
+    @include size(5);
+    @include size-sm(12);
+    @include shift-left(1);
+    @include shift-sm-left(0);
+  }
+
+  .contact_form,
+  .client {
+    h2 {
+      color: #413d4b;
+      font-family: 'Playfair Display';
+      font-size: 22px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+
+      @include sm(text-align, center);
+    }
+  }
+
+  .contact_form {
+    form {
+      margin-top: 31px;
+      
+      @include sm(text-align, center);
+    }
+
+    &__submit {
+      background: none;
+      cursor: pointer;
+      padding: 10px 31px;
+    }
+
+    &__field {
+      display: block;
+      width: 100%;
+      border: 1px solid #cfcfcf;
+      padding: 13px 19px;
+      margin-bottom: 20px;
+
+      &-area {
+        resize: none;
+        overflow-y: auto;
+        height: 203px;
+        padding: 20px 19px;
+      }
+
+      &::placeholder {
+        color: #a1a1a1;
+        font-family: Roboto;
+        font-size: 14px;
+        font-weight: 300;
+        letter-spacing: 0.4px;
+      }
+    }
+  }
+
+  .client {
+    .block {
+      margin-left: -7px;
+    }
+
+    &__items {
+      @include row-flex();
+      justify-content: center;
+      margin-top: 45px;
+    }
+
+    &__column-1,
+    &__column-2 {
+      @include col();
+      @include size(5);
+      @include size-sm(6);
+      @include sm(text-align, center);
+    }
+
+    &__column-2 {
+      @include shift-left(2);
+      @include shift-sm-left(0);
+    }
+
+    &__item-1 {
+      transform: scaleX(1.3) scaleY(1.2);
+      @include sm(transform, scaleX(1.1) scaleY(1.0));
+      @include xs(transform, scaleX(1) scaleY(1.0));
+      margin-left: 19px;
+    }
+
+    &__item-2 {
+      margin-top: 47px;
+      position: relative;
+      left: 8px;
+    }
+
+    &__item-3 {
+      margin-top: 51px;
+      position: relative;
+      left: 10px;
+    }
+    
+    &__item-4 {
+      margin-top: 51px;
+      position: relative;
+      left: 25px;
+    }
+
+    &__item-5 {
+      margin-top: 45px;
+      position: relative;
+      left: 23px;
+    }
+
+    &__item-7 {
+      margin-top: 56px;
+    }
+
+    &__item-8 {
+      margin-top: 49px;
+      position: relative;
+      left: 25px;
+    }
+
+    &__item-9 {
+      margin-top: 50px;
+      position: relative;
+      left: 16px;
+    }
+
+    &__item-10 {
+      margin-top: 25px;
+      position: relative;
+      left: 8px;
+    }
+  }
+}

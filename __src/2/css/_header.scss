@@ -1,0 +1,107 @@
+.head {
+  background-image: url('../images/header_background.png');
+
+  &__content {
+    padding: 118px 0 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  h1 {
+    color: #fff;
+    font-size: 32px;
+    font-weight: 400;
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+    letter-spacing: 0.7px;
+  }
+
+  &__separator {
+    width: 50px;
+    height: 1px;
+    background-color: #00e0d0;
+  }
+
+  &__description {
+    @include row-flex();
+    justify-content: center;
+    max-width: 100%;
+
+    &__inner {
+      @include col();
+      @include size(10);
+      margin-top: 24px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 24px;
+      text-align: center;
+      letter-spacing: 0.4px;
+    }
+  }
+
+  &__btn {
+    margin-top: 45px;
+  }
+
+  &__dots {
+    margin-top: 127px;
+    display: flex;
+    margin-left: -9px;
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border: 1px solid #c2c2c2;
+      margin-left: 5px;
+      border-radius: 50%;
+      cursor: pointer;
+
+      &:hover {
+        background: rgba(0, 224, 209, 0.178);
+      }
+    }
+
+    .dot:last-child {
+      margin-left: none;
+    }
+
+    .dot:first-child {
+      border: none;
+      background-color: #00e0d0;
+    }
+  }
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+}
+
+.btn-outline {
+  font-family: 'Hammersmith One', sans-serif;
+  text-decoration: none;
+  color: #00e0d0;
+  font-size: 16px;
+  font-weight: 400;
+  text-transform: uppercase;
+  border: 1px solid #00e0d0;
+  padding: 10px 15px;
+  transition: color 0.3s, background-color 0.3s;
+  display: inline-block;
+
+  &:hover {
+    background: rgba(0, 224, 209, 0.178);
+    color: #fff;
+  }
+}
+
+.btn-white {
+  &:hover {
+    background: rgba(0, 224, 209, 0.178) !important;
+    color: #00e0d0 !important;
+  }
+}

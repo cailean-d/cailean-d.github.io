@@ -1,0 +1,67 @@
+.works {
+  padding-bottom: 70px;
+
+  .title {
+    display: flex;
+    justify-content: space-between;
+    padding: 65px 0;
+
+    .left {
+      color: #413d4b;
+      font-family: 'Playfair Display';
+      font-size: 22px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .right {
+      a {
+        color: #413d4b;
+        font-family: Roboto;
+        font-size: 14px;
+        font-weight: 300;
+        letter-spacing: 0.7px;
+        text-decoration: none;
+
+        &:hover {
+          color: #000;
+        }
+      }
+
+      img {
+        margin-left: 5px;
+        position: relative;
+        top: 1px;
+      }
+    }
+  }
+
+  .works__items {
+    @include row-flex();
+    justify-content: center;
+  }
+
+  .works__item {
+    flex-wrap: wrap;
+    width: calc(100% / 6);
+
+    @include md(width, calc(100% / 4));
+    @include sm(width, calc(100% / 3));
+    @include xs(width, calc(100% / 2));
+
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .bottom {
+    margin-top: 63px;
+    text-align: center;
+
+    a {
+      padding: 10px 25px;
+    }
+  }
+
+}

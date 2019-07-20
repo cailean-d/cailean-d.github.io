@@ -1,0 +1,31 @@
+header nav {
+    display: flex;
+    @include sm(display, none);
+
+    a {
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 13px;
+      font-weight: bold;
+      color: #fff;
+      margin-left: 26px;
+      transition: color 0.3s;
+
+      &:hover {
+        color: #00e0d0;
+      }
+    }
+}
+
+header .menu {
+  display: none;
+  cursor: pointer;
+  padding: 5px 5px 0;
+  border-radius: 4px;
+
+  @include sm(display, block);
+
+  &:hover {
+    background: rgba(2, 2, 2, 0.18);
+  }
+}
