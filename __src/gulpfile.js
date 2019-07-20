@@ -19,7 +19,7 @@ const
 const prod = process.env.NODE_ENV == 'production' || false
 
 
-const folder = '2'
+const folder = '1'
 const config = {
   src: `./${folder}/`,
   dist: `./../design/${folder}/`

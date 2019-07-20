@@ -25,6 +25,8 @@ footer {
       font-weight: 400;
       margin: 0 28px;
 
+      @include xs(margin, 0 10px);
+
       &:hover {
         color: #000;
       }

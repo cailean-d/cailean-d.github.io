@@ -24,6 +24,7 @@ header {
 
   nav {
     user-select: none;
+    @include sm(display, none);
   }
 
   nav a,
@@ -56,11 +57,35 @@ header {
     }
   }
 
+  .menu {
+    display: none;
+    cursor: pointer;
+    padding: 5px 5px 0;
+    border-radius: 50%;
+
+    @include sm(display, block);
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.08);
+    }
+
+    img {
+      width: 20px;
+      position: relative;
+      top: -1px;
+    }
+  }
+
   .search {
-    padding: 0;
+    padding: 7px;
     margin-right: 14px;
     margin-left: 24px;
+    border-radius: 50%;
     cursor: pointer;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.08);
+    }
   }
 
   .line::after {
