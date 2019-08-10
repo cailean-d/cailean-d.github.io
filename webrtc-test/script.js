@@ -2,7 +2,7 @@ let pc, peerStream
 const localVideo = document.querySelector('#local-video')
 const remoteVideo = document.querySelector('#remote-video')
 const signalServer = new BroadcastChannel('a')
-const constraintsx = { audio: true, video: true }
+const constraints = { audio: true, video: true }
 const configuration = {
   iceServers: [
     { urls: 'stun:stun.l.google.com:19302' },
@@ -25,7 +25,7 @@ signalServer.onmessage = async function({data}) {
 }
 
 async function getMediaStream() {
-  peerStream = await navigator.mediaDevices.getUserMedia(constraintsx)
+  peerStream = await navigator.mediaDevices.getUserMedia(constraints)
   peerStream.getTracks().forEach(track => pc.addTrack(track, peerStream))
   localVideo.srcObject = peerStream
 }
