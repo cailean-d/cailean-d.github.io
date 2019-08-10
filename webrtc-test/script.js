@@ -32,7 +32,6 @@ async function getMediaStream() {
 
 async function createAndSendOffer() {
   await pc.setLocalDescription(await pc.createOffer());
-  addToHtml(pc.localDescription.sdp)
   signalServer.postMessage(JSON.stringify({description: pc.localDescription}))
 }
 
