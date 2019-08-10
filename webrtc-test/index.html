@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style media="screen">
+      video {
+        width: auto;
+        height: 600px;
+      }
+      .video-call-container {
+        position: relative;
+        display: inline-block;
+      }
+      #remote-video {
+        background: #222;
+      }
+      #local-video {
+        width: 200px;
+        height: auto;
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        border: 2px solid #333;
+        background: #777;
+      }
+      #peer-call {
+        padding: 5px 10px;
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="peer-call">call</button><br />
+
+    <div class="video-call-container">
+      <video id="remote-video" autoplay></video>
+      <video id="local-video" autoplay></video>
+    </div>
+
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
