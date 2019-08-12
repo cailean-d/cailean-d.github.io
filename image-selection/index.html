@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <a href="https://picsum.photos/id/237/700/500">just a link</a><br />
+    <a 
+      href="https://picsum.photos/id/237/700/500" 
+      type="screenShot"
+      x="10" 
+      y="50" 
+      x1="450" 
+      y1="720"
+      >show image</a
+    >
+    <div class="modal">
+      <div class="modal-overlay"></div>
+      <div class="modal-content">
+        <div>
+          <div class="modal-close">&times;</div>
+          <div class="img-container">
+            <img src="" alt="" draggable="false" class="modal-image"/>
+            <div class="img-selected-area"></div>
+          </div>
+          <div class="info-container">
+            <div class="info-row">
+              <div class="x-coord">X: <span></span></div>
+              <div class="original-coords">Original: <span></span></div>
+            </div>
+            <div class="info-row">
+              <div class="y-coord">Y: <span></span></div>
+              <div class="selected-coords">Selected: <span></span></div>
+            </div>
+            <div class="corner-coords"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script2.js"></script>
+  </body>
+</html>
