@@ -11,7 +11,8 @@
   const yCoord = find('.y-coord span')
   const originalCoords = find('.original-coords span')
   const selectedCoords = find('.selected-coords span')
-  const cornerCoords = find('.corner-coords')
+  const cornerCoordsLeft = find('.corner-coords-left')
+  const cornerCoordsRight = find('.corner-coords-right')
   const modal = find('.modal')
   const closeButton = find('.modal-close')
   const modifier = 'z'
@@ -164,7 +165,8 @@
   }
 
   const showCornerCoords = () => {
-    cornerCoords.innerHTML = `(${linkData.x2}, ${linkData.y2})`
+    cornerCoordsLeft.innerHTML = `(${linkData.x1}, ${linkData.y1})`
+    cornerCoordsRight.innerHTML = `(${linkData.x2}, ${linkData.y2})`
   }
 
   const preloadModalData = () => {

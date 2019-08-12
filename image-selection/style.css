@@ -41,7 +41,7 @@
 }
 
 .modal-content > div {
-  padding: 25px;
+  padding: 35px 25px 25px;
   background: #eee;
   border-radius: 3px;
   position: relative;
@@ -66,12 +66,20 @@
   min-width: 100px;
 }
 
-.corner-coords {
+.corner-coords-left, .corner-coords-right {
   position: absolute;
-  right: 0;
-  top: 0;
   font-size: 14px;
   color: #555;
+}
+
+.corner-coords-left {
+  left: 0;
+  bottom: 100%;
+}
+
+.corner-coords-right {
+  right: 0;
+  top: 100%;
 }
 
 .modal-close {
