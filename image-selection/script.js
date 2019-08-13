@@ -80,10 +80,7 @@
   const showSelectedAreaCoords = () => {
     const { x, y, width, height } = getSelectedRectCoords()
     const { x: x1, y: y1 } = convertCurrentCoordsToOriginal(x, y)
-    const { x: x2, y: y2 } = convertCurrentCoordsToOriginal(
-      x + width,
-      y + height
-    )
+    const { x: x2, y: y2 } = convertCurrentCoordsToOriginal(x + width, y + height)
     selectedCoords.innerHTML = `${x1}, ${y1}, ${x2}, ${y2}`
   }
 
