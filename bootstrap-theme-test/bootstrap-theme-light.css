@@ -2,9 +2,6 @@ body[data-theme=light] mark {
   color: #000;
   background: #ff0;
 }
-body[data-theme=light] fieldset {
-  border: 1px solid #c0c0c0;
-}
 @media print {
   body[data-theme=light] *,
   body[data-theme=light] *:before,
