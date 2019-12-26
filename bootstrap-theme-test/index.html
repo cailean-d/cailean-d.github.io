@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="style.css">
   <title>Document</title>
 </head>
-<body data-theme="dark">
+<body data-theme="dark" class="header-offset">
   <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
@@ -52,8 +52,15 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Themes <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="#" class="text-center" id="dark">Dark</a></li>
-              <li><a href="#" class="text-center" id="light">Light</a></li>
+              <li><a href="#" class="text-center">Item1</a></li>
+              <li><a href="#" class="text-center">Item2</a></li>
+              <li class="d">
+                <span style="padding-left: 8px">Dark Mode</span>
+                <div class="switcher">
+                  <input type="checkbox" id="darkmode-switch" checked/>
+                  <label for="darkmode-switch"></label>
+                </div>
+              </li>
             </ul>
           </li>
         </ul>
@@ -61,10 +68,15 @@
     </div><!-- /.container-fluid -->
   </nav>
 
-
-  <div class="container" style="padding-top: 60px;">
+  <div class="container">
     <div class="row">
-      <div class="col-xs-8 col-xs-offset-2 pt-1">
+      <div class="col-xs-8 col-xs-offset-2">
+
+        
+        <img src="https://vignette.wikia.nocookie.net/animal-jam-clans-1/images/d/d8/Enchanted_forest.jpg/revision/latest?cb=20191203021259" alt="" class="img-dark" style="max-width: 100%;">
+
+
+        <br><br>
 
         <a href="#" class="btn btn-default">Default</a>
         <a href="#" class="btn btn-primary">Primary</a>
@@ -74,6 +86,7 @@
         <a href="#" class="btn btn-danger">Danger</a>
         <a href="#" class="btn btn-link">Link</a>
 
+        <br><br>
 
         <ul class="nav nav-tabs">
           <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
@@ -254,7 +267,49 @@
         <br><br>
 
 
+        <div class="panel panel-success">
+          <div class="panel-heading">
+            <h3 class="panel-title">Panel success</h3>
+          </div>
+          <div class="panel-body">
+            Panel content
+          </div>
+          <div class="panel-footer">Panel footer</div>
+        </div>
+
+
+        <br><br>
+
+
         <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">Panel success</h3>
+          </div>
+          <div class="panel-body">
+            Panel content
+          </div>
+          <div class="panel-footer">Panel footer</div>
+        </div>
+
+
+        <br><br>
+
+        <div class="panel panel-warning">
+          <div class="panel-heading">
+            <h3 class="panel-title">Panel success</h3>
+          </div>
+          <div class="panel-body">
+            Panel content
+          </div>
+          <div class="panel-footer">Panel footer</div>
+        </div>
+
+
+        <br><br>
+
+        <br><br>
+
+        <div class="panel panel-danger">
           <div class="panel-heading">
             <h3 class="panel-title">Panel success</h3>
           </div>
@@ -346,6 +401,10 @@
             </fieldset>
           </form>
         <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div></div>
+
+
+        <br><br>
+
     
 
       </div>
@@ -369,6 +428,14 @@
     });
     $('#dark').click(_ =>  $('body').attr('data-theme', 'dark'))
     $('#light').click(_ => $('body').attr('data-theme', 'light'))
+
+    $('#darkmode-switch').change(e => {
+      $('body').attr('data-theme', e.target.checked ? 'dark': 'light');
+    })
+
+    $('.dropdown-menu .d').on('click', function (e) {
+      e.stopPropagation();
+    });
   </script>
 </body>
 </html>

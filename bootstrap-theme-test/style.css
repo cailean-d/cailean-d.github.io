@@ -5,3 +5,10 @@
 body {
   padding-bottom: 100px;
 }
+
+.d {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+}
