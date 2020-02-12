@@ -1,0 +1,234 @@
+.player--headerOffset {
+  margin-top: -60px !important;
+}
+
+.player--headerOffset .wrap {
+  padding-top: 60px;
+}
+
+.player-container {
+  margin: 0 auto;
+  max-width: 800px;
+  width: 100%;
+}
+
+.player-container .wrap {
+  display: none;
+  width: inherit;
+  flex-direction: column;
+  height: 100vh;
+  padding-bottom: 10px;
+}
+
+.no-support {
+  margin: 2rem auto;
+  text-align: center;
+  width: 90%;
+}
+
+/* Audio Player Styles
+================================================== */
+
+.player-container audio {
+  display: none !important;
+}
+
+.controlsWrap {
+  user-select: none;
+}
+
+.player-title {
+  margin-top: 25px;
+  text-align: center;
+  font-size: 18px;
+}
+
+/* player list */
+
+.playerList {
+  overflow-y: auto;
+  margin: 0;
+  padding: 0 10px;
+  flex-grow: 1;
+  list-style-type: none;
+}
+
+.playerList li {
+  cursor: pointer;
+  display: block;
+  margin: 0;
+  padding: 21px 0;
+  border-radius: 4px;
+}
+
+.playerList li:not(:last-child) {
+  margin-bottom: 4px;
+}
+
+.playerListItem {
+  position: relative;
+  display: flex;
+}
+
+.playerListItem__number {
+  padding-left: 21px;
+}
+
+.playerListItem__title {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  flex-grow: 1;
+  padding: 0 10px;
+}
+
+.playerListItem__length {
+  padding-right: 21px;
+}
+
+.playerListItem--selected {
+  color: #fff;
+  cursor: default !important;
+}
+
+/* playlist buttons */
+/* ********************** */
+
+.playListButtons {
+  text-align: center;
+}
+
+.playListButtons {
+  margin-bottom: 20px;
+}
+
+.playListButtons a {
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 18px;
+  line-height: 0.175;
+  padding: 8px 10px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.playListButtons a:hover,
+.playListButtons a:active {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #fff;
+}
+
+.playListButtons a::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+/* Plyr Overrides
+================================================== */
+
+.plyr--audio .plyr__controls {
+  background-color: transparent !important;
+  border: none;
+  padding: 20px 20px 20px 13px;
+  width: 100%;
+}
+
+a.plyr__controls__item.plyr__control:hover,
+.plyr--audio .plyr__controls button:hover,
+.plyr--audio .plyr__controls button.tab-focus:focus,
+.plyr__play-large {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.plyr__progress--played,
+.plyr__volume--display {
+  color: rgba(0, 0, 0, 0.1);
+}
+
+.plyr--audio .plyr__progress--buffer,
+.plyr--audio .plyr__volume--display {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.plyr--audio .plyr__progress--buffer {
+  color: rgba(0, 0, 0, 0.1);
+}
+
+/* *************************************** */
+
+.forwardBtn {
+  border: none;
+  background: none;
+  outline: none;
+  border-radius: 4px;
+  transition: all .3s ease;
+  padding: 4px 8px;
+  margin-left: 5px;
+}
+
+/* .forwardBtn:focus {
+  background: #00b3ff;
+  color: #fff;
+  box-shadow: 0 0 0 5px rgba(0,179,255,.5);
+  outline: 0;
+} */
+
+.forwardBtn span {
+  font-size: 18px;
+  position: relative;
+  top: 2px;
+}
+
+body[data-theme=dark] .player-container {
+  color: #fff;
+}
+
+body[data-theme=light] .player-container {
+  color: #303030;
+}
+
+body[data-theme=dark] .playerList li:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+body[data-theme=light] .playerList li:hover {
+  background-color: rgba(0, 0, 0, 0.65);
+  color: #fff;
+}
+
+body[data-theme=dark] .playerListItem--selected,
+body[data-theme=dark] .playerListItem--selected:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+body[data-theme=light] .playerListItem--selected,
+body[data-theme=light] .playerListItem--selected:hover {
+  background-color: rgba(0, 0, 0, 0.65);
+}
+
+body[data-theme=dark] .playListButtons a {
+  color: #fff;
+}
+body[data-theme=light] .playListButtons a {
+  color: #5a5a5a;
+}
+
+body[data-theme=dark] .plyr--audio .plyr__controls, 
+body[data-theme=dark] .plyr--audio .plyr__controls:hover,
+body[data-theme=dark] .plyr--audio .plyr__controls:focus,
+body[data-theme=dark] .plyr--audio .plyr__control, 
+body[data-theme=dark] .plyr--audio .plyr__control:hover,
+body[data-theme=dark] .plyr--audio .plyr__control:focus  {
+  color: #fff !important;
+}
+
+body[data-theme=light] .plyr--audio .plyr__controls,
+body[data-theme=light] .plyr--audio .plyr__controls:hover,
+body[data-theme=light] .plyr--audio .plyr__controls:focus,
+body[data-theme=light] .plyr--audio .plyr__control,
+body[data-theme=light] .plyr--audio .plyr__control:hover,
+body[data-theme=light] .plyr--audio .plyr__control:focus  {
+  color: #5a5a5a !important;
+}
+
