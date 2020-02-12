@@ -1,4 +1,4 @@
-const options = {
+var options = {
   controls: [
     "play-large",
     "play",
@@ -8,7 +8,7 @@ const options = {
     "volume",
   ]
 };
-const tracks = [
+var tracks = [
   {
     name: "Test1 - Testtesttestestesteststeststeststest",
     duration: "4:29",
@@ -73,7 +73,7 @@ const tracks = [
     name: "Test - Test",
     duration: "4:29",
     src: "http://retro-disko.ru/6/music/016.mp3"
-  }
+  },
 ];
 
 function isScrolledIntoView(elem, container) {
@@ -87,48 +87,48 @@ function isScrolledIntoView(elem, container) {
 }
 
 $(function() {
-  const supportsAudio = !!document.createElement("audio").canPlayType;
+  var supportsAudio = !!document.createElement("audio").canPlayType;
   if (supportsAudio) {
-    const player = new Plyr("#audio", options);
-    let index = 0;
-    const trackCount = tracks.length;
-    const playerTitle = $(".player-title");
-    const audio = $("#audio").get(0);
+    var player = new Plyr("#audio", options);
+    var index = 0;
+    var trackCount = tracks.length;
+    var playerTitle = $(".player-title");
+    var audio = $("#audio").get(0);
 
-    const updateList = function(id) {
+    var updateList = function(id) {
       $(".playerListItem--selected").removeClass("playerListItem--selected");
       $(".playerList li:eq(" + id + ")").addClass("playerListItem--selected");
     }
 
-    const updateTitle = function(id) {
+    var updateTitle = function(id) {
       playerTitle.text(tracks[id].name);
     }
 
-    const updatePlayer = function(id) {
+    var updatePlayer = function(id) {
       index = id;
       audio.src = tracks[id].src;
     }
     
-    const loadTrack = function(id) {
+    var loadTrack = function(id) {
       updateList(id);
       updateTitle(id);
       updatePlayer(id);
     };
 
-    const playTrack = function(id) {
+    var playTrack = function(id) {
       loadTrack(id);
       audio.play();
     };
     
-    const fillNumber = function(num) {
-      const numLength = num.toString().length;
-      const countLength = trackCount.toString().length;
-      let nulls = '';
-      for(let i = 0; i < countLength + 1 - numLength; i++) nulls += '0';
+    var fillNumber = function(num) {
+      var numLength = num.toString().length;
+      var countLength = trackCount.toString().length - 1 || 1;
+      var nulls = '';
+      for(var i = 0; i < countLength - numLength + 1; i++) nulls += '0';
       return nulls + num;
     }
 
-    const loadPlaylist = function (list) {
+    var loadPlaylist = function (list) {
       $.each(list, function(index, track) {
         $(".playerList").append(
           '<li>' + 
@@ -142,32 +142,32 @@ $(function() {
       });
     };
 
-    const scrollList = function(dir) {
-      const $selected = $(".playerListItem--selected");
+    var scrollList = function(dir) {
+      var $selected = $(".playerListItem--selected");
       if (!isScrolledIntoView($selected, ".playerList")) {
         $selected.get(0).scrollIntoView(dir);
       }
     }
 
-    const nextTrack = function() {
-      const p = audio.paused;
+    var nextTrack = function() {
+      var p = audio.paused;
       loadTrack(++index % trackCount);
       if (!p) audio.play();
       scrollList(false);
     }
 
-    const prevTrack = function() {
-      const p = audio.paused;
+    var prevTrack = function() {
+      var p = audio.paused;
       loadTrack(index = (--index + trackCount) % trackCount);
       if (!p) audio.play();
       scrollList(true);
     }
 
-    const rewindToLast10Sec = function() {
+    var rewindToLast10Sec = function() {
       player.currentTime = player.duration - 10;
     }
 
-    const focusPlayer = function() {
+    var focusPlayer = function() {
       $(".plyr").get(0).focus();
     }
       
