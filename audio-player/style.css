@@ -16,7 +16,7 @@
   display: none;
   width: inherit;
   flex-direction: column;
-  height: 100vh;
+  /* height: 100vh; */
   padding-bottom: 10px;
 }
 
@@ -51,13 +51,13 @@
   padding: 0 10px;
   flex-grow: 1;
   list-style-type: none;
+  max-height: 300px;
 }
 
 .playerList li {
   cursor: pointer;
   display: block;
   margin: 0;
-  padding: 21px 0;
   border-radius: 4px;
 }
 
@@ -68,6 +68,8 @@
 .playerListItem {
   position: relative;
   display: flex;
+  align-items: center;
+  user-select: none;
 }
 
 .playerListItem__number {
@@ -79,7 +81,7 @@
   white-space: nowrap;
   overflow: hidden;
   flex-grow: 1;
-  padding: 0 10px;
+  padding: 21px 10px;
 }
 
 .playerListItem__length {
@@ -89,6 +91,31 @@
 .playerListItem--selected {
   color: #fff;
   cursor: default !important;
+}
+
+/* editable item */
+
+.playerListItem__titleWrap {
+  flex-grow: 1;
+  align-items: center;
+  display: none;
+  padding: 14px 0;
+}
+
+.playerListItem__titleWrap__author {
+  margin: 0 5px 0 10px;
+  white-space: nowrap;
+}
+
+.playerListItem__titleWrap__t {
+  margin: 0 10px;
+  padding: 2px 5px;
+}
+
+.playerListItem__length-editable {
+  width: 60px;
+  margin-right: 2px;
+  display: none;
 }
 
 /* playlist buttons */
@@ -122,6 +149,14 @@
 .playListButtons a::-moz-focus-inner {
   border: 0;
   padding: 0;
+}
+
+.playListButtons__edit {
+  display: none !important;
+}
+
+.playListButtons__edit-show {
+  display: inline-block !important;
 }
 
 /* Plyr Overrides
@@ -212,6 +247,13 @@ body[data-theme=dark] .playListButtons a {
 }
 body[data-theme=light] .playListButtons a {
   color: #5a5a5a;
+}
+
+body[data-theme=dark] .playListButtons__edit {
+  color: #b034fd !important;
+}
+body[data-theme=light] .playListButtons__edit {
+  color: #b034fd !important;
 }
 
 body[data-theme=dark] .plyr--audio .plyr__controls, 

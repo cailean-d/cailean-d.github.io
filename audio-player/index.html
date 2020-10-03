@@ -53,26 +53,8 @@
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
   </nav>
-  
-  <div class="player-container player--headerOffset">
-    <div class="wrap">
-      <div class="player-title"></div>
-      <div class="controlsWrap">
-        <div><audio id="audio" preload>Your browser does not support HTML5 Audio!</audio></div>
-        <div class="playListButtons">
-          <a class="playListButtons__prev"><i class="glyphicon glyphicon-backward"></i></a>
-          <a class="playListButtons__next"><i class="glyphicon glyphicon-forward"></i></a>
-        </div>
-      </div>
-      <ul class="playerList"></ul>
-      <button class="forwardBtn" style="display: none;">
-        <span class="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>
-      </button>
-    </div>
-  </div>
 
-
-  
+  <div data-player class="player--headerOffset"></div>
   
   <script
   src="https://code.jquery.com/jquery-3.4.1.min.js"
@@ -81,5 +63,76 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.5.8/plyr.min.js" integrity="sha256-mnGZo+9IaPPsFKJo4TA+E5DqINm0ztgZkJpk4y5rwIU=" crossorigin="anonymous"></script>
   <script src="index.js"></script>
+  <script>
+    var tracks = [
+      {
+      name: "Test1 - Testtesttestestesteststeststeststest",
+      duration: "4:29",
+      src: "audio/accept-stalingrad.mp3"
+      },
+      {
+      name: "Test2 - Testtesttestestesteststeststeststest",
+      duration: "4:29",
+      src: "audio/accept-stalingrad.mp3"
+      },
+      {
+        name: "Test3 - Testtesttestestesteststeststeststest",
+        duration: "4:29",
+        src: "audio/accept-stalingrad.mp3"
+      },
+      {
+        name: "Test4 - Testtesttestestesteststeststeststest",
+        duration: "4:29",
+        src: "audio/accept-stalingrad.mp3"
+      },
+      {
+        name: "Test - Test",
+        duration: "4:29",
+        src: "audio/accept-stalingrad.mp3"
+      },
+      {
+        name: "Test - Test",
+        duration: "4:29",
+        src: "audio/accept-stalingrad.mp3"
+      },
+      {
+        name: "Test - Test",
+        duration: "4:29",
+        src: "audio/accept-stalingrad.mp3"
+      },
+      {
+        name: "Test - Test",
+        duration: "4:29",
+        src: "audio/accept-stalingrad.mp3"
+      },
+      {
+        name: "Test - Test",
+        duration: "4:29",
+        src: "audio/accept-stalingrad.mp3"
+      },
+      {
+        name: "Test - Test",
+        duration: "4:29",
+        src: "audio/accept-stalingrad.mp3"
+      },
+      {
+        name: "Test - Test",
+        duration: "4:29",
+        src: "audio/accept-stalingrad.mp3"
+      },
+      {
+        name: "Test - Test",
+        duration: "4:29",
+        src: "audio/accept-stalingrad.mp3"
+      },
+      {
+        name: "Test - Test",
+        duration: "4:29",
+        src: "audio/accept-stalingrad.mp3"
+      },
+    ];
+
+    AudioPlayer('[data-player]', tracks);
+  </script>
 </body>
 </html>
